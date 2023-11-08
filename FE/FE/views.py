@@ -1,31 +1,58 @@
 from django.shortcuts import render
 
+
 # Create your views here.
 def index(request):
-    return render(request, 'pages/index.html')
+    return render(request, "pages/index.html")
+
 
 def home(request):
-    return render(request, 'pages/home.html')
+    return render(request, "pages/home.html")
+
 
 def fog(request):
-    return render(request, 'pages/fog.html')
+    return render(request, "pages/fog.html")
+
 
 def community(request):
-    return render(request, 'pages/community.html')
+    return render(request, "pages/community.html")
+
 
 def contact(request):
-    return render(request, 'pages/contact.html')
- 
+    return render(request, "pages/contact.html")
+
+
 def customer(request):
-    return render(request, 'pages/customer.html')
+    return render(request, "pages/customer.html")
+
 
 def login(request):
-    return render(request, 'pages/login.html')
+    return render(request, "pages/login.html")
+
+
 def forgot_pw(request):
-    return render(request, 'pages/forgot-password.html')
+    return render(request, "pages/forgot-password.html")
+
+
 def signup(request):
-    return render(request, 'pages/signup.html')
+    return render(request, "pages/signup.html")
+
+
 def post_form(request):
-    return render(request, 'pages/post-form.html')
+    return render(request, "pages/post-form.html")
+
+
 def support(request):
-    return render(request, 'pages/support.html')
+    return render(request, "pages/support.html")
+
+
+def about_us(request):
+    return render(request, "pages/aboutus.html")
+
+
+def news_list(request):
+    return render(request, "pages/news-list.html")
+
+
+def news_detail(request):
+    return render(request, "pages/news-detail.html")
