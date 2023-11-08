@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- 다섯 개의 프로필 사진 -->
+        <div class="col-md-2">
+            <div class="text-center">
+                <img src="{{ admin1.profile_picture }}" class="rounded-circle profile-image" alt="{{ admin1.name }}" width="100" height="100">
+                <p>{{ admin1.name }}</p>
+            </div>
+        </div>
+        
+        <div class="col-md-2">
+          <div class="text-center">
+              <img src="{{ admin2.profile_picture }}" class="rounded-circle profile-image" alt="{{ admin2.name }}" width="100" height="100">
+              <p>{{ admin2.name }}</p>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="text-center">
+              <img src="{{ admin3.profile_picture }}" class="rounded-circle profile-image" alt="{{ admin3.name }}" width="100" height="100">
+              <p>{{ admin3.name }}</p>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="text-center">
+              <img src="{{ admin4.profile_picture }}" class="rounded-circle profile-image" alt="{{ admin4.name }}" width="100" height="100">
+              <p>{{ admin4.name }}</p>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="text-center">
+              <img src="{{ admin5.profile_picture }}" class="rounded-circle profile-image" alt="{{ admin5.name }}" width="100" height="100">
+              <p>{{ admin5.name }}</p>
+          </div>
+        </div>
+
+        <!-- 이하 동일한 방식으로 나머지 프로필 추가 -->
+    </div>
+    
+    <!-- 프로필 내용 표시 영역 -->
+    <div class="mt-4" id="profileDetails">
+        <div class="profile-content" id="profileContent1">
+            {{ admin1.profile }}
+        </div>
+        <div class="profile-content" id="profileContent2">
+          {{ admin2.profile }}
+        </div>
+        <div class="profile-content" id="profileContent3">
+          {{ admin3.profile }}
+        </div>
+        <div class="profile-content" id="profileContent4">
+          {{ admin4.profile }}
+        </div>
+        <div class="profile-content" id="profileContent5">
+          {{ admin5.profile }}
+        </div>
+
+        <!-- 이하 동일한 방식으로 나머지 프로필 내용 추가 -->
+    </div>
+</div>
+
+<script>
+// JavaScript를 사용하여 프로필 내용 변경
+document.querySelector('.profile-image').addEventListener('click', function(event) {
+    // 클릭한 프로필의 ID 가져오기 (예: admin1, admin2, ...)
+    const profileId = event.target.getAttribute('alt');
+    
+    // 현재 표시된 프로필 내용 숨기기
+    document.querySelectorAll('.profile-content').forEach(function(content) {
+        content.style.display = 'none';
+    });
+    
+    // 클릭한 프로필의 내용 표시
+    document.getElementById(`profileContent${profileId}`).style.display = 'block';
+});
+</script>
+{% endblock %}
