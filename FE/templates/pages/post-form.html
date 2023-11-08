@@ -1,34 +1,52 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 
 {% block content %}
-{% comment %} {% if user.is_authenticated %} {% endcomment %}
-<section class="section">
-    <div class="container">
-        <div class="row  align-items-center">
-            <div class="col" data-aos="fade-up">
-                <div class="content-section">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <fieldset class="form-group">
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col">
-                                    <legend class="border-bottom mb-4">Post</legend>
-                                    <div style="width: 100%; max-width: 800px;">
-                                         {{ form.media }}
-                                         {{ form|crispy }}
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                        <div class="form-group ">
-                            <button class="btn btn-outline-dark" type="submit">Post</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% comment %} {% endif %} {% endcomment %}
+<div class="container mt-4">
+  <div class="card">
+      <div class="card-header">
+          작성 개요
+      </div>
+      <div class="card-body">
+          <form>
+              <div class="form-group">
+                  <label for="selectCategory">카테고리</label>
+                  <select class="form-control" id="selectCategory">
+                      <option>질문</option>
+                      <option>뉴스</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                  <label for="author">작성자</label>
+                  <input type="text" class="form-control" id="author" value="로그인한 사람" disabled>
+              </div>
+              <div class="form-group">
+                  <label for="date">날짜</label>
+                  <input type="text" class="form-control" id="date" value="현재" disabled>
+              </div>
+              <div class="form-group">
+                  <label for="title">제목</label>
+                  <input type="text" class="form-control" id="title">
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+<div class="container mt-4">
+  <div class="card">
+      <div class="card-body">
+          <form>
+              <div class="form-group">
+                  <label for="content">본문 작성</label>
+                  <textarea class="form-control" id="content" rows="6"></textarea>
+              </div>
+              <div class="form-group">
+                  <label for="file">파일 첨부</label>
+                  <input type="file" class="form-control-file" id="file">
+              </div>
+              <button type="submit" class="btn btn-primary">글 작성</button>
+          </form>
+      </div>
+  </div>
+</div>
+
 {% endblock %}
