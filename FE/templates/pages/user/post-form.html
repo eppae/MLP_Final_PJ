@@ -2,27 +2,34 @@
 
 {% block content %}
 <div class="container mt-4">
+  <!-- 작성 개요 카드 -->
   <div class="card">
       <div class="card-header">
-          작성 개요
+          <!-- 작성 개요 카드의 제목 -->
+          글을 쓰자!
       </div>
       <div class="card-body">
           <form>
+              <!-- 카테고리 선택 폼 -->
               <div class="form-group">
                   <label for="selectCategory">카테고리</label>
                   <select class="form-control" id="selectCategory">
+                      <!-- 카테고리 옵션: 질문, 뉴스 등 -->
                       <option>질문</option>
                       <option>뉴스</option>
                   </select>
               </div>
+              <!-- 작성자 정보 표시 (로그인한 사람) -->
               <div class="form-group">
                   <label for="author">작성자</label>
                   <input type="text" class="form-control" id="author" value="로그인한 사람" disabled>
               </div>
+              <!-- 작성 날짜 표시 (현재 시간) -->
               <div class="form-group">
                   <label for="date">날짜</label>
                   <input type="text" class="form-control" id="date" value="현재" disabled>
               </div>
+              <!-- 제목 입력 폼 -->
               <div class="form-group">
                   <label for="title">제목</label>
                   <input type="text" class="form-control" id="title">
@@ -31,18 +38,23 @@
       </div>
   </div>
 </div>
+
 <div class="container mt-4">
+  <!-- 본문 작성 카드 -->
   <div class="card">
       <div class="card-body">
           <form>
+              <!-- 본문 작성 폼 -->
               <div class="form-group">
                   <label for="content">본문 작성</label>
                   <textarea class="form-control" id="content" rows="6"></textarea>
               </div>
+              <!-- 파일 첨부 폼 -->
               <div class="form-group">
                   <label for="file">파일 첨부</label>
                   <input type="file" class="form-control-file" id="file">
               </div>
+              <!-- 글 작성 버튼 -->
               <button type="submit" class="btn btn-primary">글 작성</button>
           </form>
       </div>

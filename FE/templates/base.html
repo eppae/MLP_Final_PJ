@@ -11,26 +11,20 @@
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap5" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" />
-
-    <link rel="stylesheet" href="{% static 'css/tiny-slider.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/aos.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/glightbox.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/flatpickr.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    
+
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@700&display=swap" rel="stylesheet" />
+
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+
     <!-- Libraries Stylesheet -->
     <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet" />
     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
-    
+
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
@@ -54,11 +48,6 @@
                 <a href="{% url 'home' %}" class="logo m-0 float-start">Home<span class="text-primary">.</span></a>
               </div>
               <div class="col-8 text-center">
-                <form action="#" class="search-form d-inline-block d-lg-none">
-                  <input type="text" class="form-control" placeholder="Search..." />
-                  <span class="bi-search"></span>
-                </form>
-
                 <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
                   <li>
                     <a href="{% url 'fog' %}">Our Product</a>
@@ -67,28 +56,10 @@
                     <a href="{% url 'community' %}">Community</a>
                     <ul class="dropdown">
                       <li>
-                        <a href="{% url 'contact' %}">Contact</a>
+                        <a href="{% url 'about_us' %}">About Us</a>
                       </li>
                       <li>
-                        <a href="{% url 'customer' %}">고객지원</a>
-                      </li>
-                      <li>
-                        <a href="single.html">Blog Single</a>
-                      </li>
-                      <li>
-                        <a href="category.html">Category</a>
-                      </li>
-                      <li class="active">
-                        <a href="about.html">About</a>
-                      </li>
-                      <li>
-                        <a href="contact.html">Contact Us</a>
-                      </li>
-                      <li>
-                        <a href="#">Menu One</a>
-                      </li>
-                      <li>
-                        <a href="#">Menu Two</a>
+                        <a href="{% url 'news_list' %}">News</a>
                       </li>
                     </ul>
                   </li>
@@ -98,17 +69,13 @@
                   <li>
                     <a href="{% url 'support' %}">Support</a>
                   </li>
-                  <li>
-                    <a href="{% url 'login' %}">로그인</a>
-                  </li>
                 </ul>
               </div>
-              <div class="col-2 text-end">
+              <div class="col-1 text-end">
+                <a href="{% url 'login' %}">Login</a>
+              </div>
+              <div class="col-1 text-end">
                 <a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light"><span></span></a>
-                <form action="#" class="search-form d-none d-lg-inline-block">
-                  <input type="text" class="form-control" placeholder="Search..." />
-                  <span class="bi-search"></span>
-                </form>
               </div>
             </div>
           </div>
@@ -158,15 +125,11 @@
     <!-- Footer End -->
 
     <!-- Copyright Start -->
-    <div class="container-fluid copyright py-4 fixed-bottom">
+    <div class="container-fluid copyright bg-dark py-4 fixed-bottom">
       <div class="container">
         <div class="row">
           <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-            &copy; <a class="fw-medium" href="#">Your Site Name</a>, All Right Reserved.
-          </div>
-          <div class="col-md-6 text-center text-md-end">
-            <!-- /*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/ -->
-            Designed By <a class="fw-medium" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="fw-medium" href="https://themewagon.com">ThemeWagon</a>
+            &copy; <a class="fw-medium" href="{% url 'home' %}">Fog Filtering</a>, All Right Reserved.
           </div>
         </div>
       </div>
@@ -176,46 +139,97 @@
     <!-- Preloader -->
     <div id="overlayer"></div>
     <div class="loader">
-    	<div class="spinner-border text-primary" role="status">
-    		<span class="visually-hidden">Loading...</span>
-    	</div>
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
-
-    <script>
-      window.addEventListener('scroll', function () {
-        var footer = document.getElementById('footer');
-        var copyright = document.getElementById('copyright');
-        var scrollY = window.scrollY;
-        var windowHeight = window.innerHeight;
-    
-        // 페이지 하단에 도달하면 footer와 copyright를 고정
-        if (scrollY + windowHeight >= document.body.offsetHeight) {
-          footer.style.position = 'fixed';
-          footer.style.bottom = '0';
-          copyright.style.display = 'none';
-        } else {
-          footer.style.position = 'relative';
-          copyright.style.display = 'block';
-        }
-      });
-    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'lib/wow/wow.min.js' %}"></script>
-    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
-    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'js/aos.js' %}"></script>
     <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'js/tiny-slider.js' %}"></script>
-    <script src="{% static 'js/flatpickr.min.js' %}"></script>
-    <script src="{% static 'js/aos.js' %}"></script>
-    <script src="{% static 'js/glightbox.min.js' %}"></script>
-    <script src="{% static 'js/counter.js' %}"></script>
     <!-- Template Javascript -->
-    <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
-    <script src="{% static 'js/navbar.js' %}"></script>
-    <script src="{% static 'js/navbar.js' %}"></script>
+    {% comment %} <script src="{% static 'js/navbar.js' %}"></script> {% endcomment %}
+    <script>
+      ;(function () {
+        'use strict'
+      
+        var siteMenuClone = function () {
+          var jsCloneNavs = document.querySelectorAll('.js-clone-nav')
+          var siteMobileMenuBody = document.querySelector('.site-mobile-menu-body')
+      
+          jsCloneNavs.forEach((nav) => {
+            var navCloned = nav.cloneNode(true)
+            navCloned.setAttribute('class', 'site-nav-wrap')
+            siteMobileMenuBody.appendChild(navCloned)
+          })
+      
+          setTimeout(function () {
+            var hasChildrens = document.querySelector('.site-mobile-menu').querySelectorAll(' .has-children')
+      
+            var counter = 0
+            hasChildrens.forEach((hasChild) => {
+              var refEl = hasChild.querySelector('a')
+      
+              var newElSpan = document.createElement('span')
+              newElSpan.setAttribute('class', 'arrow-collapse collapsed')
+      
+              // prepend equivalent to jquery
+              hasChild.insertBefore(newElSpan, refEl)
+      
+              var arrowCollapse = hasChild.querySelector('.arrow-collapse')
+              arrowCollapse.setAttribute('data-bs-toggle', 'collapse')
+              arrowCollapse.setAttribute('data-bs-target', '#collapseItem' + counter)
+      
+              var dropdown = hasChild.querySelector('.dropdown')
+              dropdown.setAttribute('class', 'collapse')
+              dropdown.setAttribute('id', 'collapseItem' + counter)
+      
+              counter++
+            })
+          }, 1000)
+      
+          // Click js-menu-toggle
+      
+          var menuToggle = document.querySelectorAll('.js-menu-toggle')
+          var mTog
+          menuToggle.forEach((mtoggle) => {
+            mTog = mtoggle
+            mtoggle.addEventListener('click', (e) => {
+              if (document.body.classList.contains('offcanvas-menu')) {
+                document.body.classList.remove('offcanvas-menu')
+                mtoggle.classList.remove('active')
+                mTog.classList.remove('active')
+              } else {
+                document.body.classList.add('offcanvas-menu')
+                mtoggle.classList.add('active')
+                mTog.classList.add('active')
+              }
+            })
+          })
+      
+          var specifiedElement = document.querySelector('.site-mobile-menu')
+          var mt, mtoggleTemp
+          document.addEventListener('click', function (event) {
+            var isClickInside = specifiedElement.contains(event.target)
+            menuToggle.forEach((mtoggle) => {
+              mtoggleTemp = mtoggle
+              mt = mtoggle.contains(event.target)
+            })
+      
+            if (!isClickInside && !mt) {
+              if (document.body.classList.contains('offcanvas-menu')) {
+                document.body.classList.remove('offcanvas-menu')
+                mtoggleTemp.classList.remove('active')
+              }
+            }
+          })
+        }
+        siteMenuClone()
+      })()
+    </script>
   </body>
 </html>

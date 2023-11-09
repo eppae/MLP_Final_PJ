@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <!-- 좌측 상단 '질문하기' 버튼 -->
+            <div class="col-md-2">
+                <!-- 백엔드: '질문하기' 버튼 -->
+                <button class="btn btn-primary">질문하기</button>
+            </div>
+            <!-- 우측 상단 '검색' 입력란 -->
+            <div class="col-md-6 offset-md-4">
+                <!-- 백엔드: '검색' 입력란 -->
+                <input type="text" class="form-control" placeholder="검색...">
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- '사용방법' Carousel -->
+            <div class="col-md-12 mt-4">
+                <!-- 백엔드: Carousel 컨테이너 -->
+                <div id="carouselExample" class="carousel slide">
+                    <!-- 백엔드: Carousel 내부 아이템 -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="" class="d-block w-100">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="" class="d-block w-100">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="" class="d-block w-100">
+                        </div>
+                    </div>
+                    <!-- 백엔드: Carousel 이전 버튼 -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <!-- 백엔드: Carousel 다음 버튼 -->
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- '네비' (카테고리 선택) -->
+            <div class="col-md-12 mt-4">
+                <!-- 백엔드: 카테고리 네비게이션 -->
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <!-- 백엔드: 전체 카테고리 링크 -->
+                        <a class="nav-link active" href="#">전체</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- 백엔드: 일반 카테고리 링크 -->
+                        <a class="nav-link" href="#">일반</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- 백엔드: 시연 카테고리 링크 -->
+                        <a class="nav-link" href="#">시연</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- 백엔드: 제품사용 카테고리 링크 -->
+                        <a class="nav-link" href="#">제품사용</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- 백엔드: 기타 카테고리 링크 -->
+                        <a class="nav-link" href="#">기타</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- '제공되는 서비스' 박스 -->
+            <div class="col-md-6 mt-4">
+                <!-- 백엔드: 서비스 카드 -->
+                <div class="card">
+                    <div class="card-body">
+                        <!-- 백엔드: 제공되는 서비스 내용 -->
+                        제공되는 서비스 내용
+                    </div>
+                </div>
+            </div>
+            <!-- '제공되는 서비스' 박스 -->
+            <div class="col-md-6 mt-4">
+                <!-- 백엔드: 서비스 카드 -->
+                <div class="card">
+                    <div class="card-body">
+                        <!-- 백엔드: 제공되는 서비스 내용 -->
+                        제공되는 서비스 내용
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

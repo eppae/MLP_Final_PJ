@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+      <h1 class="display-2 text-dark mb-4 animated slideInDown">Community</h1>
+      <nav aria-label="breadcrumb animated slideInDown">
+        <ol class="breadcrumb justify-content-center mb-0">
+          <li class="breadcrumb-item">
+            <a href="{% url 'about_us' %}">About Us</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="news_list">News</a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  {% comment %}About US : 멀캠, 팀 소개 간단히{% endcomment %}
+  <div class="container-xxl py-5">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-6">
+          <div class="row g-3">
+            {% comment %}fog filtering 전, 후 사진 같은 것 넣어서 소개{% endcomment %}
+            <div class="col-6 text-end">
+              <img class="img-fluid bg-white w-100 mb-3 wow fadeIn" data-wow-delay="0.1s" src="{% static 'img/person_2.jpg' %}" alt="" />
+              <img class="img-fluid bg-white w-50 wow fadeIn" data-wow-delay="0.2s" src="{% static 'img/person_2.jpg' %}" alt="" />
+            </div>
+            <div class="col-6">
+              <img class="img-fluid bg-white w-50 mb-3 wow fadeIn" data-wow-delay="0.3s" src="{% static 'img/person_2.jpg' %}" alt="" />
+              <img class="img-fluid bg-white w-100 wow fadeIn" data-wow-delay="0.4s" src="{% static 'img/person_2.jpg' %}" alt="" />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+          <div class="section-title">
+            <p class="fs-5 fw-medium fst-italic text-primary">About Us</p>
+            <h1 class="display-6">Multi Campus <br />: AI BackEnd Developer</h1>
+          </div>
+          <div class="row g-3 mb-4">
+            <div class="col-sm-4">
+              {% comment %}멀캠 이미지{% endcomment %}
+              <img class="img-fluid bg-white w-100" src="{% static 'img/person_2.jpg' %}" alt="" />
+            </div>
+            <div class="col-sm-8">
+              <h5>멀캠소개</h5>
+              <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit</p>
+            </div>
+          </div>
+          <div class="border-top mb-4"></div>
+          <div class="row g-3">
+            <div class="col-sm-8">
+              <h5>팀 소개 : 오리무중</h5>
+              <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit</p>
+            </div>
+            <div class="col-sm-4">
+              {% comment %}팀 관련 이미지(안개나 팀 이름 관련..){% endcomment %}
+              <img class="img-fluid bg-white w-100" src="{% static 'img/person_2.jpg' %}" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% comment %}최근 News{% endcomment %}
+  <div class="container-xxl py-5">
+    <div class="container">
+        <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="fs-5 fw-medium fst-italic text-primary">the Latest News</p>
+            <h1 class="display-6">the Latest News</h1>
+        </div>
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="store-item position-relative text-center">
+              <img class="img-fluid" src="{% static 'img/person_2.jpg' %}" alt="" />
+              <div class="p-4">
+                <h4 class="mb-3">제목</h4>
+                <p>간단한 내용</p>
+                <p class="text-primary">카테고리</p>
+              </div>
+              <div class="store-overlay">
+                {% comment %}해당 최신 뉴스의 링크{% endcomment %}
+                <a href="#" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+          <div class="store-item position-relative text-center">
+            <img class="img-fluid" src="{% static 'img/person_2.jpg' %}" alt="" />
+            <div class="p-4">
+              <h4 class="mb-3">제목</h4>
+              <p>간단한 내용</p>
+              <p class="text-primary">카테고리</p>
+            </div>
+            <div class="store-overlay">
+              {% comment %}해당 최신 뉴스의 링크{% endcomment %}
+              <a href="#" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+          <div class="store-item position-relative text-center">
+            <img class="img-fluid" src="{% static 'img/person_2.jpg' %}" alt="" />
+            <div class="p-4">
+              <h4 class="mb-3">제목</h4>
+              <p>간단한 내용</p>
+              <p class="text-primary">카테고리</p>
+            </div>
+            <div class="store-overlay">
+              {% comment %}해당 최신 뉴스의 링크{% endcomment %}
+              <a href="#" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+          <a href="{% url 'news_list' %}" class="btn btn-primary rounded-pill py-3 px-5">View More Products</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

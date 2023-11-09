@@ -4,3 +4,12 @@
 
 - news-detail.html
   - 하나의 post와 관련된 author, category, title, date, content, likes, dislikes, comments 등이 있음. **참고해서 BE 작성 및 변수 선언 필수!!**
+
+더 세부적으로 해야할 것
+1. user_profile
+2. admin_profile
+3. Fog
+4. Support
+5. News-detail
+6. Forgot-password
+7. Login
