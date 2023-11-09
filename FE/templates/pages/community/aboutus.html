@@ -1,7 +1,34 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block content %}
+  <style>
+    .circle-container {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px;
+    }
+    
+    .circle {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background-color: lightblue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .content-box {
+      max-width: auto;
+      border: 2px solid #ddd;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin: 20px auto;
+    }
+  </style>
   <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
       <h1 class="display-2 text-dark mb-4 animated slideInDown">About Us</h1>
@@ -17,81 +44,80 @@
       </nav>
     </div>
   </div>
-
-  <div class="container mt-4">
-    <div class="row justify-content-center">
-      <!-- 다섯 개의 프로필 사진 -->
-      <div class="col-md-2">
-        <div class="text-center">
-          <img src="{% static 'img/person_2.jpg' %}" class="rounded-circle profile-image" alt="{{ admin1.name }}" width="100" height="100" />
-          <p>이름</p>
+  <div class="container">
+    <div class="circle-container">
+      <div class="row text-center">
+        <div class="col mx-1  d-flex flex-column align-items-center mb-2">
+          <div id="admin-1" class="circle" onclick="showContent(1)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
         </div>
+        <label for="admin-1">김민제</label>
       </div>
-
-      <div class="col-md-2">
-        <div class="text-center">
-          <img src="{% static 'img/person_2.jpg' %}" class="rounded-circle profile-image" alt="{{ admin2.name }}" width="100" height="100" />
-          <p>이름</p>
+      <div class="row text-center">
+        <div class="col mx-1  d-flex flex-column align-items-center mb-2">
+          <div id="admin-2" class="circle" onclick="showContent(2)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
         </div>
+        <label for="admin-2">강수현</label>
       </div>
-      <div class="col-md-2">
-        <div class="text-center">
-          <img src="{% static 'img/person_2.jpg' %}" class="rounded-circle profile-image" alt="{{ admin3.name }}" width="100" height="100" />
-          <p>이름</p>
+      <div class="row text-center">
+        <div class="col mx-1  d-flex flex-column align-items-center mb-2">
+          <div id="admin-3" class="circle" onclick="showContent(3)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
         </div>
+        <label for="admin-3">이동엽</label>
       </div>
-      <div class="col-md-2">
-        <div class="text-center">
-          <img src="{% static 'img/person_2.jpg' %}" class="rounded-circle profile-image" alt="{{ admin4.name }}" width="100" height="100" />
-          <p>이름</p>
+      <div class="row text-center">
+        <div class="col mx-1  d-flex flex-column align-items-center mb-2">
+          <div id="admin-4" class="circle" onclick="showContent(4)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
         </div>
+        <label for="admin-4">장우림</label>
       </div>
-      <div class="col-md-2">
-        <div class="text-center">
-          <img src="{% static 'img/person_2.jpg' %}" class="rounded-circle profile-image" alt="{{ admin5.name }}" width="100" height="100" />
-          <p>이름</p>
+      <div class="row text-center">
+        <div class="col mx-1  d-flex flex-column align-items-center mb-2">
+          <div id="admin-5" class="circle" onclick="showContent(5)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
         </div>
+        <label for="admin-5">홍태광</label>
       </div>
-
-      <!-- 이하 동일한 방식으로 나머지 프로필 추가 -->
+      {% comment %} <div id="admin-2" class="circle" onclick="showContent(2)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+      <div id="admin-3" class="circle" onclick="showContent(3)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+      <div id="admin-4" class="circle" onclick="showContent(4)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+      <div id="admin-5" class="circle" onclick="showContent(5)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div> {% endcomment %}
     </div>
 
-    <!-- 프로필 내용 표시 영역 -->
-    <div class="mt-4" id="profileDetails">
-      <div class="profile-content" id="profileContent1">
-        {% comment %}admin.profile 내용을 받아오면 됨{% endcomment %}
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore, sapiente ex ullam nostrum dolorem repellendus eius impedit quis molestiae alias, quasi facilis hic, adipisci fugiat? Eveniet, nam molestiae. Libero, iure? Iure rem ullam sequi architecto aut voluptas nobis temporibus suscipit sed. Est reprehenderit iure amet? Dignissimos sunt, quo molestiae aliquam tempore labore fugit laboriosam dolorem alias. Esse ut inventore quidem?</p>
-      </div>
-      <div class="profile-content" id="profileContent2">
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore, sapiente ex ullam nostrum dolorem repellendus eius impedit quis molestiae alias, quasi facilis hic, adipisci fugiat? Eveniet, nam molestiae. Libero, iure? Iure rem ullam sequi architecto aut voluptas nobis temporibus suscipit sed. Est reprehenderit iure amet? Dignissimos sunt, quo molestiae aliquam tempore labore fugit laboriosam dolorem alias. Esse ut inventore quidem?</p>
-      </div>
-      <div class="profile-content" id="profileContent3">
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore, sapiente ex ullam nostrum dolorem repellendus eius impedit quis molestiae alias, quasi facilis hic, adipisci fugiat? Eveniet, nam molestiae. Libero, iure? Iure rem ullam sequi architecto aut voluptas nobis temporibus suscipit sed. Est reprehenderit iure amet? Dignissimos sunt, quo molestiae aliquam tempore labore fugit laboriosam dolorem alias. Esse ut inventore quidem?</p>
-      </div>
-      <div class="profile-content" id="profileContent4">
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore, sapiente ex ullam nostrum dolorem repellendus eius impedit quis molestiae alias, quasi facilis hic, adipisci fugiat? Eveniet, nam molestiae. Libero, iure? Iure rem ullam sequi architecto aut voluptas nobis temporibus suscipit sed. Est reprehenderit iure amet? Dignissimos sunt, quo molestiae aliquam tempore labore fugit laboriosam dolorem alias. Esse ut inventore quidem?</p>
-      </div>
-      <div class="profile-content" id="profileContent5">
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore, sapiente ex ullam nostrum dolorem repellendus eius impedit quis molestiae alias, quasi facilis hic, adipisci fugiat? Eveniet, nam molestiae. Libero, iure? Iure rem ullam sequi architecto aut voluptas nobis temporibus suscipit sed. Est reprehenderit iure amet? Dignissimos sunt, quo molestiae aliquam tempore labore fugit laboriosam dolorem alias. Esse ut inventore quidem?</p>
-      </div>
-
-      <!-- 이하 동일한 방식으로 나머지 프로필 내용 추가 -->
+    <div class="content-box" id="content1">
+      <!-- 백엔드: (설명) content1에 대한 내용을 서버에서 받아와서 출력하도록 구현해야 합니다. -->
+      <p>
+        {% lorem 1 b random %}
+      </p>
+    </div>
+    <div class="content-box" id="content2">
+      <p>
+        {% lorem 1 b random %}
+      </p>
+    </div>
+    <div class="content-box" id="content3">
+      <p>
+        {% lorem 1 b random %}
+      </p>
+    </div>
+    <div class="content-box" id="content4">
+      <p>
+        {% lorem 1 b random %}
+      </p>
+    </div>
+    <div class="content-box" id="content5">
+      <p>
+        {% lorem 1 b random %}
+      </p>
     </div>
   </div>
 
   <script>
-    // JavaScript를 사용하여 프로필 내용 변경
-    document.querySelector('.profile-image').addEventListener('click', function (event) {
-      // 클릭한 프로필의 ID 가져오기 (예: admin1, admin2, ...)
-      const profileId = event.target.getAttribute('alt')
-    
-      // 현재 표시된 프로필 내용 숨기기
-      document.querySelectorAll('.profile-content').forEach(function (content) {
-        content.style.display = 'none'
-      })
-    
-      // 클릭한 프로필의 내용 표시
-      document.getElementById(`profileContent${profileId}`).style.display = 'block'
-    })
+    function showContent(index) {
+      document.querySelectorAll('.content-box').forEach((box) => (box.style.display = 'none'))
+      document.getElementById(`content${index}`).style.display = 'flex'
+      // 백엔드: (설명) 해당 content-box에 admin의 profile을 동적으로 추가하는 부분입니다.
+      // 서버에서 해당 정보를 받아오는 방식에 따라 구현이 달라질 수 있습니다.
+      // 실제 서버에서 데이터를 받아오는 부분을 추가해야 합니다.
+      // document.getElementById(`content${index}`).innerHTML = "{{ admin.profile }}";
+    }
   </script>
 {% endblock %}

@@ -2,6 +2,24 @@
 {% load static %}
 
 {% block content %}
+  <style>
+    .footer-container {
+      display: none; /* footer를 초기에 숨깁니다. */
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #000; /* 배경색을 원하는 색상으로 변경 */
+      color: #fff; /* 텍스트 색상을 원하는 색상으로 변경 */
+      padding: 20px 0; /* 원하는 패딩값으로 변경 */
+      z-index: 100;
+    }
+    
+    .show-footer {
+      display: block; /* footer를 표시합니다. */
+    }
+  </style>
+
   <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
       <h1 class="display-2 text-dark mb-4 animated slideInDown">Community</h1>
@@ -67,26 +85,26 @@
   {% comment %}최근 News{% endcomment %}
   <div class="container-xxl py-5">
     <div class="container">
-        <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-            <p class="fs-5 fw-medium fst-italic text-primary">the Latest News</p>
-            <h1 class="display-6">the Latest News</h1>
-        </div>
+      <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+        <p class="fs-5 fw-medium fst-italic text-primary">the Latest News</p>
+        <h1 class="display-6">the Latest News</h1>
+      </div>
       <div class="row g-4">
         <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-            <div class="store-item position-relative text-center">
-              <img class="img-fluid" src="{% static 'img/person_2.jpg' %}" alt="" />
-              <div class="p-4">
-                <h4 class="mb-3">제목</h4>
-                <p>간단한 내용</p>
-                <p class="text-primary">카테고리</p>
-              </div>
-              <div class="store-overlay">
-                {% comment %}해당 최신 뉴스의 링크{% endcomment %}
-                <a href="#" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
-              </div>
+          <div class="store-item position-relative text-center">
+            <img class="img-fluid" src="{% static 'img/person_2.jpg' %}" alt="" />
+            <div class="p-4">
+              <h4 class="mb-3">제목</h4>
+              <p>간단한 내용</p>
+              <p class="text-primary">카테고리</p>
+            </div>
+            <div class="store-overlay">
+              {% comment %}해당 최신 뉴스의 링크{% endcomment %}
+              <a href="#" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+        </div>
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
           <div class="store-item position-relative text-center">
             <img class="img-fluid" src="{% static 'img/person_2.jpg' %}" alt="" />
             <div class="p-4">
@@ -120,4 +138,18 @@
       </div>
     </div>
   </div>
+
+  <script>
+    window.addEventListener('scroll', function () {
+      var footer = document.querySelector('.footer-container')
+      var scrollPosition = window.innerHeight + window.scrollY // 스크롤 위치 계산
+    
+      if (scrollPosition >= document.body.offsetHeight - 30) {
+        // 스크롤 위치가 문서의 높이에서 50px 덜 차지하는 경우
+        footer.style.display = 'block' // footer를 표시합니다.
+      } else {
+        footer.style.display = 'none' // 그 외의 경우에는 footer를 숨깁니다.
+      }
+    })
+  </script>
 {% endblock %}

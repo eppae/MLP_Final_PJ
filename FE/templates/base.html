@@ -24,6 +24,7 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/fontawesome-free/css/all.min.css' %}" rel="stylesheet" />
     <style>
       .footer-container {
         position: fixed;
@@ -34,6 +35,10 @@
         color: #fff; /* You can change the text color to your preference */
         padding: 20px 0; /* Adjust the padding to your liking */
         z-index: 100; /* Ensure it's above other content */
+      }
+
+      body {
+        margin-bottom: 50rem; 
       }
     </style>
   </head>
@@ -98,11 +103,18 @@
             <a class="btn btn-link" href="{% url 'contact' %}">Contact Us</a>
             <a class="btn btn-link" href="{% url 'support' %}">Support</a>
           </div>
+          <div class="col-lg-3 col-md-6"></div>
+          <div class="col-lg-3 col-md-6">
+            <div class="row"></div>
+            &copy; <a class="fw-medium" href="#">Fog Filtering</a>, All Right Reserved.
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="container-fluid footer-container copyright py-4">
+    {% comment %} <div class="container-fluid footer-container copyright py-4">
       <div class="container">
         <div class="row">
           <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
@@ -111,7 +123,7 @@
         </div>
         <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
       </div>
-    </div>
+    </div> {% endcomment %}
 
     <div id="overlayer"></div>
     <div class="loader">

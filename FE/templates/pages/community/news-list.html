@@ -2,16 +2,38 @@
 {% load static %}
 
 {% block content %}
+  <style>
+    .footer-container {
+      display: none; /* footer를 초기에 숨깁니다. */
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #000; /* 배경색을 원하는 색상으로 변경 */
+      color: #fff; /* 텍스트 색상을 원하는 색상으로 변경 */
+      padding: 20px 0; /* 원하는 패딩값으로 변경 */
+      z-index: 100;
+    }
+    
+    .show-footer {
+      display: block; /* footer를 표시합니다. */
+    }
+  </style>
+
   {% comment %}디자인 추가 필요{% endcomment %}
   <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
       <h1 class="display-2 text-dark mb-4 animated slideInDown">News</h1>
       <nav aria-label="breadcrumb animated slideInDown">
         <ol class="breadcrumb justify-content-center mb-0">
-            <li class="breadcrumb-item"><a href="{% url 'community' %}">Community</a></li>
-            <li class="breadcrumb-item"><a href="about_us">About Us</a></li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'community' %}">Community</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="about_us">About Us</a>
+          </li>
         </ol>
-    </nav>
+      </nav>
     </div>
   </div>
 
@@ -35,14 +57,19 @@
                 <a class="nav-link" href="#">기타</a>
               </li>
             </ul>
-            <form class="form-inline">
-              <div class="sidebar-box search-form-wrap mb-4">
-                <form action="#" class="sidebar-search-form">
-                  <input type="text" class="form-control-sm" id="s" placeholder="Type a keyword and hit enter" />
-                  <span class="bi-search"></span>
-                </form>
-              </div>
-            </form>
+            <div class="row">
+              <form class="form-inline text-end">
+                <div class="sidebar-box search-form-wrap mb-2">
+                  <form action="#" class="sidebar-search-form">
+                    <input type="text" class="form-control-sm" id="s" placeholder="검색" />
+                  </form>
+                </div>
+                <div class="col text-end">
+                  <!-- 백엔드: '질문하기' 버튼 -->
+                  <a href="{% url 'post_form' %}" class="btn btn-primary">질문하기</a>
+                </div>
+              </form>
+            </div>
           </nav>
         </div>
       </div>
@@ -50,15 +77,18 @@
       {% comment %}for 문으로 반복 필요{% endcomment %}
       <div class="row posts-entry">
         <div class="col">
-          <div class="blog-entry d-flex blog-entry-search-item">
-            <a href="single.html" class="img-link me-4"><img src="{% static 'img/person_2.jpg' %}" alt="Image" class="img-fluid" /></a>
+          <div class="blog-entry d-flex blog-entry-search-item mb-4">
             <div>
               <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
-              <h2><a href="single.html">기사 이름</a></h2>
+              <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2>
               <p>기사 내용</p>
-              <p>
-                <a href="{% url 'news_detail' %}" class="btn btn-sm btn-outline-primary">Read More</a>
-              </p>
+            </div>
+          </div>
+          <div class="blog-entry d-flex blog-entry-search-item mb-4">
+            <div>
+              <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
+              <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2>
+              <p>기사 내용</p>
             </div>
           </div>
 
@@ -85,4 +115,18 @@
       </div>
     </div>
   </div>
+
+  <script>
+    window.addEventListener('scroll', function () {
+      var footer = document.querySelector('.footer-container')
+      var scrollPosition = window.innerHeight + window.scrollY // 스크롤 위치 계산
+    
+      if (scrollPosition >= document.body.offsetHeight - 30) {
+        // 스크롤 위치가 문서의 높이에서 50px 덜 차지하는 경우
+        footer.style.display = 'block' // footer를 표시합니다.
+      } else {
+        footer.style.display = 'none' // 그 외의 경우에는 footer를 숨깁니다.
+      }
+    })
+  </script>
 {% endblock %}

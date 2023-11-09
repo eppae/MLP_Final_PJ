@@ -9,7 +9,5 @@
 1. user_profile
 2. admin_profile
 3. Fog
-4. Support
-5. News-detail
-6. Forgot-password
-7. Login
+4. Forgot-password
+5. Login
