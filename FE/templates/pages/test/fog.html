@@ -23,6 +23,7 @@
         <div class="card-body">
           <div class="uploaded-content" style="display: none;">
             <div class="row justify-content-center">
+              {% comment %} 결과 사진/영샹 {% endcomment %}
               <div class="col-lg-7 mb-4 mb-lg-0">
                 <video id="uploadedVideo" class="embed-responsive" style="display: none;" autoplay></video>
                 <img id="uploadedImage" class="img-fluid" style="display: none;" alt="Uploaded Image" />
@@ -64,9 +65,9 @@
 
   <script>
     const fileInput = document.querySelector('#fileInput')
-    const uploadedVideo = document.querySelector('#uploadedVideo') // 비디오
-    const uploadedImage = document.querySelector('#uploadedImage') // 이미지
-    const uploadText = document.getElementById('uploadText') // h3 '파일을 업로드하세요'
+    const uploadedVideo = document.querySelector('#uploadedVideo') 
+    const uploadedImage = document.querySelector('#uploadedImage') 
+    const uploadText = document.getElementById('uploadText') 
     const uploadedContent = document.querySelector('.uploaded-content')
     
     fileInput.addEventListener('change', function () {
@@ -74,14 +75,14 @@
       if (selectedFile) {
         if (selectedFile.type.startsWith('image/')) {
           uploadedContent.style.display = 'block'
-          uploadedImage.style.display = 'block' // 이미지 요소를 표시
+          uploadedImage.style.display = 'block' 
           uploadText.style.display = 'none'
-          uploadedImage.src = URL.createObjectURL(selectedFile) // 이미지를 업로드한 파일로 설정
+          uploadedImage.src = URL.createObjectURL(selectedFile) 
         } else if (selectedFile.type.startsWith('video/')) {
           uploadedContent.style.display = 'block'
-          uploadedVideo.style.display = 'block' // 비디오 요소를 표시
+          uploadedVideo.style.display = 'block' 
           uploadText.style.display = 'none'
-          uploadedVideo.src = URL.createObjectURL(selectedFile) // 비디오를 업로드한 파일로 설정
+          uploadedVideo.src = URL.createObjectURL(selectedFile) 
         } else {
           alert('Please upload an image or a video file.')
         }

@@ -4,19 +4,19 @@
 {% block content %}
   <style>
     .footer-container {
-      display: none; /* footer를 초기에 숨깁니다. */
+      display: none; 
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background-color: #000; /* 배경색을 원하는 색상으로 변경 */
-      color: #fff; /* 텍스트 색상을 원하는 색상으로 변경 */
-      padding: 20px 0; /* 원하는 패딩값으로 변경 */
+      background-color: #000; 
+      color: #fff; 
+      padding: 20px 0; 
       z-index: 100;
     }
     
     .show-footer {
-      display: block; /* footer를 표시합니다. */
+      display: block; 
     }
   </style>
 
@@ -25,7 +25,7 @@
     <div class="container text-center py-5">
       <h1 class="display-2 text-dark mb-4 animated slideInDown">News</h1>
       <nav aria-label="breadcrumb animated slideInDown">
-        <ol class="breadcrumb justify-content-center mb-0">
+        <ol class="breadcrumb justify-content-center mb-0 bg-transparent">
           <li class="breadcrumb-item">
             <a href="{% url 'community' %}">Community</a>
           </li>
@@ -58,14 +58,13 @@
               </li>
             </ul>
             <div class="row">
-              <form class="form-inline text-end">
+              <form class="form-inline text-end justify-content-end">
                 <div class="sidebar-box search-form-wrap mb-2">
                   <form action="#" class="sidebar-search-form">
                     <input type="text" class="form-control-sm" id="s" placeholder="검색" />
                   </form>
                 </div>
                 <div class="col text-end">
-                  <!-- 백엔드: '질문하기' 버튼 -->
                   <a href="{% url 'post_form' %}" class="btn btn-primary">질문하기</a>
                 </div>
               </form>
@@ -92,6 +91,7 @@
             </div>
           </div>
 
+          {% comment %} pagination {% endcomment %}
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
               <li class="page-item">
@@ -119,13 +119,12 @@
   <script>
     window.addEventListener('scroll', function () {
       var footer = document.querySelector('.footer-container')
-      var scrollPosition = window.innerHeight + window.scrollY // 스크롤 위치 계산
+      var scrollPosition = window.innerHeight + window.scrollY 
     
       if (scrollPosition >= document.body.offsetHeight - 30) {
-        // 스크롤 위치가 문서의 높이에서 50px 덜 차지하는 경우
-        footer.style.display = 'block' // footer를 표시합니다.
+        footer.style.display = 'block' 
       } else {
-        footer.style.display = 'none' // 그 외의 경우에는 footer를 숨깁니다.
+        footer.style.display = 'none'
       }
     })
   </script>

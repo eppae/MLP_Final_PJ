@@ -22,6 +22,8 @@
     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
+    {% comment %} <link href="{% static 'css/sb-admin-2.css' %}" rel="stylesheet" /> {% endcomment %}
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
     <link href="{% static 'css/fontawesome-free/css/all.min.css' %}" rel="stylesheet" />
@@ -31,14 +33,14 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background-color: #000; /* You can change the background color to your preference */
-        color: #fff; /* You can change the text color to your preference */
-        padding: 20px 0; /* Adjust the padding to your liking */
-        z-index: 100; /* Ensure it's above other content */
+        background-color: #000; 
+        color: #fff; 
+        padding: 20px 0; 
+        z-index: 100; 
       }
-
+      
       body {
-        margin-bottom: 50rem; 
+        margin-bottom: 50rem;
       }
     </style>
   </head>
@@ -62,7 +64,14 @@
               <a href="{% url 'support' %}" class="nav-item nav-link">Support</a>
             </div>
             <div class="border-start ps-4 d-none d-lg-block">
-              <a href="{% url 'login' %}">LOGIN</a>
+              {% comment %} user가 관리자일때, 아닐때 조건문 추가 필요(BE) {% endcomment %}
+              {% if user.is_authenticated and user != admin %}
+                <a href="{% url 'user_profile' %}" class="nav-item nav-link">{{ user.username }}!</a>
+              {% elif user.is_authenticated and user == admin %}
+                <a href="{% url 'admin_profile' %}" class="nav-item nav-link">{{ user.username }}!</a>
+              {% else %}
+                <a href="{% url 'login' %}" class="nav-item nav-link">LOGIN</a>
+              {% endif %}
             </div>
           </div>
         </nav>
@@ -105,25 +114,12 @@
           </div>
           <div class="col-lg-3 col-md-6"></div>
           <div class="col-lg-3 col-md-6">
-            <div class="row"></div>
-            &copy; <a class="fw-medium" href="#">Fog Filtering</a>, All Right Reserved.
+            <div class="row"></div>&copy; <a class="fw-medium" href="#">Fog Filtering</a>, All Right Reserved.
             <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
-
           </div>
         </div>
       </div>
     </div>
-
-    {% comment %} <div class="container-fluid footer-container copyright py-4">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-            &copy; <a class="fw-medium" href="#">Fog Filtering</a>, All Right Reserved.
-          </div>
-        </div>
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
-      </div>
-    </div> {% endcomment %}
 
     <div id="overlayer"></div>
     <div class="loader">
@@ -131,6 +127,8 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
+
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'lib/wow/wow.min.js' %}"></script>

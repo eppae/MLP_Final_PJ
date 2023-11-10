@@ -16,16 +16,16 @@
                 <p>비밀번호를 잊어버리셨나요?</p>
               </div>
               <div class="container form-container">
-                {% comment %} pw를 찾을 수 있게(리셋) id, email 입력 {% endcomment %}
+                {% comment %} 비밀번호 리셋 {% endcomment %}
                 <form class="user" id="forgotPasswordForm" method="POST">
                   {% csrf_token %}
                   {{ form }}
                   <div class="row justify-content-center align-items-center">
                     <div class="form-group col-8 mb-4">
-                      <input type="text" class="form-control form-control-user" id="InputID" aria-describedby="idHelp" placeholder="아이디을 입력하세요" />
+                      <input type="password" class="form-control form-control-user" id="InputPassword" aria-describedby="InputPassword" placeholder="재설정할 비밀번호를 입력하세요" />
                     </div>
                     <div class="form-group col-8 mb-4">
-                      <input type="email" class="form-control form-control-user" id="InputEmail" aria-describedby="emailHelp" placeholder="이메일을 입력하세요" />
+                      <input type="password" class="form-control form-control-user" id="RepeatPassword" aria-describedby="RepeatPassword" placeholder="다시한번 비밀번호를 입력하세요" />
                     </div>
                     <div class="col-5 d-flex">
                       <input type="submit" id="findButton" class="btn btn-primary btn-user btn-block" value="Find" /> <!-- 클래스명 수정 (btn-blockm -> btn-block) -->
