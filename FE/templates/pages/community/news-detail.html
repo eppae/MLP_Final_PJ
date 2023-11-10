@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .footer-container {
+      display: none; /* footer를 초기에 숨깁니다. */
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #000; /* 배경색을 원하는 색상으로 변경 */
+      color: #fff; /* 텍스트 색상을 원하는 색상으로 변경 */
+      padding: 20px 0; /* 원하는 패딩값으로 변경 */
+      z-index: 100;
+    }
+    
+    .show-footer {
+      display: block; /* footer를 표시합니다. */
+    }
+  </style>
+  <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+      {% comment %}BE : post에 대한 title, author, date, category{% endcomment %}
+      <h1 class="display-2 text-dark mb-4 animated slideInDown">News, Review Title</h1>
+      <div class="post-meta align-items-center text-center">
+        <span class="d-inline-block mt-1">By Author</span>
+        <span>&nbsp;-&nbsp; December 25, 2023</span>
+        {% comment %}해당 카테고리에 대한 링크{% endcomment %}
+        <span class="d-block mt-1 fst-italic"><a href="#">Category</a></span>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+      <div class="row blog">
+        <div class="col text-end mb-4">
+          <a href="{% url 'post_form' %}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+          <a href="{% url 'post_form' %}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+        </div>
+        <div class="post-content-body mb-5">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus minus odit laudantium accusantium non magnam, incidunt id deleniti doloremque. Reiciendis ex odio atque necessitatibus. Eos velit id quia asperiores facere. Ullam error, eaque tempora suscipit nesciunt id aut, quisquam aliquid hic explicabo, neque saepe optio quis rerum? Excepturi qui voluptate ipsum soluta corrupti quibusdam sit eligendi veniam, temporibus ad magni. Dicta suscipit excepturi temporibus laboriosam, qui voluptatem cum molestias voluptas earum eum iusto quod illo, libero fugiat ipsam praesentium vero delectus quam ex maiores minus officia, accusantium amet. Maxime, odio. Illum, qui repellendus. Modi quasi ut, exercitationem excepturi aliquid nobis id, voluptates voluptatum voluptate rem quisquam unde ad magnam aut debitis eos placeat corporis tenetur beatae similique. Minima, ab id. In cum soluta placeat aspernatur laboriosam harum nostrum quae minima magni nam quo explicabo, molestiae necessitatibus tempora esse voluptatum quaerat deleniti? Numquam, rerum magni. Eligendi nam placeat adipisci quia eius?{% comment %}BE : 해당 post에 대한 내용{% endcomment %}
+          {{ post.content }}
+        </div>
+        <div class="post-good-or-not">
+          <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button>
+          <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-danger btn-sm"><i class="fas fa-thumbs-down"></i></button>
+        </div>
+
+        <div class="post comment">
+          <div class="pt-5 comment-wrap">
+            <h3 class="mb-5 heading">Total Comment(N)</h3>
+            <ul class="comment-list">
+              {% comment %}대댓글 없는 댓글{% endcomment %}
+              <li class="comment">
+                <div class="comment-body">
+                  <h3>Comment Author</h3>
+                  <div class="meta">Comment Date</div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                  <p>
+                    {% comment %}댓글 작성에 대한 댓글 폼.. 네이버기사처럼 바로 밑에 나올수 있는 동작 필요{% endcomment %}
+                    <a href="#" class="reply rounded">Reply</a>
+                  </p>
+                </div>
+              </li>
+
+              {% comment %}대댓글 있는 댓글{% endcomment %}
+              <li class="comment">
+                <div class="comment-body">
+                  <h3>Jean Doe</h3>
+                  <div class="meta">January 9, 2018 at 2:21pm</div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                  <p>
+                    <a href="#" class="reply rounded">Reply</a>
+                  </p>
+                </div>
+
+                <ul class="children">
+                  <li class="comment">
+                    <div class="comment-body">
+                      <h3>Jean Doe</h3>
+                      <div class="meta">January 9, 2018 at 2:21pm</div>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                      <p>
+                        <a href="#" class="reply rounded">Reply</a>
+                      </p>
+                    </div>
+
+                    <ul class="children">
+                      <li class="comment">
+                        <div class="comment-body">
+                          <h3>Jean Doe</h3>
+                          <div class="meta">January 9, 2018 at 2:21pm</div>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                          <p>
+                            <a href="#" class="reply rounded">Reply</a>
+                          </p>
+                        </div>
+
+                        <ul class="children">
+                          <li class="comment">
+                            <div class="comment-body">
+                              <h3>Jean Doe</h3>
+                              <div class="meta">January 9, 2018 at 2:21pm</div>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                              <p>
+                                <a href="#" class="reply rounded">Reply</a>
+                              </p>
+                            </div>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <div class="comment-form-wrap pt-5">
+              <h3 class="mb-5">Leave a comment</h3>
+              <form action="#" class="p-5 bg-light">
+                <div class="form-group">
+                  <label for="name">Name *</label>
+                  <input type="text" class="form-control" id="name" />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email *</label>
+                  <input type="email" class="form-control" id="email" />
+                </div>
+                <div class="form-group">
+                  <label for="message">Message</label>
+                  <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                  <input type="submit" value="Post Comment" class="btn btn-primary" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %}아래는 동엽님꺼. BE 할 때 참고가 될거 같아서 남겨둠{% endcomment %}
+
+  <div class="container mt-4">
+    <!-- 포스트 카드 -->
+    <div class="card mt-3">
+      <div class="card-header">
+        <!-- 포스트 제목과 작성자 정보 -->
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h5>{{ post.title }}</h5>
+            <p>작성자: {{ post.author.username }}</p>
+          </div>
+          <div>
+            {% if user.is_authenticated %}
+              {% if user == post.author or user.is_staff %}
+                <!-- 편집 및 삭제 버튼 (작성자 또는 스태프만 표시) -->
+                <a href="{% url 'edit_post' post.id %}" class="btn btn-primary btn-sm">Edit</a>
+                <a href="{% url 'delete_post' post.id %}" class="btn btn-danger btn-sm">Delete</a>
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+        <!-- 포스트의 카테고리, 작성날짜 표시 -->
+        <p>카테고리: {{ post.category }}</p>
+        <p>작성날짜: {{ post.date }}</p>
+      </div>
+      <!-- 포스트 내용 -->
+      <div class="card-body">{{ post.content }}</div>
+      <!-- 좋아요 및 싫어요 버튼 및 표시 -->
+      <div class="card-footer">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-primary">좋아요</button>
+            <button type="button" class="btn btn-sm btn-danger">싫어요</button>
+          </div>
+          <small>좋아요: {{ post.likes }} | 싫어요: {{ post.dislikes }}</small>
+        </div>
+      </div>
+      <!-- 댓글 섹션 -->
+      <div class="card-footer">
+        <h5>댓글</h5>
+        {% comment %}
+        <!-- 댓글 작성 폼 -->
+        <form method="post" action="{% url 'add_comment' post.id %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <textarea class="form-control" rows="3" name="comment_text"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">댓글 작성</button>
+        </form>
+        {% endcomment %}
+        <!-- 댓글 목록 표시 -->
+        <ul class="list-group mt-3">
+          {% for comment in post.comments.all %}
+            <li class="list-group-item">
+              {{ comment.comment_text }}
+              <!-- 댓글에 대한 좋아요 및 싫어요 버튼 -->
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-primary">좋아요</button>
+                <button type="button" class="btn btn-sm btn-danger">싫어요</button>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', function () {
+      var footer = document.querySelector('.footer-container');
+      var scrollPosition = window.innerHeight + window.scrollY; // 스크롤 위치 계산
+
+      if (scrollPosition >= document.body.offsetHeight - 30) {
+        // 스크롤 위치가 문서의 높이에서 50px 덜 차지하는 경우
+        footer.style.display = 'block'; // footer를 표시합니다.
+      } else {
+        footer.style.display = 'none'; // 그 외의 경우에는 footer를 숨깁니다.
+      }
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <style>
+    .footer-container {
+      display: none; /* footer를 초기에 숨깁니다. */
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #000; /* 배경색을 원하는 색상으로 변경 */
+      color: #fff; /* 텍스트 색상을 원하는 색상으로 변경 */
+      padding: 20px 0; /* 원하는 패딩값으로 변경 */
+      z-index: 100;
+    }
+    
+    .show-footer {
+      display: block; /* footer를 표시합니다. */
+    }
+  </style>
+
+  <div class="container">
+    <div class="row">
+      <!-- 좌측 상단 '질문하기' 버튼 -->
+      <div class="col-md-2">
+        <!-- 백엔드: '질문하기' 버튼 -->
+        <a href="{% url 'post_form' %}" class="btn btn-primary">질문하기</a>
+      </div>
+      <!-- 우측 상단 '검색' 입력란 -->
+      <div class="col-md-3 offset-md-7 text-end">
+        <!-- 백엔드: '검색' 입력란 -->
+        <form action="#" class="sidebar-search-form">
+          <input type="text" class="form-control-sm" id="s" placeholder="검색" />
+          <span class="bi-search"></span>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 mt-4">
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+          <!-- 백엔드: Carousel 내부 아이템 -->
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="{% static 'img/carousel-1.jpg' %}" class="d-block w-100" />
+            </div>
+            <div class="carousel-item">
+              <img src="{% static 'img/carousel-1.jpg' %}" class="d-block w-100" />
+            </div>
+            <div class="carousel-item">
+              <img src="{% static 'img/carousel-1.jpg' %}" class="d-block w-100" />
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- '네비' (카테고리 선택) -->
+      <div class="col-md-12 my-4">
+        <!-- 백엔드: 카테고리 네비게이션 -->
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <!-- 백엔드: 전체 카테고리 링크 -->
+            <a class="nav-link active" href="#">전체</a>
+          </li>
+          <li class="nav-item">
+            <!-- 백엔드: 일반 카테고리 링크 -->
+            <a class="nav-link" href="#">일반</a>
+          </li>
+          <li class="nav-item">
+            <!-- 백엔드: 시연 카테고리 링크 -->
+            <a class="nav-link" href="#">시연</a>
+          </li>
+          <li class="nav-item">
+            <!-- 백엔드: 제품사용 카테고리 링크 -->
+            <a class="nav-link" href="#">제품사용</a>
+          </li>
+          <li class="nav-item">
+            <!-- 백엔드: 기타 카테고리 링크 -->
+            <a class="nav-link" href="#">기타</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    {% comment %}for{% endcomment %}
+    <div class="row mb-3">
+      <div class="blog-entry col-6 d-flex blog-entry-search-item">
+        <div>
+          <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
+          <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2>
+          <p>기사 내용</p>
+        </div>
+      </div>
+      <div class="blog-entry col-6 d-flex blog-entry-search-item">
+        <div>
+          <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
+          <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2>
+          <p>기사 내용</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% comment %}endfor{% endcomment %}
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        {% comment %}page 링크 추가{% endcomment %}
+        <a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">1</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">2</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">3</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+    </ul>
+  </nav>
+
+  <script>
+    window.addEventListener('scroll', function () {
+      var footer = document.querySelector('.footer-container')
+      var scrollPosition = window.innerHeight + window.scrollY // 스크롤 위치 계산
+    
+      if (scrollPosition >= document.body.offsetHeight - 30) {
+        // 스크롤 위치가 문서의 높이에서 50px 덜 차지하는 경우
+        footer.style.display = 'block' // footer를 표시합니다.
+      } else {
+        footer.style.display = 'none' // 그 외의 경우에는 footer를 숨깁니다.
+      }
+    })
+  </script>
+{% endblock %}
