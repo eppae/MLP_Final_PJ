@@ -4,19 +4,19 @@
 {% block content %}
   <style>
     .footer-container {
-      display: none; /* footer를 초기에 숨깁니다. */
+      display: none; 
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background-color: #000; /* 배경색을 원하는 색상으로 변경 */
-      color: #fff; /* 텍스트 색상을 원하는 색상으로 변경 */
-      padding: 20px 0; /* 원하는 패딩값으로 변경 */
+      background-color: #000; 
+      color: #fff;
+      padding: 20px 0;
       z-index: 100;
     }
     
     .show-footer {
-      display: block; /* footer를 표시합니다. */
+      display: block; 
     }
   </style>
 
@@ -24,7 +24,7 @@
     <div class="container text-center py-5">
       <h1 class="display-2 text-dark mb-4 animated slideInDown">Community</h1>
       <nav aria-label="breadcrumb animated slideInDown">
-        <ol class="breadcrumb justify-content-center mb-0">
+        <ol class="breadcrumb justify-content-center mb-0 bg-transparent">
           <li class="breadcrumb-item">
             <a href="{% url 'about_us' %}">About Us</a>
           </li>
@@ -35,13 +35,13 @@
       </nav>
     </div>
   </div>
-  {% comment %}About US : 멀캠, 팀 소개 간단히{% endcomment %}
+  {% comment %}About US : 멀캠, 팀 소개 간단히 (FE) {% endcomment %}
   <div class="container-xxl py-5">
     <div class="container">
       <div class="row g-5">
         <div class="col-lg-6">
           <div class="row g-3">
-            {% comment %}fog filtering 전, 후 사진 같은 것 넣어서 소개{% endcomment %}
+            {% comment %}fog filtering 전, 후 사진 같은 것 넣어서 소개 (FE) {% endcomment %}
             <div class="col-6 text-end">
               <img class="img-fluid bg-white w-100 mb-3 wow fadeIn" data-wow-delay="0.1s" src="{% static 'img/person_2.jpg' %}" alt="" />
               <img class="img-fluid bg-white w-50 wow fadeIn" data-wow-delay="0.2s" src="{% static 'img/person_2.jpg' %}" alt="" />
@@ -59,7 +59,7 @@
           </div>
           <div class="row g-3 mb-4">
             <div class="col-sm-4">
-              {% comment %}멀캠 이미지{% endcomment %}
+              {% comment %}멀캠 이미지 (FE) {% endcomment %}
               <img class="img-fluid bg-white w-100" src="{% static 'img/person_2.jpg' %}" alt="" />
             </div>
             <div class="col-sm-8">
@@ -74,7 +74,7 @@
               <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit</p>
             </div>
             <div class="col-sm-4">
-              {% comment %}팀 관련 이미지(안개나 팀 이름 관련..){% endcomment %}
+              {% comment %}팀 관련 이미지(안개나 팀 이름 관련..) (FE) {% endcomment %}
               <img class="img-fluid bg-white w-100" src="{% static 'img/person_2.jpg' %}" alt="" />
             </div>
           </div>
@@ -142,13 +142,12 @@
   <script>
     window.addEventListener('scroll', function () {
       var footer = document.querySelector('.footer-container')
-      var scrollPosition = window.innerHeight + window.scrollY // 스크롤 위치 계산
+      var scrollPosition = window.innerHeight + window.scrollY 
     
       if (scrollPosition >= document.body.offsetHeight - 30) {
-        // 스크롤 위치가 문서의 높이에서 50px 덜 차지하는 경우
-        footer.style.display = 'block' // footer를 표시합니다.
+        footer.style.display = 'block' 
       } else {
-        footer.style.display = 'none' // 그 외의 경우에는 footer를 숨깁니다.
+        footer.style.display = 'none' 
       }
     })
   </script>
