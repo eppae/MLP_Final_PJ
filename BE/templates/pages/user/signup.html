@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <div class="row justify-content-center align-items-center">
+          <div class="p-5">
+            <div class="text-center">
+              <h1 class="text-gray-900 mb-4">Create an Account!</h1>
+            </div>
+            {% comment %} 회원가입 폼 : 이름, id, pw, repeat pw, 개인정보 확인 여부 {% endcomment %}
+            <form class="user" action="{% url 'signup' %}" method="POST" novalidate>
+              {% csrf_token %}
+              <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  {% if form.last_name.errors %}
+                    {{ form.last_name.errors }}
+                  {% endif %}
+                  {{ form.last_name.label_tag }} 
+                  {{ form.last_name }}
+                </div>
+                <div class="col-sm-6">
+                  {% if form.username.errors %}
+                    {{ form.username.errors }}
+                  {% endif %}
+                  {{ form.username.label_tag }} 
+                  {{ form.username }}
+                </div>
+              </div>
+              <div class="form-group">
+                {% if form.password1.errors %}
+                  {{ form.password1.errors }}
+                {% endif %}
+                {{ form.password1.label_tag }} 
+                {{ form.password1 }}
+              </div>
+              <div class="form-group">
+                {% if form.password2.errors %}
+                  {{ form.password2.errors }}
+                {% endif %}
+                {{ form.password2.label_tag }} 
+                {{ form.password2 }}
+              </div>
+              <div class="form-group">
+                {% if form.email.errors %}
+                  {{ form.email.errors }}
+                {% endif %}
+                {{ form.email.label_tag }} 
+                {{ form.email }}
+              </div>
+              <div class="form-check d-flex justify-content-center">
+                {{ form.terms_agreed }}
+                <label class="form-check-label" for="{{ form.terms_agreed.id_for_label }}">개인정보처리방침 및 이용약관 동의 여부</label>
+                {% if form.terms_agreed.errors %}
+                  <div class="alert alert-danger">{{ form.terms_agreed.errors }}</div>
+                {% endif %}
+              </div>
+              <div class="d-flex justify-content-center">
+                <input type="submit" class="btn btn-primary btn-user btn-block" value="가입하기" />
+              </div>
+            </form>
+            
+            <hr />
+            <div class="text-center">
+              <a class="small" href="{% url 'forgot_id' %}">Forgot Password?</a>
+            </div>
+            <div class="text-center">
+              <a class="small" href="{% url 'user_login' %}">Already have an account? Login!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

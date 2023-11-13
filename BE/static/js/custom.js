@@ -9,7 +9,7 @@
 		once: true
 	});
 
-	var preloader = function() {
+	var preloader = function () {
 
 		var loader = document.querySelector('.loader');
 		var overlay = document.getElementById('overlayer');
@@ -25,22 +25,22 @@
 			})();
 		};
 
-		setTimeout(function() {
+		setTimeout(function () {
 			fadeOut(loader);
 			fadeOut(overlay);
 		}, 200);
 	};
 	preloader();
 
-	var tinyslider = function() {
+	var tinyslider = function () {
 
 		var slider = document.querySelectorAll('.features-slider');
 		var postSlider = document.querySelectorAll('.post-slider');
 		var testimonialSlider = document.querySelectorAll('.testimonial-slider');
-		
-		
-		
-		if ( slider.length> 0 ) {
+
+
+
+		if (slider.length > 0) {
 			var tnsSlider = tns({
 				container: '.features-slider',
 				mode: 'carousel',
@@ -70,7 +70,7 @@
 			});
 		}
 
-		if ( postSlider.length> 0 ) {
+		if (postSlider.length > 0) {
 			var tnsPostSlider = tns({
 				container: '.post-slider',
 				mode: 'carousel',
@@ -100,7 +100,7 @@
 			});
 		}
 
-		if ( testimonialSlider.length> 0 ) {
+		if (testimonialSlider.length > 0) {
 			var tnsTestimonialSlider = tns({
 				container: '.testimonial-slider',
 				mode: 'carousel',
@@ -131,13 +131,25 @@
 			});
 		}
 
-		
+
 	}
 	tinyslider();
-
-	var lightboxVideo = GLightbox({
-		selector: '.glightbox'
-	});
-
-
 })()
+
+
+window.addEventListener('scroll', function () {
+	var footer = document.getElementById('footer');
+	var copyright = document.getElementById('copyright');
+	var scrollY = window.scrollY;
+	var windowHeight = window.innerHeight;
+
+	// 페이지 하단에 도달하면 footer와 copyright를 고정
+	if (scrollY + windowHeight >= document.body.offsetHeight) {
+		footer.style.position = 'fixed';
+		footer.style.bottom = '0';
+		copyright.style.display = 'none';
+	} else {
+		footer.style.position = 'relative';
+		copyright.style.display = 'block';
+	}
+});
