@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  아이디/비밀번호 찾기
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <div class="row justify-content-center align-items-center">
+          <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="text-gray-900 mb-4">아이디/비밀번호 찾기</h1>
+                <p>비밀번호를 잊어버리셨나요?</p>
+              </div>
+              <div class="container form-container">
+                {% comment %} 비밀번호 리셋 {% endcomment %}
+                <form class="user" id="forgotPasswordForm" method="POST">
+                  {% csrf_token %}
+                  {{ form }}
+                  <div class="row justify-content-center align-items-center">
+                    <div class="form-group col-8 mb-4">
+                      <input type="password" class="form-control form-control-user" id="InputPassword" aria-describedby="InputPassword" placeholder="재설정할 비밀번호를 입력하세요" />
+                    </div>
+                    <div class="form-group col-8 mb-4">
+                      <input type="password" class="form-control form-control-user" id="RepeatPassword" aria-describedby="RepeatPassword" placeholder="다시한번 비밀번호를 입력하세요" />
+                    </div>
+                    <div class="col-5 d-flex">
+                      <input type="submit" id="findButton" class="btn btn-primary btn-user btn-block" value="Find" /> <!-- 클래스명 수정 (btn-blockm -> btn-block) -->
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

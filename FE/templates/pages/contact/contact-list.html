@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  {% comment %}디자인 추가 필요{% endcomment %}
+  <div class="container-fluid bg-dark page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+      <h1 class="display-2 text-white mb-4 animated slideInDown">Contact</h1>
+    </div>
+  </div>
+
+  <div class="section search-result-wrap">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 my-3">
+          <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
+            <!-- '네비' (카테고리 선택) -->
+            <ul class="nav">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">전체</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">일반</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">제품사용</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">기타</a>
+              </li>
+            </ul>
+            <form class="form-inline">
+              <div class="sidebar-box search-form-wrap mb-4">
+                <form action="#" class="sidebar-search-form">
+                  <input type="text" class="form-control-sm" id="s" placeholder="Type a keyword and hit enter" />
+                  <span class="bi-search"></span>
+                </form>
+              </div>
+            </form>
+          </nav>
+        </div>
+      </div>
+
+      <div class="section sec-halfs py-0">
+        <div class="container">
+            {% comment %} for  {% endcomment %}
+          <div class="d-lg-flex align-items-stretch mb-3">
+            <div class="text">
+              <h2 class="heading text-primary mb-3">Resources for makers and creatives</h2>
+              <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+              <p>
+                <a href="#" class="btn btn-outline-primary py-2">Read more</a>
+              </p>
+            </div>
+          </div>
+          <div class="d-lg-flex align-items-stretch mb-3">
+            <div class="text">
+              <h2 class="heading text-primary mb-3">Resources for makers and creatives</h2>
+              <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+              <p>
+                <a href="#" class="btn btn-outline-primary py-2">Read more</a>
+              </p>
+            </div>
+          </div>
+          {% comment %} endfor {% endcomment %}
+        </div>
+      </div>
+      <div class="row posts-entry">
+        <div class="col">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">2</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">3</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  로그인
+{% endblock %}
+
+{% block content %}
+  <style>
+    .login-box {
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #f5f5f5;
+      text-align: center;
+    }
+    
+    .login-box h2 {
+      font-size: 24px;
+      margin: 0;
+      margin-bottom: 30px;
+    }
+    
+    .login-box form {
+      margin-top: 0px;
+    }
+    
+    .login-box label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    .login-box input[type='text'],
+    .login-box input[type='password'] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 50px;
+    }
+    
+    .login-box input[type='submit'] {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    .text-white-hover:hover {
+      color: white;
+    }
+  </style>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <div class="row justify-content-center">
+              <div class="text-center my-3">
+                <h1 class="h2 text-gray-900">Login Page</h1>
+              </div>
+              <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                <img height="300" src="" alt="" />
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-lg-6">
+                <div class="p-5">
+                  {% comment %} id, pw {% endcomment %}
+                  <form class="user">
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" id="InputID" placeholder="ID" />
+                    </div>
+                    <div class="form-group">
+                      <input type="password" class="form-control form-control-user" id="InputPassword" placeholder="Password" />
+                    </div>
+                    {% comment %} remember me {% endcomment %}
+                    <div class="form-group">
+                      <div class="custom-control custom-checkbox small">
+                        <input type="checkbox" class="custom-control-input" id="customCheck" />
+                        <label class="custom-control-label" for="customCheck">Remember Me</label>
+                      </div>
+                    </div>
+                    {% comment %} remember me 끝 {% endcomment %}
+                    <a href="index.html" class="btn btn-primary btn-user btn-block">Login</a>
+                  </form>
+                  <hr />
+                  <div class="text-center">
+                    <a class="small" href="{% url 'signup' %}">Create an Account!</a>
+                  </div>
+                  <div class="text-center">
+                    <a href="{% url 'forgot-id' %}">아이디/비밀번호 찾기</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
