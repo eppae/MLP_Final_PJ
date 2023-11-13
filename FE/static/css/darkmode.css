@@ -1,0 +1,63 @@
+[data-theme='light'] {
+    --color-bg: #ffffff;
+    --color-fg: #212529;
+}
+
+[data-theme='dark'] {
+    --color-bg: #212529;
+    --color-fg: #ffffff;
+    color: white !important;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    place-items: center;
+    margin-bottom: 50rem;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+.card,
+.card-body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+}
+
+h6,
+.h6,
+h5,
+.h5,
+h4,
+.h4,
+h3,
+.h3,
+h2,
+.h2,
+h1,
+.h1 {
+    color: var(--color-fg);
+}
+
+ul .pagination,
+.page-item {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+}
+
+form {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+}
+
+.darkmode-btn {
+    --size: 2rem;
+
+    background: none;
+    border: none;
+    padding: 0;
+
+    inline-size: var(--size);
+    block-size: var(--size);
+    aspect-ratio: 1;
+    border-radius: 50%;
+}

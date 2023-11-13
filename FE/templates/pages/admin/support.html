@@ -18,8 +18,16 @@
     .show-footer {
       display: block;
     }
-  </style>
 
+    .form-control-sm {
+      max-width: 280px;
+    }
+  </style>
+  <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+      <h1 class="display-2 text-dark mb-4 animated slideInDown">Support</h1>
+    </div>
+  </div>
   <div class="container">
     <div class="row">
       <!-- 좌측 상단 '질문하기' 버튼 -->
@@ -28,11 +36,11 @@
         <a href="{% url 'post_form' %}" class="btn btn-primary">질문하기</a>
       </div>
       <!-- 우측 상단 '검색' 입력란 -->
-      <div class="col-md-3 offset-md-7 text-end">
+      <div class="col-md-3 offset-md-7 justify-content-end">
         <!-- 백엔드: '검색' 입력란 -->
-        <form action="#" class="sidebar-search-form">
+        <form action="#" class="sidebar-search-form d-sm-inline-flex flex-row-reverse">
           <input type="text" class="form-control-sm" id="s" placeholder="검색" />
-          <span class="bi-search"></span>
+          <span class="bi-search p-1"></span>
         </form>
       </div>
     </div>

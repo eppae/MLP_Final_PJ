@@ -5,40 +5,49 @@
 {% block content %}
   <style>
     .card {
-      height: 40vh;
-      background: none; 
-      border: none;
-    }
-    .card-header{
+      height: auto;
       background: none;
       border: none;
+    }
+    .card-header {
+      background: none;
+      border: none;
+    }
+    .progressBar {
+      width: 500px;
     }
   </style>
   <div class="section">
     <div class="container">
       <div class="card">
-        <div class="card-header">
-          <h3 id="uploadText" class="row justify-content-center">파일을 업로드 해주세요.</h3>
-        </div>
         <div class="card-body">
+          <div class="before-upload mt-5">
+            <h3 id="uploadText" class="row justify-content-center mb-5">파일을 업로드 해주세요.</h3>
+            <div id="loading-zone" aria-busy="true" class="text-center justify-center justify-content-center items-center">
+              <p>Loading...</p>
+              <div class="card mb-5">
+                <label>
+                  <span class="sr-only">Loading progress</span>
+                  <progress class="progressBar" indeterminate role="progressbar" aria-describedby="loading-zone" tabindex="-1"></progress>
+                </label>
+              </div>
+            </div>
+          </div>
           <div class="uploaded-content" style="display: none;">
             <div class="row justify-content-center">
-              {% comment %} 결과 사진/영샹 {% endcomment %}
+              {% comment %}결과 사진/영샹{% endcomment %}
               <div class="col-lg-7 mb-4 mb-lg-0">
                 <video id="uploadedVideo" class="embed-responsive" style="display: none;" autoplay></video>
                 <img id="uploadedImage" class="img-fluid" style="display: none;" alt="Uploaded Image" />
               </div>
               <div class="col-lg-4 ps-lg-2">
-                <div class="mb-5">
-                  <h2 class="text-black h4">결과 설명</h2>
-                </div>
                 <div class="d-flex mb-3 service-alt">
                   <div>
                     <span class="bi-wallet-fill me-4"></span>
                   </div>
                   <div>
                     <h3>그래프</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias esse dolores cum facere facilis doloribus libero, optio impedit sunt ullam commodi explicabo repudiandae eaque laudantium architecto eum molestias. Voluptate, beatae.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam blanditiis eum corporis quas a explicabo officiis sapiente hic unde expedita obcaecati repudiandae, repellat, exercitationem sunt iusto! Obcaecati minus illo nam!</p>
                   </div>
                 </div>
 
@@ -48,13 +57,13 @@
                   </div>
                   <div>
                     <h3>수치</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui nostrum dignissimos cum corrupti, beatae totam fugit similique fugiat consequatur natus non in nulla nam harum ab sequi inventore doloremque tenetur!</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam blanditiis eum corporis quas a explicabo officiis sapiente hic unde expedita obcaecati repudiandae, repellat, exercitationem sunt iusto! Obcaecati minus illo nam!</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="file-upload text-center justify-center justify-content-center items-center" style="position: absolute; bottom: 2px; right: 50%;">
+          <div id="uploadBtn" class="file-upload d-flex justify-content-center" style="bottom: 2px; right: 50%;">
             <input type="file" style="display: none;" id="fileInput" accept="image/*, video/*" />
             <label for="fileInput" class="btn btn-primary rounded-full">UPLOAD</label>
           </div>
@@ -65,28 +74,39 @@
 
   <script>
     const fileInput = document.querySelector('#fileInput')
-    const uploadedVideo = document.querySelector('#uploadedVideo') 
-    const uploadedImage = document.querySelector('#uploadedImage') 
-    const uploadText = document.getElementById('uploadText') 
+    const uploadedVideo = document.querySelector('#uploadedVideo')
+    const uploadedImage = document.querySelector('#uploadedImage')
+    const uploadText = document.getElementById('uploadText')
     const uploadedContent = document.querySelector('.uploaded-content')
+    const loading = document.querySelector('#loading-zone')
+    const uploadBtn = document.querySelector('#uploadBtn')
     
-    fileInput.addEventListener('change', function () {
-      const selectedFile = fileInput.files[0]
-      if (selectedFile) {
-        if (selectedFile.type.startsWith('image/')) {
-          uploadedContent.style.display = 'block'
-          uploadedImage.style.display = 'block' 
-          uploadText.style.display = 'none'
-          uploadedImage.src = URL.createObjectURL(selectedFile) 
-        } else if (selectedFile.type.startsWith('video/')) {
-          uploadedContent.style.display = 'block'
-          uploadedVideo.style.display = 'block' 
-          uploadText.style.display = 'none'
-          uploadedVideo.src = URL.createObjectURL(selectedFile) 
-        } else {
-          alert('Please upload an image or a video file.')
+    loading.style.display = 'none'
+    
+    uploadBtn.addEventListener('click', function () {
+      uploadedContent.style.display = 'none'
+      fileInput.addEventListener('change', function () {
+        const selectedFile = fileInput.files[0]
+        if (selectedFile) {
+          loading.style.display = 'block'
+          setTimeout(function () {
+            if (selectedFile.type.startsWith('image/')) {
+              uploadedContent.style.display = 'block'
+              uploadedImage.style.display = 'block'
+              uploadText.style.display = 'none'
+              uploadedImage.src = URL.createObjectURL(selectedFile)
+            } else if (selectedFile.type.startsWith('video/')) {
+              uploadedContent.style.display = 'block'
+              uploadedVideo.style.display = 'block'
+              uploadText.style.display = 'none'
+              uploadedVideo.src = URL.createObjectURL(selectedFile)
+            } else {
+              alert('Please upload an image or a video file.')
+            }
+            loading.style.display = 'none'
+          }, 5000)
         }
-      }
+      })
     })
   </script>
 {% endblock %}
