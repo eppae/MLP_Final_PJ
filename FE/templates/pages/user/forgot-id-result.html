@@ -11,7 +11,7 @@
         <div class="row justify-content-center align-items-center">
           <div class="col-xl-10 col-lg-12 col-md-9">
             <div class="p-5">
-              <div class="text-center">
+              <div class="text-center mb-5">
                 <h1 class="text-gray-900 mb-4">아이디/비밀번호 찾기</h1>
                 <p>아이디를 잊어버리셨나요?</p>
               </div>
@@ -22,9 +22,10 @@
                       {% comment %} {{ user.id }} {% endcomment %}
                       <h2>당신의 아이디는 xx 입니다!</h2>
                     </div>
-                    <div class="col-5 d-flex mb-4">
+                    <div class="col-5 d-flex justify-content-center mb-4">
                       <a href="{% url 'forgot_pw' %}" id="findButton" class="btn btn-primary btn-user btn-block">Find Password</a> <!-- 클래스명 수정 (btn-blockm -> btn-block) -->
                     </div>
+                    <hr/>
                     <div class="text-center">
                       <a href="{% url 'login' %}">Login</a> 
                     </div>

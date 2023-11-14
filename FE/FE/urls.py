@@ -16,6 +16,7 @@ from .views import (
     admin_profile,
     contact_list,
     contact_detail,
+    fog_result,
     
     forgot_id_result,
     reset_pw
@@ -41,6 +42,7 @@ urlpatterns = [
     path("admin_profile", admin_profile, name="admin_profile"),
     path("contact_list", contact_list, name="contact_list"),
     path("contact_detail", contact_detail, name="contact_detail"),
+    path("fog_result", fog_result, name="fog_result"),
     
     # ========================== 아래는 페이지 확인 차 만든 것임. 삭제해도 됨! ===============================
     path("id_res", forgot_id_result, name="forgot_id_result"),

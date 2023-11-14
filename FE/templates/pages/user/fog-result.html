@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% load static %}
+  <style>
+    .card,
+    #selected-image {
+      border: none;
+    }
+  </style>
+
+  <div class="container mt-4">
+    <!-- 이미지 및 그래프 표시 -->
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <!-- 이미지 표시 -->
+              <div class="col">
+                {% comment %}src="{{ user_profile.image.url }}"{% endcomment %}
+                <img id="selected-image" class="img-fluid" alt="Selected Image" src="{% static 'img/fog.jpg' %}" />
+              </div>
+            </div>
+
+            <div class="container-xxl py-5">
+              <div class="container">
+                <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                  <p class="fs-5 fw-medium fst-italic text-primary">Analysis</p>
+                  <h1 class="display-6">Analysis</h1>
+                </div>
+                <div class="row g-4">
+                  <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="store-item position-relative text-center">
+                      {% comment %}user_profile.graph{% endcomment %}
+                      <img class="img-fluid" src="{% static 'img/fog.jpg' %}" alt="" />
+                      <div class="p-4">
+                        <h4>Graph</h4>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-12 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="store-item position-relative text-center">
+                      <div class="p-4">
+                        <h4>Average</h4>
+                        {% comment %}user_profile.average{% endcomment %}
+                        <p id="average-value">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam obcaecati minima perferendis. Quidem, magni sint. Dolor, quae ipsam praesentium cumque ratione sapiente! Hic blanditiis dignissimos, cumque possimus eum sunt eos!</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="store-item position-relative text-center">
+                      <div class="p-4">
+                        <h4>Total</h4>
+                        {% comment %}user_profile.total{% endcomment %}
+                        <p id="average-value">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam obcaecati minima perferendis. Quidem, magni sint. Dolor, quae ipsam praesentium cumque ratione sapiente! Hic blanditiis dignissimos, cumque possimus eum sunt eos!</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+{% endblock %}

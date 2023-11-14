@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+<link href="{% static 'css/sb-admin-2.css' %}" rel="stylesheet" />
 
 {% block content %}
   <style>
@@ -21,6 +22,21 @@
 
     .form-control-sm {
       max-width: 280px;
+    }
+
+    a, a:hover{
+      color: var(--color-fg);
+    }
+
+    .nav-link, h2 a{
+      color: #7395AE;
+    }
+    .nav-link:hover, h2 a:hover{
+      color: var(--color-fg);
+    }
+
+    .page-link{
+      color: black;
     }
   </style>
 
@@ -80,14 +96,14 @@
       {% comment %}for 문으로 반복 필요{% endcomment %}
       <div class="row posts-entry">
         <div class="col">
-          <div class="blog-entry d-flex blog-entry-search-item mb-4">
+          <div class="blog-entry d-flex blog-entry-search-item mb-5">
             <div>
               <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
               <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2>
               <p>기사 내용</p>
             </div>
           </div>
-          <div class="blog-entry d-flex blog-entry-search-item mb-4">
+          <div class="blog-entry d-flex blog-entry-search-item mb-5">
             <div>
               <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
               <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2>

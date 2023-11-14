@@ -1,20 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('images/hero_5.jpg');">
-    <div class="container">
-      <div class="row same-height justify-content-center">
-        <div class="col-md-6">
-          <div class="post-entry text-center">
-            {% comment %} contact 제목 {% endcomment %}
-            <h1 class="mb-4">contact 제목</h1>
-            <div class="post-meta align-items-center text-center">
-              {% comment %} contact 작성자 정보 {% endcomment %}
-              <span class="d-inline-block mt-1">contact 작성자 이름, 성, email</span>
-              <span>&nbsp;-&nbsp; 날짜</span>
-            </div>
-          </div>
-        </div>
+<style>
+  .post-meta span a{
+    color: #141c22;
+  }
+</style>
+  <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+      {% comment %}BE : post에 대한 title, author, date, category{% endcomment %}
+      <h1 class="display-2 text-dark mb-4 animated slideInDown">Contact Title</h1>
+      <div class="post-meta align-items-center text-center">
+        {% comment %} Author의 email주소 링크 {% endcomment %}
+        <span class="d-inline-block mt-1"><a href="#">By Author</a></span>
+        <span>&nbsp;-&nbsp; December 25, 2023</span>
       </div>
     </div>
   </div>
@@ -24,27 +23,8 @@
       <div class="row blog-entries element-animate justify-content-center">
         <div class="col-md-12 col-lg-8 main-content">
           <div class="post-content-body">
-            {% comment %} 아래는 contact 내용이 들어가면 됩니다! {% endcomment %}
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium nam quas inventore, ut iure iste modi eos adipisci ad ea itaque labore earum autem nobis et numquam, minima eius. Nam eius, non unde ut aut sunt eveniet rerum repellendus porro.</p>
-            <p>Sint ab voluptates itaque, ipsum porro qui obcaecati cumque quas sit vel. Voluptatum provident id quis quo. Eveniet maiores perferendis officia veniam est laborum, expedita fuga doloribus natus repellendus dolorem ab similique sint eius cupiditate necessitatibus, magni nesciunt ex eos.</p>
-            <p>Quis eius aspernatur, eaque culpa cumque reiciendis, nobis at earum assumenda similique ut? Aperiam vel aut, ex exercitationem eos consequuntur eaque culpa totam, deserunt, aspernatur quae eveniet hic provident ullam tempora error repudiandae sapiente illum rerum itaque voluptatem. Commodi, sequi.</p>
-            <div class="row my-4">
-              <div class="col-md-12 mb-4">
-                <img src="images/hero_1.jpg" alt="Image placeholder" class="img-fluid rounded" />
-              </div>
-              <div class="col-md-6 mb-4">
-                <img src="images/img_2_horizontal.jpg" alt="Image placeholder" class="img-fluid rounded" />
-              </div>
-              <div class="col-md-6 mb-4">
-                <img src="images/img_3_horizontal.jpg" alt="Image placeholder" class="img-fluid rounded" />
-              </div>
-            </div>
-            <p>Quibusdam autem, quas molestias recusandae aperiam molestiae modi qui ipsam vel. Placeat tenetur veritatis tempore quos impedit dicta, error autem, quae sint inventore ipsa quidem. Quo voluptate quisquam reiciendis, minus, animi minima eum officia doloremque repellat eos, odio doloribus cum.</p>
-            <p>Temporibus quo dolore veritatis doloribus delectus dolores perspiciatis recusandae ducimus, nisi quod, incidunt ut quaerat, magnam cupiditate. Aut, laboriosam magnam, nobis dolore fugiat impedit necessitatibus nisi cupiditate, quas repellat itaque molestias sit libero voluptas eveniet omnis illo ullam dolorem minima.</p>
-            <p>Porro amet accusantium libero fugit totam, deserunt ipsa, dolorem, vero expedita illo similique saepe nisi deleniti. Cumque, laboriosam, porro! Facilis voluptatem sequi nulla quidem, provident eius quos pariatur maxime sapiente illo nostrum quibusdam aliquid fugiat! Earum quod fuga id officia.</p>
-            <p>Illo magnam at dolore ad enim fugiat ut maxime facilis autem, nulla cumque quis commodi eos nisi unde soluta, ipsa eius aspernatur sint atque! Nihil, eveniet illo ea, mollitia fuga accusamus dolor dolorem perspiciatis rerum hic, consectetur error rem aspernatur!</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus magni explicabo id molestiae, minima quas assumenda consectetur, nobis neque rem, incidunt quam tempore perferendis provident obcaecati sapiente, animi vel expedita omnis quae ipsa! Obcaecati eligendi sed odio labore vero reiciendis facere accusamus molestias eaque impedit, consequuntur quae fuga vitae fugit?</p>
+            {% comment %}아래는 contact 내용이 들어가면 됩니다!{% endcomment %}
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, obcaecati vitae doloribus quas unde eius fugiat inventore quos libero repudiandae nam commodi, error est, dolor deleniti blanditiis illum dolore placeat. Qui similique fugit harum, officiis inventore non perferendis deserunt? Ipsam recusandae perspiciatis velit natus quod perferendis explicabo, nam deserunt iure voluptatum fugit consequatur iste nemo hic qui, eligendi, possimus maxime. Libero fugiat, accusantium quia quos magnam officia voluptatum, eos totam incidunt impedit hic. Magnam, vero optio provident eaque odio sit quae ipsam cum id ratione error eligendi autem quibusdam similique. Facere quisquam eveniet quae eaque distinctio sint repellendus aliquid, nesciunt commodi rerum, quod ea alias labore saepe, minima inventore officiis voluptatibus quidem esse incidunt ipsum. Enim rerum magni dolor non? Suscipit odio ullam ex modi officia ipsa doloremque veritatis assumenda ipsum nihil perferendis, minus temporibus tempore deserunt reprehenderit similique at qui eius, labore quia molestias. Inventore quidem illum beatae minima.</p>
           </div>
         </div>
       </div>

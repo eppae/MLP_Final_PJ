@@ -16,6 +16,11 @@ def community(request):
 def contact(request):
     return render(request, "pages/contact/contact.html")
 
+def contact_list(request):
+    return render(request, "pages/contact/contact-list.html")
+
+def contact_detail(request):
+    return render(request, "pages/contact/contact-detail.html")
 
 def login(request):
     return render(request, "pages/user/login.html")
@@ -70,7 +75,8 @@ def contact_list(request):
 def contact_detail(request):
     return render(request, "pages/contact/contact-detail.html")
 
-
+def fog_result(request):
+    return render(request, "pages/user/fog-result.html")
 
 
 

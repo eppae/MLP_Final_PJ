@@ -17,6 +17,15 @@
     .show-footer {
       display: block; 
     }
+
+    p a{
+      color: #7395AE;
+    }
+
+    p a:hover{
+      color: var(--color-fg);
+    }
+
   </style>
   <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
@@ -26,7 +35,7 @@
         <span class="d-inline-block mt-1">By Author</span>
         <span>&nbsp;-&nbsp; December 25, 2023</span>
         {% comment %}해당 카테고리에 대한 링크{% endcomment %}
-        <span class="d-block mt-1 fst-italic"><a href="#">Category</a></span>
+        <span class="d-block mt-1 fst-italic category-link"><a href="#" class="text-white">Category</a></span>
       </div>
     </div>
   </div>
@@ -45,7 +54,7 @@
         </div>
         <div class="post-good-or-not">
           {% comment %} 좋아요/싫어요 {% endcomment %}
-          <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button>
+          <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up text-white"></i></button>
           <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-danger btn-sm"><i class="fas fa-thumbs-down"></i></button>
         </div>
 
