@@ -5,6 +5,10 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, logout as auth_logout, login as auth_login
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
+# --- fog 관련 ---
+from django.http import HttpResponse
+from django.core.files.storage import FileSystemStorage
+import os
 
 def home(request):
     return render(request, "pages/home.html")
@@ -165,3 +169,24 @@ def forgot_pw(request):
 # --- fog 관련 ---
 def fog(request):
     return render(request, 'pages/test/fog.html')
+
+def upload_file(request):   # 파일을 저장만함
+    if request.method == 'POST':
+        uploaded_file = request.FILES['myfile']
+        
+        if upload_file:
+            folder = 'before_fog'
+            if not os.path.exists(folder):
+                os.makedirs(folder)
+            
+            fs = FileSystemStorage(location='before_fog')
+            filename = fs.save(uploaded_file.name, uploaded_file)
+            file_url = fs.url(filename)
+            return HttpResponse(f"파일이 성공적으로 처리됨 : {file_url}")
+        else:
+            return HttpResponse("파일이 처리되지 않음")
+            
+    return HttpResponse("처리 실패")
+
+# def process_file(request):
+    # 파일을 처리 > after_fog에 저장 > 웹페이지에 표출 구현 예정

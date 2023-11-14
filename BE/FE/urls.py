@@ -18,6 +18,7 @@ from .views import (
     contact_detail,
     user_logout,
     forgot_id_result,
+    upload_file
 
 )
 from django.urls import path
@@ -45,8 +46,6 @@ urlpatterns = [
     path("forgot_pw", forgot_pw, name="forgot_pw"),
     path("signup", signup, name="signup"),
     # --- fog ---
-    path("fog", fog, name="fog"),
-    
-    # ========================== 아래는 페이지 확인 차 만든 것임. 삭제해도 됨! ===============================
-    
+    path("fog/", fog, name="fog"),
+    path('upload_file/', upload_file, name='upload_file'),
 ]
