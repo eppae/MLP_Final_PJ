@@ -8,6 +8,23 @@
     .contact {
       width: 300px;
     }
+
+    span a, h2 a{
+      color: #7395AE;
+    }
+
+    span a:hover, h2 a:hover{
+      color: var(--color-fg);
+    }
+
+    .accordion-button:not(.collapsed) {
+      background-color: #becdd9;
+      color:white;
+    }
+
+    .admin-box h1 {
+      margin-bottom: 1rem;
+    }
   </style>
   <div class="container">
     <div class="container my-5">
@@ -54,55 +71,49 @@
 
     <!-- 'support.html', 'community-news.html', 'contact-list'로 넘어가는 박스 -->
     <div class="row justify-content-evenly">
-      <div class="support p-4 text-center border border-light-subtle border-1 rounded">
-        <div class="Support-box col-md-4">
+      <div id="admin-resources" class="support p-4 text-center justify-content-center border border-light-subtle border-1 rounded">
+        <div class="admin-box text-center col-md-4 text-center mb-5">
           <h1>Support</h1>
         </div>
-        <div style="text-align: left;">
-          <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
-          <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2>
-          <p>기사 내용</p>
+        <div style="text-align: left;" class="mb-4"> 
+          <span class="date">review 날짜 &bullet; <a href="#">카테고리</a></span>
+          <h2><a href="{% url 'news_detail' %}">review 이름</a></h2>
         </div>
-        <div style="text-align: left;">
-          <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
-          <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2>
-          <p>기사 내용</p>
+        <div style="text-align: left;" class="mb-4">
+          <span class="date">review 날짜 &bullet; <a href="#">카테고리</a></span>
+          <h2><a href="{% url 'news_detail' %}">review 이름</a></h2>
         </div>
         <a href="{% url 'support' %}" class="btn btn-primary btn-block">더보기</a>
       </div>
 
-      <div class="news p-4 text-center border border-light-subtle border-1 rounded">
-        <div class="News-box col-md-4">
+      <div id="admin-resources" class="news p-4 text-center border border-light-subtle border-1 rounded">
+        <div class="admin-box text-center col-md-4 mb-5">
           <h1>News</h1>
         </div>
-        <div style="text-align: left;">
+        <div style="text-align: left;" class="mb-4">
           <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
           <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2>
-          <p>기사 내용</p>
         </div>
-        <div style="text-align: left;">
+        <div style="text-align: left;" class="mb-4">
           <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
           <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2>
-          <p>기사 내용</p>
         </div>
         <a href="{% url 'news_list' %}" class="btn btn-primary btn-block">더보기</a>
       </div>
 
-      <div class="contact p-4 text-center border border-light-subtle border-1 rounded">
-        <div class="Contact-box col-md-4">
+      <div id="admin-resources" class="contact p-4 text-center border border-light-subtle border-1 rounded">
+        <div class="admin-box text-center col-md-4 mb-5">
           <h1>Contact</h1>
         </div>
-        <div style="text-align: left;">
-          <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
-          <h2><a href="{% url 'contact_list' %}">기사 이름</a></h2>
-          <p>기사 내용</p>
+        <div style="text-align: left;" class="mb-4">
+          <span class="date">contact 날짜</span>
+          <h2><a href="{% url 'contact_list' %}">contact 이름r</a></h2>
         </div>
-        <div style="text-align: left;">
-          <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
-          <h2><a href="{% url 'contact_list' %}">기사 이름</a></h2>
-          <p>기사 내용</p>
+        <div style="text-align: left;" class="mb-4">
+          <span class="date">contact 날짜</span>
+          <h2><a href="{% url 'contact_list' %}">contact 이름</a></h2>
         </div>
-        <a href="{% url 'support' %}" class="btn btn-primary btn-block">더보기</a>
+        <a href="{% url 'contact_list' %}" class="btn btn-primary btn-block">더보기</a>
       </div>
     </div>
   </div>

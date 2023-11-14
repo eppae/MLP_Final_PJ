@@ -27,12 +27,42 @@
     <link href="{% static 'css/fontawesome-free/css/all.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/custom.css' %}" rel="stylesheet" />
     <link href="{% static 'css/darkmode.css' %}" rel="stylesheet" />
+    <style>
+      .page-header{
+        background : url({% static "img/fog.jpg" %}) center center no-repeat
+      }
+
+      .home, .login-user{
+        color: #2779a7;
+      }
+
+      .nav-link{
+        color: #2779a7;
+      }
+
+      .color-changed, .footer .btn.btn-link::before{
+        color: #7395AE !important;
+      }
+
+      .btn-primary, .btn-primary:hover{
+        background-color: #7395AE;
+        border-color: #7395AE;
+      }
+
+      .navbar .navbar-nav .nav-link:hover{
+        color: #becdd9;
+      }
+
+      .dropdown-item:active{
+        background-color: #becdd9;
+      }
+    </style>
   </head>
   <body>
     <div class="container-fluid bg-white sticky-top">
       <div class="container">
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
-          <a href="{% url 'home' %}" class="nav-item nav-link active">HOME</a>
+          <a href="{% url 'home' %}" class="nav-item nav-link active home">HOME</a>
           <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto">
@@ -57,11 +87,11 @@
                 <div class="col">
                   {% comment %}user가 관리자일때, 아닐때 조건문 추가 필요(BE){% endcomment %}
                   {% if user.is_authenticated and user != admin %}
-                    <a href="{% url 'user_profile' %}" class="nav-item nav-link">{{ user.username }}!</a>
+                    <a href="{% url 'user_profile' %}" class="nav-item nav-link login-user">{{ user.username }}!</a>
                   {% elif user.is_authenticated and user == admin %}
-                    <a href="{% url 'admin_profile' %}" class="nav-item nav-link">{{ user.username }}!</a>
+                    <a href="{% url 'admin_profile' %}" class="nav-item nav-link login-user">{{ user.username }}!</a>
                   {% else %}
-                    <a href="{% url 'login' %}" class="nav-item nav-link">LOGIN</a>
+                    <a href="{% url 'login' %}" class="nav-item nav-link login-user">LOGIN</a>
                   {% endif %}
                 </div>
               </div>
@@ -81,15 +111,15 @@
       <div class="container py-5">
         <div class="row g-5">
           <div class="col-lg-3 col-md-6">
-            <h4 class="text-primary mb-4">Our Office</h4>
+            <h4 class="text-primary mb-4 color-changed">Our Office</h4>
             <p class="mb-2">
-              <i class="fa fa-map-marker-alt text-primary me-3"></i>123 Street, New York, USA
+              <i class="fa fa-map-marker-alt text-primary me-3 color-changed"></i>123 Street, New York, USA
             </p>
             <p class="mb-2">
-              <i class="fa fa-phone-alt text-primary me-3"></i>+012 345 67890
+              <i class="fa fa-phone-alt text-primary me-3 color-changed"></i>+012 345 67890
             </p>
             <p class="mb-2">
-              <i class="fa fa-envelope text-primary me-3"></i>info@example.com
+              <i class="fa fa-envelope text-primary me-3 color-changed"></i>info@example.com
             </p>
             <div class="d-flex pt-3">
               <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i class="fab fa-twitter"></i></a>
@@ -99,7 +129,7 @@
             </div>
           </div>
           <div class="col-lg-3 col-md-6">
-            <h4 class="text-primary mb-4">Quick Links</h4>
+            <h4 class="text-primary mb-4 color-changed">Quick Links</h4>
             <a class="btn btn-link" href="{% url 'fog' %}">Our Product</a>
             <a class="btn btn-link" href="{% url 'community' %}">Community</a>
             <a class="btn btn-link" href="{% url 'contact' %}">Contact Us</a>
@@ -107,7 +137,7 @@
           </div>
           <div class="col-lg-3 col-md-6"></div>
           <div class="col-lg-3 col-md-6">
-            <div class="row"></div>&copy; <a class="fw-medium" href="#">Fog Filtering</a>, All Right Reserved.
+            <div class="row"></div>&copy; <a class="fw-medium color-changed" href="#">Fog Filtering</a>, All Right Reserved.
             <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
           </div>
         </div>

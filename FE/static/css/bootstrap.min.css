@@ -238,7 +238,7 @@ sup {
 }
 
 a {
-    color: #88b44e;
+    color: var(--color-fg);
     text-decoration: none
 }
 

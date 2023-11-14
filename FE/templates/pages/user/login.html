@@ -63,30 +63,27 @@
               <div class="text-center my-3">
                 <h1 class="h2 text-gray-900">Login Page</h1>
               </div>
-              <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                <img height="300" src="" alt="" />
-              </div>
             </div>
             <div class="row justify-content-center">
               <div class="col-lg-6">
                 <div class="p-5">
                   {% comment %} id, pw {% endcomment %}
                   <form class="user">
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                       <input type="text" class="form-control form-control-user" id="InputID" placeholder="ID" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                       <input type="password" class="form-control form-control-user" id="InputPassword" placeholder="Password" />
                     </div>
                     {% comment %} remember me {% endcomment %}
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                       <div class="custom-control custom-checkbox small">
                         <input type="checkbox" class="custom-control-input" id="customCheck" />
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
                     </div>
                     {% comment %} remember me 끝 {% endcomment %}
-                    <a href="index.html" class="btn btn-primary btn-user btn-block">Login</a>
+                    <a href="index.html" class="btn btn-primary btn-user btn-block d-flex justify-content-center">Login</a>
                   </form>
                   <hr />
                   <div class="text-center">
