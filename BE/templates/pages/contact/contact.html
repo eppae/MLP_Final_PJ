@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+      <h1 class="display-2 text-dark mb-4 animated slideInDown">Contact Us</h1>
+    </div>
+  </div>
+
+  <div class="container-xxl contact py-5">
+    <div class="container">
+      <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+        <p class="fs-5 fw-medium fst-italic text-primary">Contact Us</p>
+        <h1 class="display-6">If You Have Any Query, Please Contact Us</h1>
+      </div>
+      {% comment %} contact 작성 -> db {% endcomment %}
+      <div class="row justify-content-center">
+        <div class="col-8" data-aos="fade-up" data-aos-delay="200">
+          <form action="#">
+            <div class="row">
+              <div class="col-6 mb-3">
+                <input type="text" class="form-control" placeholder="이름" />
+              </div>
+              <div class="col-6 mb-3">
+                <input type="email" class="form-control" placeholder="성" />
+              </div>
+              <div class="col-12 mb-3">
+                <input type="text" class="form-control" placeholder="Email" />
+              </div>
+              <div class="col-12 mb-3">
+                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+              </div>
+
+              <div class="col-12">
+                <input type="submit" value="Send Message" class="btn btn-primary" />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

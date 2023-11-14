@@ -1,0 +1,276 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .circle-container {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px;
+    }
+    
+    .circle {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background-color: lightblue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .content-box {
+      max-width: auto;
+      border: none;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin: 20px auto;
+    }
+  </style>
+  <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+      <h1 class="display-2 text-dark mb-4 animated slideInDown">About Us</h1>
+      <nav aria-label="breadcrumb animated slideInDown">
+        <ol class="breadcrumb justify-content-center mb-0 bg-transparent">
+          <li class="breadcrumb-item">
+            <a href="{% url 'community' %}">Community</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="news_list">News</a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div class="container">
+    <div class="circle-container">
+      <div class="row text-center">
+        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
+          {% comment %}admin image{% endcomment %}
+          <div id="admin-1" class="circle" onclick="showContent(1)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+        </div>
+        <label for="admin-1">김민제</label>
+      </div>
+      <div class="row text-center">
+        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
+          {% comment %}admin image{% endcomment %}
+          <div id="admin-2" class="circle" onclick="showContent(2)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+        </div>
+        <label for="admin-2">강수현</label>
+      </div>
+      <div class="row text-center">
+        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
+          {% comment %}admin image{% endcomment %}
+          <div id="admin-3" class="circle" onclick="showContent(3)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+        </div>
+        <label for="admin-3">이동엽</label>
+      </div>
+      <div class="row text-center">
+        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
+          {% comment %}admin image{% endcomment %}
+          <div id="admin-4" class="circle" onclick="showContent(4)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+        </div>
+        <label for="admin-4">장우림</label>
+      </div>
+      <div class="row text-center">
+        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
+          {% comment %}admin image{% endcomment %}
+          <div id="admin-5" class="circle" onclick="showContent(5)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+        </div>
+        <label for="admin-5">홍태광</label>
+      </div>
+    </div>
+
+    <div class="content-box" id="content1">
+      <div class="container">
+        <div class="content-user-profile">
+          <div class="row justify-content-evenly">
+
+            {% comment %} 해당 부분은 레이아웃 고민 중이라서 안드려도 됩니다! (BE) {% endcomment %}
+
+            {% comment %} <div class="col-3">
+              <div class="card" style="width: 18rem;">
+                <div class="card-header">이름</div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">소개</li>
+                  <li class="list-group-item">github</li>
+                </ul>
+              </div>
+            </div> {% endcomment %}
+
+            <div class="col-8">
+              <div class="card">
+                <div class="card-content-1 border-bottom">
+                  <div class="card-header">이름</div>
+                  <div class="card-body">김민제</div>
+                </div>
+                <div class="card-content-2 border-bottom">
+                  <div class="card-header">소개</div>
+                  {% comment %} admin.introduce {% endcomment %}
+                  <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, vitae quis obcaecati facilis enim ratione excepturi ab animi commodi, earum optio quo illum. Tenetur sint nobis esse eveniet provident. Optio!</div>
+                </div>
+                <div class="card-content-3">
+                  <div class="card-header">github</div>
+                  <div class="card-body">https://github.com/Imshyeon</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-box" id="content2">
+      <div class="container">
+        <div class="content-user-profile">
+          <div class="row justify-content-evenly">
+            <div class="col-3">
+              <div class="card" style="width: 18rem;">
+                <div class="card-header">이름</div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">소개</li>
+                  <li class="list-group-item">github</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="card">
+                <div class="card-content-1 border-bottom">
+                  <div class="card-header">이름</div>
+                  <div class="card-body">강수현</div>
+                </div>
+                <div class="card-content-2 border-bottom">
+                  <div class="card-header">소개</div>
+                  {% comment %} admin.introduce {% endcomment %}
+                  <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, vitae quis obcaecati facilis enim ratione excepturi ab animi commodi, earum optio quo illum. Tenetur sint nobis esse eveniet provident. Optio!</div>
+                </div>
+                <div class="card-content-3">
+                  <div class="card-header">github</div>
+                  <div class="card-body">https://github.com/Imshyeon</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-box" id="content3">
+      <div class="container">
+        <div class="content-user-profile">
+          <div class="row justify-content-evenly">
+            <div class="col-3">
+              <div class="card" style="width: 18rem;">
+                <div class="card-header">이름</div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">소개</li>
+                  <li class="list-group-item">github</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="card">
+                <div class="card-content-1 border-bottom">
+                  <div class="card-header">이름</div>
+                  <div class="card-body">이동엽</div>
+                </div>
+                <div class="card-content-2 border-bottom">
+                  <div class="card-header">소개</div>
+                  {% comment %} admin.introduce {% endcomment %}
+                  <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, vitae quis obcaecati facilis enim ratione excepturi ab animi commodi, earum optio quo illum. Tenetur sint nobis esse eveniet provident. Optio!</div>
+                </div>
+                <div class="card-content-3">
+                  <div class="card-header">github</div>
+                  <div class="card-body">https://github.com/Imshyeon</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-box" id="content4">
+      <div class="container">
+        <div class="content-user-profile">
+          <div class="row justify-content-evenly">
+            <div class="col-3">
+              <div class="card" style="width: 18rem;">
+                <div class="card-header">이름</div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">소개</li>
+                  <li class="list-group-item">github</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="card">
+                <div class="card-content-1 border-bottom">
+                  <div class="card-header">이름</div>
+                  <div class="card-body">장우림</div>
+                </div>
+                <div class="card-content-2 border-bottom">
+                  <div class="card-header">소개</div>
+                  {% comment %} admin.introduce {% endcomment %}
+                  <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, vitae quis obcaecati facilis enim ratione excepturi ab animi commodi, earum optio quo illum. Tenetur sint nobis esse eveniet provident. Optio!</div>
+                </div>
+                <div class="card-content-3">
+                  <div class="card-header">github</div>
+                  <div class="card-body">https://github.com/Imshyeon</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-box" id="content5">
+      <div class="container">
+        <div class="content-user-profile">
+          <div class="row justify-content-evenly">
+            <div class="col-3">
+              <div class="card" style="width: 18rem;">
+                <div class="card-header">이름</div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">소개</li>
+                  <li class="list-group-item">github</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="card">
+                <div class="card-content-1 border-bottom">
+                  <div class="card-header">이름</div>
+                  <div class="card-body">홍태광</div>
+                </div>
+                <div class="card-content-2 border-bottom">
+                  <div class="card-header">소개</div>
+                  {% comment %} admin.introduce {% endcomment %}
+                  <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, vitae quis obcaecati facilis enim ratione excepturi ab animi commodi, earum optio quo illum. Tenetur sint nobis esse eveniet provident. Optio!</div>
+                </div>
+                <div class="card-content-3">
+                  <div class="card-header">github</div>
+                  <div class="card-body">https://github.com/Imshyeon</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showContent(index) {
+      document.querySelectorAll('.content-box').forEach((box) => (box.style.display = 'none'))
+      document.getElementById(`content${index}`).style.display = 'flex'
+      // 백엔드: (설명) 해당 content-box에 admin의 profile을 동적으로 추가하는 부분입니다.
+      // 서버에서 해당 정보를 받아오는 방식에 따라 구현이 달라질 수 있습니다.
+      // 실제 서버에서 데이터를 받아오는 부분을 추가해야 합니다.
+      // document.getElementById(`content${index}`).innerHTML = "{{ admin.profile }}";
+    }
+  </script>
+{% endblock %}
