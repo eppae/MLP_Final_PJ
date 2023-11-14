@@ -84,8 +84,9 @@
                     <input type="text" class="form-control-sm" id="s" placeholder="검색" />
                   </form>
                 </div>
+                {% comment %} 해당 부분은 admin만 보이게 해야함 {% endcomment %}
                 <div class="col text-end">
-                  <a href="{% url 'post_form' %}" class="btn btn-primary">질문하기</a>
+                  <a href="{% url 'post_form' %}" class="btn btn-primary">작성하기</a>
                 </div>
               </form>
             </div>
@@ -147,5 +148,5 @@
         footer.style.display = 'none'; 
       }
     });
-  </script>
+  </script> 
 {% endblock %}
