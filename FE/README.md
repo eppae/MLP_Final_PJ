@@ -2,6 +2,15 @@
 ### BE의 전반적인 내용은 주로 주석으로 처리해놨습니다!
 ### news-list, news-detail 부분 추가사항 있습니다!
 
+### 예외사항 
+- static/js/custom/signup.js
+  - BE와 연동할 필요가 있어서 남겨뒀습니다! => 중복되는 Id가 있을 경우
+
+- static/js/custom/login.js
+- forgot~ 예외사항. => 드라이브의 FE 폴더 내, 예외사항 문서 참고
+
+### FE template에서 필요한 부분
+
 - base.html
   - **67줄** : user가 관리자일때, 아닐때 조건문 추가 필요(BE)
 
@@ -81,12 +90,11 @@
   - 유저의 테스트 결과 이미지
   - pagination
 
-
+- review-detail.html
+  - news-detail.html과  `community.writer` 같은 부분을 제외하고 똑같음!
 
 
 # FE
 
 더 세부적으로 해야할 것
 1. 디자인(three.js / 스크롤 fade out 효과 이용..?)
-
-

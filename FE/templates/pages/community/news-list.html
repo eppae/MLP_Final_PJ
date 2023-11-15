@@ -85,9 +85,11 @@
                   </form>
                 </div>
                 {% comment %} 해당 부분은 admin만 보이게 해야함 {% endcomment %}
+                {% if user.is_authenticated and user.role == 'admin' %}
                 <div class="col text-end">
                   <a href="{% url 'post_form' %}" class="btn btn-primary">작성하기</a>
                 </div>
+                {% endif %}
               </form>
             </div>
           </nav>
@@ -137,16 +139,5 @@
     </div>
   </div>
 
-  <script>
-    window.addEventListener('scroll', function () {
-      var footer = document.querySelector('.footer-container');
-      var scrollPosition = window.innerHeight + window.scrollY; 
-
-      if (scrollPosition >= document.body.offsetHeight - 30) {
-        footer.style.display = 'block';
-      } else {
-        footer.style.display = 'none'; 
-      }
-    });
-  </script> 
+  <script src="{% static 'js/custom/scroll.js' %}"></script> 
 {% endblock %}

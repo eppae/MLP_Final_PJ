@@ -68,12 +68,14 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   {% comment %} id, pw {% endcomment %}
-                  <form class="user">
+                  <form class="validated_form user">
                     <div class="form-group mb-3">
                       <input type="text" class="form-control form-control-user" id="InputID" placeholder="ID" />
+                      <div class="valid-id"></div>
                     </div>
                     <div class="form-group mb-3">
                       <input type="password" class="form-control form-control-user" id="InputPassword" placeholder="Password" />
+                      <div class="valid-pw"></div>
                     </div>
                     {% comment %} remember me {% endcomment %}
                     <div class="form-group mb-3">
@@ -100,4 +102,6 @@
       </div>
     </div>
   </div>
+
+  <script src="{% static 'js/custom/login.js' %}"></script>
 {% endblock %}
