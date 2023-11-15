@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
   <div class="container">
     <div class="card o-hidden border-0 shadow-lg my-5">
@@ -9,21 +10,25 @@
               <h1 class="text-gray-900 mb-4">Create an Account!</h1>
             </div>
             {% comment %} 회원가입 폼 : 이름, id, pw, repeat pw, 개인정보 확인 여부 {% endcomment %}
-            <form class="user" method="POST" novalidate>
+            <form class="validated_form" method="POST">
               <div class="form-group row mb-3">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                  <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="이름을 입력하세요" required/>
+                  <input type="text" class="form-control form-control-user" id="FirstName" placeholder="이름을 입력하세요" required/>
                 </div>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control form-control-user" id="inputID" placeholder="ID를 입력하세요" required/>
+                  <input type="text" class="form-control form-control-user form-input-id" id="inputID" placeholder="ID를 입력하세요" rrequired/>
+                  <div class="valid-id text-danger" style="display: block;"></div>
                 </div>
               </div>
               <div class="form-group mb-3">
-                <div class="mb-3">
-                  <input type="password" class="form-control form-control-user" id="InputPassword" placeholder="Password" required/>
-                </div>
                 <div>
-                  <input type="password" class="form-control form-control-user" id="RepeatPassword" placeholder="RepeatPassword" required/>
+                  <input type="password" class="form-control form-control-user form-input-pw" id="InputPassword" placeholder="Password" required/>
+                  <div class="valid-pw-inform text-success" style="display: block;">영어 + 숫자 + 특수문자(!@#$%^&*~)</div>
+                  <div class="valid-pw text-danger" style="display: block;"></div>
+                </div>
+                <div class="mt-3">
+                  <input type="password" class="form-control form-control-user form-input-pw-re" id="RepeatPassword" placeholder="RepeatPassword" required/>
+                  <div class="valid-pw-repeat text-danger" style="display: none;"></div>
                 </div>
               </div>
               <div class="form-group mb-3">
@@ -31,6 +36,7 @@
                   <input type="checkbox" class="custom-control-input" id="customCheck" required/>
                   <label class="custom-control-label" for="customCheck">개인정보처리방침 및 이용약관 동의 여부</label>
                 </div>
+                <div class="valid-checkbox text-danger text-center" style="display: none;"></div>
               </div>
               <div class="d-flex justify-content-center">
                 <input type="submit" class="btn btn-primary btn-user btn-block" value="Register" /> 
@@ -48,4 +54,6 @@
       </div>
     </div>
   </div>
+
+  <script src="{% static 'js/custom/signup.js' %}?ver=1"></script>
 {% endblock %}

@@ -1,5 +1,15 @@
 # BE
 ### BE의 전반적인 내용은 주로 주석으로 처리해놨습니다!
+### news-list, news-detail 부분 추가사항 있습니다!
+
+### 예외사항 
+- static/js/custom/signup.js
+  - BE와 연동할 필요가 있어서 남겨뒀습니다! => 중복되는 Id가 있을 경우
+
+- static/js/custom/login.js
+- forgot~ 예외사항. => 드라이브의 FE 폴더 내, 예외사항 문서 참고
+
+### FE template에서 필요한 부분
 
 - base.html
   - **67줄** : user가 관리자일때, 아닐때 조건문 추가 필요(BE)
@@ -23,10 +33,13 @@
    - news-detail.html
      - post의 타이틀, 작성자, 날짜, 카테고리, edit, delete, content, 댓글개수, 좋아요 및 싫어요
      - 대댓글 작성자, 날짜, 내용
+     - **수정 및 삭제는 admin 혹은 작성자 본인만 가능하도록 해야함**
+     - **대댓글 폼은 첫번째 댓글의 reply에 적용되어 있습니다! 해당 폼 참고해서 작성해주시면 됩니다!**
 
    - news-list.html
      - for문으로 기사 반복
      - pagination
+     - **작성하기 버튼은 admin만 보이도록 할 필요가 있음**
 
 
 3. contact
@@ -77,13 +90,11 @@
   - 유저의 테스트 결과 이미지
   - pagination
 
-
+- review-detail.html
+  - news-detail.html과  `community.writer` 같은 부분을 제외하고 똑같음!
 
 
 # FE
 
 더 세부적으로 해야할 것
-1. post의 댓글, 대댓글 작성 폼
-2. 디자인(three.js / 스크롤 fade out 효과 이용..?)
-
-
+1. 디자인(three.js / 스크롤 fade out 효과 이용..?)

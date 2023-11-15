@@ -17,6 +17,7 @@ from .views import (
     contact_list,
     contact_detail,
     fog_result,
+    review_detail,
     
     forgot_id_result,
     reset_pw
@@ -35,6 +36,7 @@ urlpatterns = [
     path("signup", signup, name="signup"),
     path("post_form", post_form, name="post_form"),
     path("support", support, name="support"),
+    path("review_detail", review_detail, name="review_detail"),
     path("about_us", about_us, name="about_us"),
     path("news_list", news_list, name="news_list"),
     path("news_detail", news_detail, name="news_detail"),
