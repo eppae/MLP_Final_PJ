@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
   <style>
@@ -257,26 +258,6 @@
   </div>
 
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      window.addEventListener('scroll', function () {
-        const footer = document.querySelector('.footer-container');
-        let scrollPosition = window.innerHeight + window.scrollY;
-
-        if (scrollPosition >= document.body.offsetHeight - 30) {
-          footer.classList.add('show-footer');
-        } else {
-          footer.classList.remove('show-footer');
-        }
-      });
-
-      const button = document.querySelector('#reply-btn');
-      const collapseElement = document.querySelector('#reply-form-content');
-
-      // Add a click event listener to the button
-      button.addEventListener('click', function () {
-        collapseElement.classList.toggle('show');
-      });
-    });
-    </script>
+  <script src="{% static 'js/custom/scroll.js' %}"></script>
+  <script src="{% static 'js/custom/news-detail.js' %}"></script>
 {% endblock %}

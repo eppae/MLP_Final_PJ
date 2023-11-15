@@ -154,16 +154,6 @@
     </ul>
   </nav>
 
-  <script>
-    window.addEventListener('scroll', function () {
-      var footer = document.querySelector('.footer-container')
-      var scrollPosition = window.innerHeight + window.scrollY 
-    
-      if (scrollPosition >= document.body.offsetHeight - 30) {
-        footer.style.display = 'block' 
-      } else {
-        footer.style.display = 'none' 
-      }
-    })
-  </script>
+  <script src="{% static 'js/custom/scroll.js' %}"></script>
+  <script src="{% static 'js/custom/support.js' %}"></script>
 {% endblock %}
