@@ -68,29 +68,34 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   {% comment %} id, pw {% endcomment %}
-                  <form class="user">
+                  <form action="{% url 'user_login' %}" class="user" method="post">
+                    {% csrf_token %}
+                    {% if error %}
+                    <p style="color: #C71585;">{{ error }}</p>
+                    {% endif %}
                     <div class="form-group mb-3">
-                      <input type="text" class="form-control form-control-user" id="InputID" placeholder="ID" />
+                      <input type="text" class="form-control form-control-user" id="InputID" name="username" placeholder="ID" value="{{ remembered_username|default_if_none:"" }}" required />
                     </div>
                     <div class="form-group mb-3">
-                      <input type="password" class="form-control form-control-user" id="InputPassword" placeholder="Password" />
+                      <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Password"  required  />
                     </div>
                     {% comment %} remember me {% endcomment %}
                     <div class="form-group mb-3">
                       <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck" />
-                        <label class="custom-control-label" for="customCheck">Remember Me</label>
+                        <input type="checkbox" class="custom-control-input" name="remember_username" id="remember_username" />
+                        <label class="custom-control-label" for="remember_username">Remember Me</label>
                       </div>
                     </div>
                     {% comment %} remember me 끝 {% endcomment %}
-                    <a href="index.html" class="btn btn-primary btn-user btn-block d-flex justify-content-center">Login</a>
+                    <button type="submit" class="btn btn-primary btn-user btn-block d-flex justify-content-center">Login</button>
                   </form>
                   <hr />
                   <div class="text-center">
                     <a class="small" href="{% url 'signup' %}">Create an Account!</a>
                   </div>
                   <div class="text-center">
-                    <a href="{% url 'forgot-id' %}">아이디/비밀번호 찾기</a>
+                    <a href="{% url 'forgot_id' %}">Find ID</a> /
+                    <a href="{% url 'forgot_pw' %}">Find PW</a>
                   </div>
                 </div>
               </div>

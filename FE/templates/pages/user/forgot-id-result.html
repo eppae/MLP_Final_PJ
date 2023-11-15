@@ -20,14 +20,14 @@
                   <div class="row justify-content-center align-items-center">
                     <div class="form-group col-8 mb-4 text-center">
                       {% comment %} {{ user.id }} {% endcomment %}
-                      <h2>당신의 아이디는 xx 입니다!</h2>
+                      <h2>당신의 아이디는 {{ username }} 입니다!</h2>
                     </div>
                     <div class="col-5 d-flex justify-content-center mb-4">
                       <a href="{% url 'forgot_pw' %}" id="findButton" class="btn btn-primary btn-user btn-block">Find Password</a> <!-- 클래스명 수정 (btn-blockm -> btn-block) -->
                     </div>
                     <hr/>
                     <div class="text-center">
-                      <a href="{% url 'login' %}">Login</a> 
+                      <a href="{% url 'user_login' %}">Login</a> 
                     </div>
                   </div>
                 </form>

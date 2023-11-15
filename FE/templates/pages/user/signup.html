@@ -9,27 +9,56 @@
               <h1 class="text-gray-900 mb-4">Create an Account!</h1>
             </div>
             {% comment %} 회원가입 폼 : 이름, id, pw, repeat pw, 개인정보 확인 여부 {% endcomment %}
-            <form class="user" method="POST" novalidate>
+            <form class="user" action="{% url 'signup' %}" method="POST" novalidate>
+              {% csrf_token %}
               <div class="form-group row mb-3">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                  <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="이름을 입력하세요" required/>
+                  {{ form.last_name.label_tag }} 
+                  {{ form.last_name }}
+                  {% if form.last_name.errors %}
+                    {{ form.last_name.errors }}
+                  {% endif %}
                 </div>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control form-control-user" id="inputID" placeholder="ID를 입력하세요" required/>
+                  {{ form.username.label_tag }} 
+                  {{ form.username }}
+                  {% if form.username.errors %}
+                    {{ form.username.errors }}
+                  {% endif %}
                 </div>
               </div>
               <div class="form-group mb-3">
                 <div class="mb-3">
-                  <input type="password" class="form-control form-control-user" id="InputPassword" placeholder="Password" required/>
+                  {{ form.password1.label_tag }} 
+                  {{ form.password1 }}
+                  {% if form.password1.errors %}
+                  {{ form.password1.errors }}
+                  {% endif %}
                 </div>
                 <div>
-                  <input type="password" class="form-control form-control-user" id="RepeatPassword" placeholder="RepeatPassword" required/>
+                  {{ form.password2.label_tag }} 
+                  {{ form.password2 }}
+                  {% if form.password2.errors %}
+                  {{ form.password2.errors }}
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  {{ form.email.label_tag }} 
+                  {{ form.email }}
+                  {% if form.email.errors %}
+                    {{ form.email.errors }}
+                  {% endif %}
                 </div>
               </div>
               <div class="form-group mb-3">
                 <div class="custom-control custom-checkbox small d-flex justify-content-center align-self-center">
-                  <input type="checkbox" class="custom-control-input" id="customCheck" required/>
-                  <label class="custom-control-label" for="customCheck">개인정보처리방침 및 이용약관 동의 여부</label>
+                  {{ form.terms_agreed }}
+                  <label class="custom-control-label" for="{{ form.terms_agreed.id_for_label }}">개인정보처리방침 및 이용약관 동의 여부</label>
+                  {% if form.terms_agreed.errors %}
+                    <div class="errors">
+                      {{ form.terms_agreed.errors }}
+                    </div>
+                  {% endif %}
                 </div>
               </div>
               <div class="d-flex justify-content-center">
@@ -38,10 +67,10 @@
             </form>
             <hr />
             <div class="text-center">
-              <a class="small" href="{% url 'forgot-id' %}">Forgot Password?</a>
+              <a class="small" href="{% url 'forgot_id' %}">Forgot Password?</a>
             </div>
             <div class="text-center">
-              <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
+              <a class="small" href="{% url 'user_login' %}">Already have an account? Login!</a>
             </div>
           </div>
         </div>
