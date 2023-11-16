@@ -49,7 +49,7 @@ def inference():
             with tf.compat.v1.Session(graph=graph):
                 generated = output_image.eval()
 
-        with open(FLAGS.output + '/sample_' + img_path.split('\\')[-1], 'wb') as f:
+        with open(FLAGS.output_dir + '/sample_' + img_path.split('\\')[-1], 'wb') as f:
             f.write(generated)
 
 
