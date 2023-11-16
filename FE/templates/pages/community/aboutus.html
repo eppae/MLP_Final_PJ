@@ -46,44 +46,43 @@
   </div>
   <div class="container">
     <div class="circle-container mb-5">
-      <div class="row text-center">
-        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
-          {% comment %}admin image{% endcomment %}
-          <div id="admin-1" class="circle" onclick="showContent(1)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+      {% for profile in profiles %}
+        <div class="row text-center">
+          <div class="col mx-1 d-flex flex-column align-items-center mb-2">
+            <div id="admin-{{ forloop.counter }}" class="circle" onclick="showContent({{ forloop.counter }})" style="background-image: url('{{ '/static/img/person_2.jpg' }}'); background-size: cover;"></div>
+          </div>
+          <label for="admin-{{ forloop.counter }}">{{ profile.user.get_full_name }}</label>
         </div>
-        <label for="admin-1">김민제</label>
-      </div>
-      <div class="row text-center">
-        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
-          {% comment %}admin image{% endcomment %}
-          <div id="admin-2" class="circle" onclick="showContent(2)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
-        </div>
-        <label for="admin-2">강수현</label>
-      </div>
-      <div class="row text-center">
-        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
-          {% comment %}admin image{% endcomment %}
-          <div id="admin-3" class="circle" onclick="showContent(3)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
-        </div>
-        <label for="admin-3">이동엽</label>
-      </div>
-      <div class="row text-center">
-        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
-          {% comment %}admin image{% endcomment %}
-          <div id="admin-4" class="circle" onclick="showContent(4)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
-        </div>
-        <label for="admin-4">장우림</label>
-      </div>
-      <div class="row text-center">
-        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
-          {% comment %}admin image{% endcomment %}
-          <div id="admin-5" class="circle" onclick="showContent(5)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
-        </div>
-        <label for="admin-5">홍태광</label>
-      </div>
+      {% endfor %}
     </div>
 
-    <div class="content-box" id="content1">
+    {% for profile in profiles %}
+      <div class="content-box" id="content{{ forloop.counter }}">
+        <div class="container">
+          <div class="content-user-profile">
+            <div class="row justify-content-evenly">
+              <div class="col-8">
+                <div class="card">
+                  <div class="card-content-1 border-bottom">
+                    <div class="card-header">이름</div>
+                    <div class="card-body">{{ profile.user.get_full_name }}</div>
+                  </div>
+                  <div class="card-content-2 border-bottom">
+                    <div class="card-header">소개</div>
+                    <div class="card-body">{{ profile.profile_message }}</div>
+                  </div>
+                  <div class="card-content-3">
+                    <div class="card-header">github</div>
+                    <div class="card-body">{{ profile.git_address }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    <div class="content-box" id="content{{ forloop.counter }}">
       <div class="container">
         <div class="content-user-profile">
           <div class="row justify-content-evenly">
@@ -91,16 +90,15 @@
               <div class="card">
                 <div class="card-content-1 border-bottom">
                   <div class="card-header">이름</div>
-                  <div class="card-body">김민제</div>
+                  <div class="card-body">{{ profile.user.get_full_name }}</div>
                 </div>
                 <div class="card-content-2 border-bottom">
                   <div class="card-header">소개</div>
-                  {% comment %} admin.introduce {% endcomment %}
-                  <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, vitae quis obcaecati facilis enim ratione excepturi ab animi commodi, earum optio quo illum. Tenetur sint nobis esse eveniet provident. Optio!</div>
+                  <div class="card-body">{{ profile.profile_message }}</div>
                 </div>
                 <div class="card-content-3">
                   <div class="card-header">github</div>
-                  <div class="card-body">https://github.com/Imshyeon</div>
+                  <div class="card-body">{{ profile.git_address }}</div>
                 </div>
               </div>
             </div>
@@ -108,112 +106,6 @@
         </div>
       </div>
     </div>
-
-    <div class="content-box" id="content2">
-      <div class="container">
-        <div class="content-user-profile">
-          <div class="row justify-content-evenly">
-            <div class="col-8">
-              <div class="card">
-                <div class="card-content-1 border-bottom">
-                  <div class="card-header">이름</div>
-                  <div class="card-body">강수현</div>
-                </div>
-                <div class="card-content-2 border-bottom">
-                  <div class="card-header">소개</div>
-                  {% comment %} admin.introduce {% endcomment %}
-                  <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, vitae quis obcaecati facilis enim ratione excepturi ab animi commodi, earum optio quo illum. Tenetur sint nobis esse eveniet provident. Optio!</div>
-                </div>
-                <div class="card-content-3">
-                  <div class="card-header">github</div>
-                  <div class="card-body">https://github.com/Imshyeon</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="content-box" id="content3">
-      <div class="container">
-        <div class="content-user-profile">
-          <div class="row justify-content-evenly">
-            <div class="col-8">
-              <div class="card">
-                <div class="card-content-1 border-bottom">
-                  <div class="card-header">이름</div>
-                  <div class="card-body">이동엽</div>
-                </div>
-                <div class="card-content-2 border-bottom">
-                  <div class="card-header">소개</div>
-                  {% comment %} admin.introduce {% endcomment %}
-                  <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, vitae quis obcaecati facilis enim ratione excepturi ab animi commodi, earum optio quo illum. Tenetur sint nobis esse eveniet provident. Optio!</div>
-                </div>
-                <div class="card-content-3">
-                  <div class="card-header">github</div>
-                  <div class="card-body">https://github.com/Imshyeon</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="content-box" id="content4">
-      <div class="container">
-        <div class="content-user-profile">
-          <div class="row justify-content-evenly">
-            <div class="col-8">
-              <div class="card">
-                <div class="card-content-1 border-bottom">
-                  <div class="card-header">이름</div>
-                  <div class="card-body">장우림</div>
-                </div>
-                <div class="card-content-2 border-bottom">
-                  <div class="card-header">소개</div>
-                  {% comment %} admin.introduce {% endcomment %}
-                  <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, vitae quis obcaecati facilis enim ratione excepturi ab animi commodi, earum optio quo illum. Tenetur sint nobis esse eveniet provident. Optio!</div>
-                </div>
-                <div class="card-content-3">
-                  <div class="card-header">github</div>
-                  <div class="card-body">https://github.com/Imshyeon</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="content-box" id="content5">
-      <div class="container">
-        <div class="content-user-profile">
-          <div class="row justify-content-evenly">
-            <div class="col-8">
-              <div class="card">
-                <div class="card-content-1 border-bottom">
-                  <div class="card-header">이름</div>
-                  <div class="card-body">홍태광</div>
-                </div>
-                <div class="card-content-2 border-bottom">
-                  <div class="card-header">소개</div>
-                  {% comment %} admin.introduce {% endcomment %}
-                  <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, vitae quis obcaecati facilis enim ratione excepturi ab animi commodi, earum optio quo illum. Tenetur sint nobis esse eveniet provident. Optio!</div>
-                </div>
-                <div class="card-content-3">
-                  <div class="card-header">github</div>
-                  <div class="card-body">https://github.com/Imshyeon</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
     function showContent(index) {
       document.querySelectorAll('.content-box').forEach((box) => (box.style.display = 'none'))

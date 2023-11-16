@@ -86,7 +86,7 @@
                 </div>
                 <div class="col">
                   {% if user.is_authenticated %}
-                    {% if user.is_superuser %}
+                    {% if user.is_staff %}
                         <a href="{% url 'admin_profile' %}" class="nav-item nav-link login-user">{{ user.username }}!</a>
                         <a href="{% url 'user_logout' %}" class="nav-item nav-link login-user">LOGOUT</a>
                       {% else %}

@@ -4,9 +4,16 @@ from django.contrib.auth.models import User
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
+from .models import Profile
 
 
-#------------회원가입코드----------- 
+# ---회원 관련 ---
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_message', 'git_address']
+
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, label='이메일', widget=forms.EmailInput(attrs={'class': 'form-control form-control-user', 'placeholder': '이메일 주소'}))
     terms_agreed = forms.BooleanField(required=True, label='개인정보처리방침 및 이용약관 동의')
