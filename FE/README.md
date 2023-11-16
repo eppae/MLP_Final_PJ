@@ -1,6 +1,13 @@
 # BE
 ### BE의 전반적인 내용은 주로 주석으로 처리해놨습니다!
 ### news-list, news-detail 부분 추가사항 있습니다!
+
+---
+### to. BE
+1. OUR PRODUCT : Process버튼은 어떤건가용..?
+2. signup.html에서 checkbox가 두 개 나옵니다! label은 체크가 안되는데 확인해주세요
+
+
 ---
 ### to. FE
 >> 작업은 지난주에 완료됐는데 이번주에 뻘짓을 하느라 늦게 올려드립니다 FE코드도 건드려서 죄송합니다ㅠ

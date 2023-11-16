@@ -13,7 +13,6 @@ body {
     background-color: var(--color-bg);
     color: var(--color-fg);
     place-items: center;
-    margin-bottom: 50rem;
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
