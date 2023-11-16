@@ -30,7 +30,7 @@
   <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
       {% comment %}BE : post에 대한 title, author, date, category{% endcomment %}
-      <h1 class="display-2 text-dark mb-4 animated slideInDown">News Title</h1>
+      <h1 class="display-2 text-dark mb-4 animated slideInDown">Review Title</h1>
       <div class="post-meta align-items-center text-center">
         <span class="d-inline-block mt-1">By Author</span>
         <span>&nbsp;-&nbsp; December 25, 2023</span>
@@ -45,7 +45,7 @@
         <div class="col text-end mb-4">
           {% comment %}edit -> 해당 포스트 내용이 반영되도록.. / delete{% endcomment %}
 
-          {% comment %} {% if user.is_authenticated and news.writer == user.user_id %} {% endcomment %}
+          {% comment %} {% if user.is_authenticated and community.writer == user.user_id %} {% endcomment %}
             <a href="{% url 'post_form' %}" class="btn btn-info"><i class="fas fa-edit"></i></a>
             <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
           {% comment %} {% endif %} {% endcomment %}
@@ -267,5 +267,6 @@
     </div>
   </div>
 
+  <script src="{% static 'js/custom/scroll.js' %}"></script>
   <script src="{% static 'js/custom/support.js' %}"></script>
 {% endblock %}

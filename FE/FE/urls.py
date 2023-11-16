@@ -15,12 +15,13 @@ from .views import (
     admin_profile,
     contact_list,
     contact_detail,
-    fog_result,
+    # fog_result,   모델 만들어지면 예정
+    review_detail,
+    
     upload_file,
     forgot_id_result,
     user_login,
     user_logout,
-    daily_visitors,
     
 )
 from django.urls import path
@@ -31,6 +32,7 @@ urlpatterns = [
     path("contact", contact, name="contact"),
     path("post_form", post_form, name="post_form"),
     path("support", support, name="support"),
+    path("review_detail", review_detail, name="review_detail"),
     path("about_us", about_us, name="about_us"),
     path("news_list", news_list, name="news_list"),
     path("news_detail", news_detail, name="news_detail"),
@@ -46,9 +48,8 @@ urlpatterns = [
     path("signup", signup, name="signup"),
     path("user_profile", user_profile, name="user_profile"),
     path("admin_profile", admin_profile, name="admin_profile"),
-    path("daily_visitors", daily_visitors, name="daily_visitors"),
     # --- fog ---
     path("fog/", fog, name="fog"),
     path('upload_file/', upload_file, name='upload_file'),
-    path("fog_result", fog_result, name="fog_result"),
+    # path("fog_result", fog_result, name="fog_result"),
 ]

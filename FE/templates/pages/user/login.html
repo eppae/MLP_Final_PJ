@@ -68,16 +68,19 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   {% comment %} id, pw {% endcomment %}
-                  <form action="{% url 'user_login' %}" class="user" method="post">
+                  <form action="{% url 'user_login' %}" class="validated_form" method="post">
                     {% csrf_token %}
                     {% if error %}
                     <p style="color: #C71585;">{{ error }}</p>
                     {% endif %}
+                  <form class="validated_form user">
                     <div class="form-group mb-3">
-                      <input type="text" class="form-control form-control-user" id="InputID" name="username" placeholder="ID" value="{{ remembered_username|default_if_none:"" }}" required />
+                      <input type="text" class="form-control form-control-user" id="InputID" name="username" placeholder="ID" />
+                      <div class="valid-id"></div>
                     </div>
                     <div class="form-group mb-3">
-                      <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Password"  required  />
+                      <input type="password" class="form-control form-control-user" id="InputPassword" name="password" placeholder="Password" />
+                      <div class="valid-pw"></div>
                     </div>
                     {% comment %} remember me {% endcomment %}
                     <div class="form-group mb-3">
@@ -105,4 +108,6 @@
       </div>
     </div>
   </div>
+
+  <script src="{% static 'js/custom/login.js' %}"></script>
 {% endblock %}

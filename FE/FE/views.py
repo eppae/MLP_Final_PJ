@@ -19,34 +19,33 @@ def home(request):
 def community(request):
     return render(request, "pages/community/community.html")
 
-
 def contact(request):
     return render(request, "pages/contact/contact.html")
 
+def contact_list(request):
+    return render(request, "pages/contact/contact-list.html")
 
-def signup(request):
-    return render(request, "pages/user/signup.html")
+def contact_detail(request):
+    return render(request, "pages/contact/contact-detail.html")
 
 
 def post_form(request):
     return render(request, "pages/user/post-form.html")
 
-
 def support(request):
     return render(request, "pages/admin/support.html")
 
+def review_detail(request):
+    return render(request, "pages/user/review-detail.html")
 
 def about_us(request):
     return render(request, "pages/community/aboutus.html")
 
-
 def news_list(request):
     return render(request, "pages/community/news-list.html")
 
-
 def news_detail(request):
     return render(request, "pages/community/news-detail.html")
-
 
 def user_profile(request):
     return render(request, "pages/user/user-profile.html")
@@ -123,6 +122,8 @@ def forgot_id(request):
 
     return render(request, 'pages/user/forgot-id.html')
 
+
+
     # 사용자 검증과 비밀번호 재설정 함수
 def check_user_and_reset_password(request, user, new_password):
     form = SetPasswordForm(user, {'new_password1': new_password, 'new_password2': new_password})
@@ -167,6 +168,8 @@ def forgot_pw(request):
     elif request.method == "POST":
         return check_user(request)
     return render(request, 'pages/user/forgot-password.html', {'password_found': False})
+
+
     
 def get_today_visitors():
     today = timezone.now().date()
@@ -202,7 +205,6 @@ def upload_file(request):
             fs = FileSystemStorage(location='before_fog')
             filename = fs.save(uploaded_file.name, uploaded_file)
             
-            # 파일 업로드 정보를 데이터베이스에 저장
             UploadedFile.objects.create(file=filename)
             
             file_url = fs.url(filename)
