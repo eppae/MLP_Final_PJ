@@ -62,6 +62,13 @@ def contact_list(request):
 def contact_detail(request):
     return render(request, "pages/contact/contact-detail.html")
 
+# ========================== 에러 페이지 ===============================
+
+def page_not_found(request, exception):
+    print("page_not_found function is called!")  # 디버깅용 메시지
+    return render(request, 'pages/error/404.html', status=404)
+
+
 # --- 회원관련 views ---
 def user_logout(request):
     auth_logout(request)
