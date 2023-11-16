@@ -63,14 +63,68 @@
               </div>
             </div>
           </div>
-          <div id="uploadBtn" class="file-upload d-flex justify-content-center mt-4" style="bottom: 2px; right: 50%;">
-            <input type="file" style="display: none;" id="fileInput" accept="image/*, video/*" />
-            <label for="fileInput" class="btn btn-primary rounded-full">UPLOAD</label>
-          </div>
+          <form id="uploadForm" method="post" enctype="multipart/form-data" action="{% url 'upload_file' %}">
+            {% csrf_token %}
+            <div id="uploadBtn" class="file-upload d-flex justify-content-center" style="bottom: 2px; right: 50%;">
+              <input type="file" style="display: none;" id="fileInput" accept="image/*, video/*" name="myfile" onchange="toggleProcessButton()" />
+              <label for="fileInput" class="btn btn-primary rounded-full">UPLOAD</label>
+              <button type="submit" id="processBtn" class="btn btn-primary rounded-full" style="display: none;">PROCESS!</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
 
   <script src="{% static 'js/custom/fog.js' %}?ver=1"></script>
+  <script>
+    const fileInput = document.querySelector('#fileInput')
+    const uploadedVideo = document.querySelector('#uploadedVideo')
+    const uploadedImage = document.querySelector('#uploadedImage')
+    const uploadText = document.getElementById('uploadText')
+    const uploadedContent = document.querySelector('.uploaded-content')
+    const loading = document.querySelector('#loading-zone')
+    const uploadBtn = document.querySelector('#uploadBtn')
+    
+    loading.style.display = 'none'
+    
+    uploadBtn.addEventListener('click', function () {
+      uploadedContent.style.display = 'none'
+      fileInput.addEventListener('change', function () {
+        const selectedFile = fileInput.files[0]
+        if (selectedFile) {
+          loading.style.display = 'block'
+          setTimeout(function () {
+            if (selectedFile.type.startsWith('image/')) {
+              uploadedContent.style.display = 'block'
+              uploadedImage.style.display = 'block'
+              uploadText.style.display = 'none'
+              uploadedImage.src = URL.createObjectURL(selectedFile)
+            } else if (selectedFile.type.startsWith('video/')) {
+              uploadedContent.style.display = 'block'
+              uploadedVideo.style.display = 'block'
+              uploadText.style.display = 'none'
+              uploadedVideo.src = URL.createObjectURL(selectedFile)
+            } else {
+              alert('Please upload an image or a video file.')
+            }
+            loading.style.display = 'none'
+          }, 5000)
+        }
+      })
+    })
+  </script>
+  
+  <script>
+    function toggleProcessButton() {    // PROCESS! 버튼 숨기기 추가
+      var fileInput = document.getElementById('fileInput');
+      var processBtn = document.getElementById('processBtn');
+      
+      if (fileInput.files.length > 0) {
+        processBtn.style.display = 'block';
+      } else {
+        processBtn.style.display = 'none';
+      }
+    }
+  </script>
 {% endblock %}

@@ -10,31 +10,76 @@
               <h1 class="text-gray-900 mb-4">Create an Account!</h1>
             </div>
             {% comment %} 회원가입 폼 : 이름, id, pw, repeat pw, 개인정보 확인 여부 {% endcomment %}
-            <form class="validated_form" method="POST">
+            <form class="validated_form" action="{% url 'signup' %}" method="POST" novalidate>
+              {% csrf_token %}
               <div class="form-group row mb-3">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                  <input type="text" class="form-control form-control-user" id="FirstName" placeholder="이름을 입력하세요" required/>
+                  {% comment %} <input type="text" class="form-control form-control-user" id="FirstName" placeholder="이름을 입력하세요" required/> {% endcomment %}
+                  {{ form.last_name.label_tag }} 
+                  {{ form.last_name }}
+                  {% if form.last_name.errors %}
+                    <div class="text-danger">
+                    {{ form.last_name.errors }}
+                    </div>
+                  {% endif %}
                 </div>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control form-control-user form-input-id" id="inputID" placeholder="ID를 입력하세요" rrequired/>
+                  {{ form.username.label_tag }} 
+                  {{ form.username }}
+                  {% if form.username.errors %}
+                    <div class="text-danger">
+                    {{ form.username.errors }}
+                    </div>
+                  {% endif %}
+                  {% comment %} <input type="text" class="form-control form-control-user form-input-id" id="inputID" placeholder="ID를 입력하세요" rrequired/> {% endcomment %}
                   <div class="valid-id text-danger" style="display: block;"></div>
                 </div>
               </div>
               <div class="form-group mb-3">
                 <div>
-                  <input type="password" class="form-control form-control-user form-input-pw" id="InputPassword" placeholder="Password" required/>
-                  <div class="valid-pw-inform text-success" style="display: block;">영어 + 숫자 + 특수문자(!@#$%^&*~)</div>
-                  <div class="valid-pw text-danger" style="display: block;"></div>
+                  <div class="mb-3">
+                    {{ form.password1.label_tag }} 
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                      <div class="text-danger">
+                        {{ form.password1.errors }}
+                      </div>
+                    {% endif %}
+                    {% comment %} <input type="password" class="form-control form-control-user form-input-pw" id="InputPassword" placeholder="Password" required/> {% endcomment %}
+                    <div class="valid-pw-inform text-success" style="display: block;">영어 + 숫자 + 특수문자(!@#$%^&*~)(입력창에 커서 위치해도 툴팁으로 보이게 했습니다(이건 지울예정))</div>
+                    <div class="valid-pw text-danger" style="display: block;"></div>
                 </div>
                 <div class="mt-3">
-                  <input type="password" class="form-control form-control-user form-input-pw-re" id="RepeatPassword" placeholder="RepeatPassword" required/>
+                  {% comment %} <input type="password" class="form-control form-control-user form-input-pw-re" id="RepeatPassword" placeholder="RepeatPassword" required/> {% endcomment %}
                   <div class="valid-pw-repeat text-danger" style="display: none;"></div>
+                <div>
+                  {{ form.password2.label_tag }} 
+                  {{ form.password2 }}
+                  {% if form.password2.errors %}
+                    <div class="text-danger">
+                      {{ form.password2.errors }}
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  {{ form.email.label_tag }} 
+                  {{ form.email }}
+                  {% if form.email.errors %}
+                    <div class="text-danger">
+                      {{ form.email.errors }}
+                    </div>
+                  {% endif %}
                 </div>
               </div>
               <div class="form-group mb-3">
                 <div class="custom-control custom-checkbox small d-flex justify-content-center align-self-center">
-                  <input type="checkbox" class="custom-control-input" id="customCheck" required/>
-                  <label class="custom-control-label" for="customCheck">개인정보처리방침 및 이용약관 동의 여부</label>
+                  {{ form.terms_agreed }}
+                  <label class="custom-control-label" for="{{ form.terms_agreed.id_for_label }}">개인정보처리방침 및 이용약관 동의 여부</label>
+                  {% if form.terms_agreed.errors %}
+                    <div class="text-danger>
+                      {{ form.terms_agreed.errors }}
+                    </div>
+                  {% endif %}
                 </div>
                 <div class="valid-checkbox text-danger text-center" style="display: none;"></div>
               </div>
@@ -44,10 +89,11 @@
             </form>
             <hr />
             <div class="text-center">
-              <a class="small" href="{% url 'forgot-id' %}">Forgot Password?</a>
+              <a href="{% url 'forgot_id' %}">Find ID</a> /
+              <a href="{% url 'forgot_pw' %}">Find PW</a>
             </div>
             <div class="text-center">
-              <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
+              <a class="small" href="{% url 'user_login' %}">Already have an account? Login!</a>
             </div>
           </div>
         </div>

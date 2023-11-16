@@ -85,13 +85,16 @@
                   </div>
                 </div>
                 <div class="col">
-                  {% comment %}user가 관리자일때, 아닐때 조건문 추가 필요(BE){% endcomment %}
-                  {% if user.is_authenticated and user != admin %}
-                    <a href="{% url 'user_profile' %}" class="nav-item nav-link login-user">{{ user.username }}!</a>
-                  {% elif user.is_authenticated and user == admin %}
-                    <a href="{% url 'admin_profile' %}" class="nav-item nav-link login-user">{{ user.username }}!</a>
+                  {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <a href="{% url 'admin_profile' %}" class="nav-item nav-link login-user">{{ user.username }}!</a>
+                        <a href="{% url 'user_logout' %}" class="nav-item nav-link login-user">LOGOUT</a>
+                      {% else %}
+                        <a href="{% url 'user_profile' %}" class="nav-item nav-link login-user">{{ user.username }}!</a>
+                        <a href="{% url 'user_logout' %}" class="nav-item nav-link login-user">LOGOUT</a>
+                      {% endif %}
                   {% else %}
-                    <a href="{% url 'login' %}" class="nav-item nav-link login-user">LOGIN</a>
+                    <a href="{% url 'user_login' %}" class="nav-item nav-link login-user">LOGIN</a>
                   {% endif %}
                 </div>
               </div>

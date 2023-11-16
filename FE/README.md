@@ -1,6 +1,19 @@
 # BE
 ### BE의 전반적인 내용은 주로 주석으로 처리해놨습니다!
 ### news-list, news-detail 부분 추가사항 있습니다!
+---
+### to. FE
+>> 작업은 지난주에 완료됐는데 이번주에 뻘짓을 하느라 늦게 올려드립니다 FE코드도 건드려서 죄송합니다ㅠ
+1. login, sigup ID/PW찾기 나눠놨습니다
+2. sigup에서 에러메시지 표시도 같이하려고 양식은 동일하게 form 태그로 수정
+3. logout 추가(admin과 user구분했습니다)
+4. OUR PRODUCT 파일처리버튼 추가(일단 디렉토리에 업로드된 파일 저장만)
+5. 프로필 수정부분은 어떻게 하는게 좋을지
+### BE 수정 필!
+1. admin 통계, login의 Remember Me : 프로젝트 여러번 옮기면서 오류났는데 안잡히네요,, 수정 예정...
+2. 모델 나오면 OUR PRODUCT에 파일처리, after저장, 표출 추가해야함
+
+
 
 ### 예외사항 
 - static/js/custom/signup.js
