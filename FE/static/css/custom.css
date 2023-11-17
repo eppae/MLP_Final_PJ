@@ -1,30 +1,32 @@
+body {
+  /* This is the height of your footer */
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
 .footer-container {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #000;
-    color: #fff;
-    padding: 20px 0;
-    z-index: 100;
-  }
-  
-  body {
-    margin-bottom: 50rem;
-    font-family: 'IBM Plex Sans KR', sans-serif;
-  }
-  
-  h6,
-  .h6,
-  h5,
-  .h5,
-  h4,
-  .h4,
-  h3,
-  .h3,
-  h2,
-  .h2,
-  h1,
-  .h1 {
-    font-family: 'IBM Plex Sans KR', sans-serif;
-  }
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  color: #fff;
+  padding: 20px 0;
+  z-index: 100;
+}
+
+
+
+h6,
+.h6,
+h5,
+.h5,
+h4,
+.h4,
+h3,
+.h3,
+h2,
+.h2,
+h1,
+.h1 {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}

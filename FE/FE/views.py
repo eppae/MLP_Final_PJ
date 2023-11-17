@@ -46,18 +46,19 @@ def news_list(request):
 def news_detail(request):
     return render(request, "pages/community/news-detail.html")
 
-def user_profile(request):
-    return render(request, "pages/user/user-profile.html")
-
-
-
-
 def contact_list(request):
     return render(request, "pages/contact/contact-list.html")
 
 
 def contact_detail(request):
     return render(request, "pages/contact/contact-detail.html")
+
+# ========================== 에러 페이지 ===============================
+
+def page_not_found(request, exception):
+    print("page_not_found function is called!")  # 디버깅용 메시지
+    return render(request, 'pages/error/404.html', status=404)
+
 
 # --- 회원관련 views ---
 def user_logout(request):
@@ -120,7 +121,6 @@ def forgot_id(request):
     return render(request, 'pages/user/forgot-id.html')
 
 
-
     # 사용자 검증과 비밀번호 재설정 함수
 def check_user_and_reset_password(request, user, new_password):
     form = SetPasswordForm(user, {'new_password1': new_password, 'new_password2': new_password})
@@ -166,7 +166,21 @@ def forgot_pw(request):
         return check_user(request)
     return render(request, 'pages/user/forgot-password.html', {'password_found': False})
 
-# ------
+
+
+def user_profile(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+    else:
+        form = ProfileForm(instance=request.user.profile)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'pages/user/user-profile.html', context)
+
 
 def admin_profile(request):
     if request.method == 'POST':
@@ -180,7 +194,6 @@ def admin_profile(request):
         'form': form,
     }
     return render(request, 'pages/admin/admin-profile.html', context)
-    # return render(request, "pages/admin/admin-profile.html")
 
 
 def about_us(request):
@@ -226,7 +239,6 @@ def about_us(request):
     }
     return render(request, 'pages/community/aboutus.html', context)
 
-# ------
     
 def get_today_visitors():
     today = timezone.now().date()
@@ -275,3 +287,5 @@ def upload_file(request):
 
 # def process_file(request):
     # 파일을 처리 > after_fog에 저장 > 웹페이지에 표출 구현 예정
+    
+# --- 민제님 views ---

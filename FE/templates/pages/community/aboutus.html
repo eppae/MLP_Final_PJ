@@ -28,6 +28,11 @@
       text-align: center;
       margin: 20px auto;
     }
+
+    .main-container{
+      margin-bottom: 10rem;
+    }
+
   </style>
   <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
@@ -44,7 +49,7 @@
       </nav>
     </div>
   </div>
-  <div class="container">
+  <div class="container main-container">
     <div class="circle-container mb-5">
       {% for profile in profiles %}
         <div class="row text-center">
@@ -57,7 +62,7 @@
     </div>
 
     {% for profile in profiles %}
-      <div class="content-box" id="content{{ forloop.counter }}">
+      <div class="content-box"  id="content{{ forloop.counter }}">
         <div class="container">
           <div class="content-user-profile">
             <div class="row justify-content-evenly">
@@ -81,31 +86,7 @@
           </div>
         </div>
       </div>
-    {% endfor %}
-    <div class="content-box" id="content{{ forloop.counter }}">
-      <div class="container">
-        <div class="content-user-profile">
-          <div class="row justify-content-evenly">
-            <div class="col-8">
-              <div class="card">
-                <div class="card-content-1 border-bottom">
-                  <div class="card-header">이름</div>
-                  <div class="card-body">{{ profile.user.get_full_name }}</div>
-                </div>
-                <div class="card-content-2 border-bottom">
-                  <div class="card-header">소개</div>
-                  <div class="card-body">{{ profile.profile_message }}</div>
-                </div>
-                <div class="card-content-3">
-                  <div class="card-header">github</div>
-                  <div class="card-body">{{ profile.git_address }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      {% endfor %}
   <script>
     function showContent(index) {
       document.querySelectorAll('.content-box').forEach((box) => (box.style.display = 'none'))
