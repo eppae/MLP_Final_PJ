@@ -29,6 +29,7 @@
                 <h1 class="text-gray-900 mb-4">Create an Account!</h1>
               </div>
               {% comment %}회원가입 폼 : 이름, id, pw, repeat pw, 개인정보 확인 여부{% endcomment %}
+              <!-- 이부분 css 수정원하시면 forms.py에 주석 표시했읍니다 -->
               <form class="validated_form" action="{% url 'signup' %}" method="POST" novalidate>
                 {% csrf_token %}
                 <div class="form-group row mb-3">

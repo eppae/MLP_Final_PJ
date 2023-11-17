@@ -23,16 +23,15 @@
         <div class="profile-box justify-content-center">
           <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
-              <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">프로필 수정</button></h2>
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">프로필 수정</button>
+              </h2>
               <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                <form class="accordion-body" id="profilePost" method="post">
-                  <textarea class="form-control col-sm-4" rows="5" id="profileContent">{{ user.profile }}</textarea>
-                  <!-- 백엔드: 프로필 수정 버튼 -->
-                  {% if user.is_authenticated and user == admin %}
-                    {% comment %}onclick="saveProfile()" ..?{% endcomment %}
-                    {% comment %}수정해도 다시 해당 url로 redirection{% endcomment %}
-                    <button type="submit" class="btn btn-primary mt-2">프로필 저장</button>
-                  {% endif %}
+                <form method="post">      <!-- 이부분 css 수정원하시면 forms.py에 주석 표시했읍니다 -->
+                    {% csrf_token %}
+                    <p>{{ form.profile_message.label_tag }} {{ form.profile_message }}</p>
+                    <p>{{ form.git_address.label_tag }} {{ form.git_address }}</p>
+                    <button type="submit">Submit</button>
                 </form>
               </div>
             </div>

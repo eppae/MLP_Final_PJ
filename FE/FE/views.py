@@ -6,7 +6,8 @@ from django.contrib.auth import authenticate, logout as auth_logout, login as au
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from django.utils import timezone
-from .models import UploadedFile
+from .models import Profile, UploadedFile
+from .forms import ProfileForm
 # --- fog 관련 ---
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
@@ -38,22 +39,12 @@ def support(request):
 def review_detail(request):
     return render(request, "pages/user/review-detail.html")
 
-def about_us(request):
-    return render(request, "pages/community/aboutus.html")
 
 def news_list(request):
     return render(request, "pages/community/news-list.html")
 
 def news_detail(request):
     return render(request, "pages/community/news-detail.html")
-
-def user_profile(request):
-    return render(request, "pages/user/user-profile.html")
-
-
-def admin_profile(request):
-    return render(request, "pages/admin/admin-profile.html")
-
 
 def contact_list(request):
     return render(request, "pages/contact/contact-list.html")
@@ -130,7 +121,6 @@ def forgot_id(request):
     return render(request, 'pages/user/forgot-id.html')
 
 
-
     # 사용자 검증과 비밀번호 재설정 함수
 def check_user_and_reset_password(request, user, new_password):
     form = SetPasswordForm(user, {'new_password1': new_password, 'new_password2': new_password})
@@ -176,6 +166,78 @@ def forgot_pw(request):
         return check_user(request)
     return render(request, 'pages/user/forgot-password.html', {'password_found': False})
 
+
+
+def user_profile(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+    else:
+        form = ProfileForm(instance=request.user.profile)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'pages/user/user-profile.html', context)
+
+
+def admin_profile(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+    else:
+        form = ProfileForm(instance=request.user.profile)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'pages/admin/admin-profile.html', context)
+
+
+def about_us(request):
+    profiles = []
+
+    # 민제님 프로필 조회
+    try:
+        user_a = User.objects.get(last_name="김민제", username="mj1")
+        profiles.append(Profile.objects.get(user=user_a))
+    except (User.DoesNotExist, Profile.DoesNotExist):
+        pass 
+
+    # 수현님 프로필 조회
+    try:
+        user_b = User.objects.get(last_name="강수현", username="sh1")
+        profiles.append(Profile.objects.get(user=user_b))
+    except (User.DoesNotExist, Profile.DoesNotExist):
+        pass  
+
+    # 동엽님 프로필 조회
+    try:
+        user_b = User.objects.get(last_name="이동엽", username="dy1")
+        profiles.append(Profile.objects.get(user=user_b))
+    except (User.DoesNotExist, Profile.DoesNotExist):
+        pass
+
+    # 우림님 프로필 조회
+    try:
+        user_b = User.objects.get(last_name="장우림", username="wl1")  
+        profiles.append(Profile.objects.get(user=user_b))
+    except (User.DoesNotExist, Profile.DoesNotExist):
+        pass
+
+    # 홍태광 프로필 조회
+    try:
+        user_htk96 = User.objects.get(last_name="홍태광", username="htk96")
+        profiles.append(Profile.objects.get(user=user_htk96))
+    except (User.DoesNotExist, Profile.DoesNotExist):
+        pass
+
+    context = {
+        'profiles': profiles,
+    }
+    return render(request, 'pages/community/aboutus.html', context)
 
     
 def get_today_visitors():
@@ -225,3 +287,5 @@ def upload_file(request):
 
 # def process_file(request):
     # 파일을 처리 > after_fog에 저장 > 웹페이지에 표출 구현 예정
+    
+# --- 민제님 views ---

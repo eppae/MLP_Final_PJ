@@ -4,9 +4,25 @@ from django.contrib.auth.models import User
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
+from .models import Profile
 
 
-#------------회원가입코드----------- 
+# ---회원 관련 ---
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_message', 'git_address']
+        
+    def __init__(self, *args, **kwargs):           
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        
+        # 프로필 메시지 CSS 수정은 이곳에서!
+        self.fields['profile_message'].widget.attrs.update({'class': 'form-control form-control-user'})
+        self.fields['git_address'].widget.attrs.update({'class': 'form-control form-control-user'})
+        
+        
+
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, label='이메일', widget=forms.EmailInput(attrs={'class': 'form-control form-control-user', 'placeholder': '이메일 주소'}))
     terms_agreed = forms.BooleanField(required=True, label='개인정보처리방침 및 이용약관 동의')
@@ -46,11 +62,12 @@ class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):           
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
         
-        # Bootstrap 클래스 추가
+        # 회원가입 CSS는 이곳에서!!
         self.fields['last_name'].widget.attrs.update({'class': 'form-control form-control-user', 'placeholder': '이름'})
         self.fields['username'].widget.attrs.update({'class': 'form-control form-control-user', 'placeholder': '사용자 ID'})
         self.fields['password1'].widget.attrs.update({'class': 'form-control form-control-user', 'placeholder': '비밀번호'})
         self.fields['password2'].widget.attrs.update({'class': 'form-control form-control-user', 'placeholder': '비밀번호 확인'})
+        
         
         self.fields['password1'].label = '비밀번호'
         self.fields['password2'].label = '비밀번호 확인'  

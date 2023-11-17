@@ -39,18 +39,18 @@
                     {% endif %}
                   <form class="validated_form user">
                     <div class="form-group mb-3">
-                      <input type="text" class="form-control form-control-user" id="InputID" name="username" placeholder="ID" />
+                      <input type="text" class="form-control form-control-user" id="InputID" name="username" placeholder="ID" value="{{ remembered_username|default_if_none:"" }}" required />
                       <div class="valid-id"></div>
                     </div>
                     <div class="form-group mb-3">
-                      <input type="password" class="form-control form-control-user" id="InputPassword" name="password" placeholder="Password" />
+                      <input type="password" class="form-control form-control-user" id="InputPassword" name="password" placeholder="Password" required />
                       <div class="valid-pw"></div>
                     </div>
                     {% comment %} remember me {% endcomment %}
                     <div class="form-group mb-3">
                       <div class="custom-control custom-checkbox small text-center">
                         <input type="checkbox" class="custom-control-input" name="remember_username" id="remember_username" />
-                        <label class="custom-control-label" for="remember_username">Remember Me</label>
+                        <label class="custom-control-label" for="remember_username" >Remember Me</label>
                       </div>
                     </div>
                     {% comment %} remember me 끝 {% endcomment %}
