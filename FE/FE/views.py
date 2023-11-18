@@ -11,6 +11,8 @@ from .forms import ProfileForm
 # --- fog 관련 ---
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
+from .models import dehazing
+from finalProject.ml_utils.inference import inference, FLAGS
 import os
 
 def home(request):
@@ -264,7 +266,45 @@ def my_stats_view(request):
 
 # --- fog 관련 ---
 def fog(request):
-    return render(request, 'pages/test/fog.html')
+    context = {}
+
+    if request.method == 'POST' and request.FILES.get('image'):
+        # 이미지 파일 저장
+        image_file = request.FILES['image']
+        fs = FileSystemStorage(location='before_fog/')
+        filename = fs.save(image_file.name, image_file)
+        uploaded_file_url = fs.url(filename)
+
+        # 데이터베이스에 이미지 정보 저장
+        new_image = dehazing(original_image=filename)
+        new_image.save()
+
+        # inference 설정
+        input_file_path = os.path.join(fs.location, filename)
+        output_file_path = os.path.join('after_fog', 'processed_' + filename)
+        FLAGS.model = 'finalProject/ml_models/Hazy_to_Clear.pb'
+        FLAGS.input_file = input_file_path  # 단일 파일 경로 설정
+        FLAGS.output_file = output_file_path  # 결과 파일 경로 설정
+        
+        # AI 모델을 사용하여 이미지 처리
+        model_path = 'finalProject/ml_models/Hazy_to_Clear.pb'
+        image_size = 256
+        inference(input_file_path, output_file_path, model_path, image_size)
+
+        # 처리된 이미지의 URL
+        processed_file_url = '/after_fog/processed_' + filename
+
+        # 데이터베이스에 처리된 이미지 정보 업데이트
+        new_image.processed_image = 'processed_' + filename
+        new_image.save()
+
+        context = {
+            'uploaded_file_url': uploaded_file_url,
+            'processed_file_url': processed_file_url
+        }
+
+    return render(request, 'pages/test/fog.html', context)
+
 
 def upload_file(request):
     if request.method == 'POST':

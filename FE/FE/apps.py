@@ -7,3 +7,4 @@ class FeConfig(AppConfig):
     
     def ready(self):
         import FE.signals 
+        

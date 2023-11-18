@@ -28,56 +28,24 @@
     <div class="container mt-5">
       <div class="card">
         <div class="card-body">
-          <div class="before-upload mt-5">
-            <h3 id="uploadText" class="row justify-content-center mb-5">파일을 업로드 해주세요.</h3>
-            <div id="loading-zone" aria-busy="true" class="text-center justify-center justify-content-center items-center">
-              <p>Loading...</p>
-              <div class="card mb-5">
-                <label>
-                  <span class="sr-only">Loading progress</span>
-                  <progress class="progressBar" indeterminate role="progressbar" aria-describedby="loading-zone" tabindex="-1"></progress>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="uploaded-content" style="display: none;">
-            <div class="row justify-content-center">
-              {% comment %}결과 사진/영샹{% endcomment %}
-              <div class="col-lg-7 mb-4 mb-lg-0">
-                <video id="uploadedVideo" class="embed-responsive" style="display: none;" autoplay></video>
-                <img id="uploadedImage" class="img-fluid" style="display: none;" alt="Uploaded Image" />
-              </div>
-              <div class="col-lg-4 ps-lg-2">
-                <div class="d-flex mb-3 service-alt">
-                  <div>
-                    <span class="bi-wallet-fill me-4"></span>
-                  </div>
-                  <div>
-                    <h3>그래프</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam blanditiis eum corporis quas a explicabo officiis sapiente hic unde expedita obcaecati repudiandae, repellat, exercitationem sunt iusto! Obcaecati minus illo nam!</p>
-                  </div>
-                </div>
-
-                <div class="d-flex mb-3 service-alt">
-                  <div>
-                    <span class="bi-pie-chart-fill me-4"></span>
-                  </div>
-                  <div>
-                    <h3>수치</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam blanditiis eum corporis quas a explicabo officiis sapiente hic unde expedita obcaecati repudiandae, repellat, exercitationem sunt iusto! Obcaecati minus illo nam!</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <form id="uploadForm" method="post" enctype="multipart/form-data" action="{% url 'upload_file' %}">
-            {% csrf_token %}
-            <div id="uploadBtn" class="file-upload d-flex justify-content-center mt-3" style="bottom: 2px; right: 50%;">
-              <input type="file" style="display: none;" id="fileInput" accept="image/*, video/*" name="myfile" onchange="toggleProcessButton()" />
-              <label for="fileInput" class="btn btn-primary rounded-full">UPLOAD</label>
-              <button type="submit" id="processBtn" class="btn btn-primary rounded-full ml-3 btn-for-process" style="display: none;">PROCESS!</button>
-            </div>
+          <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="file" name="image">
+              <button type="submit">Upload and Process</button>
           </form>
+          
+          {% if uploaded_file_url %}
+              <div class="image-display">
+                  <p>Original Image:</p>
+                  <img src="{{ uploaded_file_url }}" alt="Original Image">
+      
+                  <p>Processed Image:</p>
+                  <img src="{{ processed_file_url }}" alt="Processed Image">
+              </div>
+          {% else %}
+              <!-- 사용자에게 이미지 업로드를 유도하는 메시지 표시 -->
+              <p>Upload an image to see the dehazing effect.</p>
+          {% endif %}
         </div>
       </div>
     </div>
