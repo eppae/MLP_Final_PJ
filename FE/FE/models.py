@@ -16,3 +16,10 @@ class Profile(models.Model):
 class UploadedFile(models.Model):
     file = models.FileField(upload_to='before_fog/')
     upload_date = models.DateTimeField(auto_now_add=True)
+    
+class dehazing(models.Model):
+    original_image = models.ImageField(upload_to='before_fog/')
+    processed_image = models.ImageField(upload_to='after_fog/', null=True, blank=True)
+    # original_video = models.FileField(upload_to='before_fog/')
+    # processed_video = models.FileField(upload_to='after_fog/', null=True, blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
