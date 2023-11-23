@@ -14,7 +14,6 @@
       color: black;
     }
   </style>
-  {% comment %}디자인 추가 필요{% endcomment %}
   <div class="container-fluid bg-dark page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
       <h1 class="display-2 text-white mb-4 animated slideInDown">Contact</h1>
@@ -26,7 +25,6 @@
       <div class="row">
         <div class="col-md-12 my-3">
           <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-            <!-- '네비' (카테고리 선택) -->
             <ul class="nav">
               <li class="nav-item">
                 <a class="nav-link active" href="#">전체</a>
@@ -41,223 +39,112 @@
                 <a class="nav-link" href="#">기타</a>
               </li>
             </ul>
-            {% if contact_messages %}
-              </nav>
-      <form method="post" action="{% url 'delete_contact' %}">
-          <input type="submit" value="delete_contact" class="btn btn-danger">
-        {% csrf_token %}
-
-        <table class="table">
-            <thead>
-            <tr>
-                <th><input type="checkbox" id="check-all"></th>
-                <th>rows</th>
-                <th>content</th>
-                <th style="text-align: right;">Email</th>
-                <th style="text-align: right;">published_at</th>
-                <!--                      <th style="text-align: right;">hits</th>-->
-            </tr>
-            </thead>
-
-            <tbody>
-
-            {% for ContactMessage in contact_messages %}
-            <tr>
-                <td><input type="checkbox" name="selected_boxes" value="{{ ContactMessage.post_num }}"></td>
-                <td style="max-width: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                    {{ ContactMessage.post_num }}
-                </td>
-                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                    <a href="{% url 'contact_detail' post_num=ContactMessage.post_num %}">{{ ContactMessage.title }}</a></td>
-                <td style="text-align: right;">{{ ContactMessage.email }}</td>
-                <td style="text-align: right;">{{ ContactMessage.created_at }}</td>
-                <!--                        <td style="text-align: right;">{{ post.hit }}</td>-->
-            </tr>
-            {% endfor %}
-
-            <!-- 전체 선택기능 -->
-            <script>
-                document.getElementById('check-all').addEventListener('change',function(){
-                var checkboxes = document.getElementsByName('selected_boxes');
-                for (var i = 0; i<checkboxes.length; i++){
-                checkboxes[i].checked = this.checked;
-                }
-                });
-            </script>
-            <!-- 체크된 박스 삭제 기능 -->
-            <script>
-                document.querySelector('form').addEventListener('submit',function(e){
-                var checkboxes = document.getElementsByName('selected_boxes');
-                for (var i = 0; i <checkboxes.length; i++){
-                if (checkboxes[i].checked){
-                var row = checkboxes[i].closest('tr');
-                row.parentNode.removeChild(row);
-                }
-                }
-                });
-            </script>
-
-            </tbody>
-        </table>
-        </form>
-        {% else %}
-        <h3>게시물이 없습니다</h3>
-        {% endif %}
-
-            <!-- 페이징 처리 -->
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <!-- 이전페이지 -->
-                {% if recent_pages.has_previous %}
-                <li class="page-item prev">
-                    <a class="page-link" href="?page={{ recent_pages.previous_page_number }}"><i
-                            class="tf-icon bx bx-chevrons-left"></i></a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><i
-                            class="tf-icon bx bx-chevrons-left"></i></a>
-                </li>
-                {% endif %}
-                <!-- 이전페이지 -->
-
-                <!-- 페이지리스트 -->
-                {% for page_number in recent_pages.paginator.page_range %}
-                {% if page_number >= recent_pages.number|add:-5 and page_number <= posts.number|add:5 %}
-                {% if page_number == recent_pages.number %}
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-                </li>
-                {% else %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-                </li>
-                {% endif %}
-                {% endif %}
-                {% endfor %}
-                <!-- 페이지리스트 -->
-
-                <!-- 다음페이지 -->
-                {% if recent_pages.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ recent_pages.next_page_number }}"><i
-                            class="tf-icon bx bx-chevrons-right"></i></a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><i
-                            class="tf-icon bx bx-chevrons-right"></i></a>
-                </li>
-                {% endif %}
-                <!-- 다음페이지 -->
-            </ul>
-        </nav>
-
-        <!-- 게시글 검색창 -->
-        <nav
-                class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                id="layout-navbar"
-        >
-
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                <!-- Search -->
-
+            <div class="d-flex justify-content-end">
+              <form action="#" class="sidebar-search-form d-sm-inline-flex flex-row-reverse">
                 <form action="{% url 'contact_list' %}" method="GET" id="BoardSearch" name="BoardSearch">
-                    <input type="hidden" id="contact_kw" name="contact_kw" value="{{ contact_kw|default_if_none:'' }}">
-                    <input type="hidden" id="page" name="page" value="{{ page }}">
+                  <input type="hidden" id="contact_kw" name="contact_kw" value="{{ contact_kw|default_if_none:'' }}" />
+                  <input type="hidden" id="page" name="page" value="{{ page }}" />
                 </form>
-
-                <div class="navbar-nav align-items-center">
-                    <div class="nav-item d-flex align-items-center" style="width:100%;">
-                        <input
-                                type="text"
-                                class="form-control border-0 shadow-none"
-                                placeholder="게시글 검색"
-                                aria-label="Search..."
-                                id="contact_search_kw"
-                                name="contact_search_kw"
-                                value="{{ contact_search_kw|default_if_none:'' }}"
-                        />
-                        <div class="input-group-append">
-                        </div>
-                    </div>
+                <div class="navbar-nav align-items-center mr-2">
+                  <div class="nav-item d-flex align-items-center" style="width:100%;">
+                    <input type="text" class="form-control border-1 shadow-none" placeholder="게시글 검색" aria-label="Search..." id="contact_search_kw" name="contact_search_kw" value="{{ contact_search_kw|default_if_none:'' }}" />
+                  </div>
                 </div>
+                <div style="list-style:none; ml-2">
+                  <button class="btn btn-primary" type="button" id="btnSearch"><i class="fas fa-search"></i></button>
+                </div>
+              </form>
             </div>
-            <li style="list-style:none;">
-                <button class="btn btn-outline-secondary" type="button" id="btnSearch">검색<i
-                        class="bx bx-search fs-4 lh-0"></i></button>
-            </li>
-
-
-        </nav>
-        <script type='text/javascript'>
-                const blog_page_elements = document.getElementsByClassName("page-link");
-                Array.from(blog_page_elements).forEach(function(element) {
-                element.addEventListener('click', function() {
-                  document.getElementById('page').value = this.dataset.page;
-                  document.getElementById('BoardSearch').submit();
-                  });
-                });
-                const btnSearch = document.getElementById("btnSearch");
-                btnSearch.addEventListener('click', function() {
-                document.getElementById('contact_kw').value = document.getElementById('contact_search_kw').value;
-                document.getElementById('page').value = 1;
-                document.getElementById('BoardSearch').submit();
-                });
-
-        </script>
-
-
-        <!-- 게시글 검색창 끝 -->
-            <div class="col-md-2 d-flex justify-content-end">
-              <!-- 백엔드: '검색' 입력란 -->
-
-            </div>
-          </nav>
-        </div>
-      </div>
-
-      <div class="section sec-halfs py-0">
-        <div class="container">
-          {% comment %}for{% endcomment %}
-          <div class="d-lg-flex align-items-stretch mb-5">
-            <div class="text">
-              <a href="" class="h2 heading text-primary mb-3">Resources for makers and creatives</a>
-              <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-            </div>
-          </div>
-          <div class="d-lg-flex align-items-stretch mb-5">
-            <div class="text">
-              <a href="" class="h2 heading text-primary mb-3">Resources for makers and creatives</a>
-              <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-            </div>
-          </div>
-          {% comment %}endfor{% endcomment %}
-        </div>
-      </div>
-      <div class="row posts-entry">
-        <div class="col">
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-              </li>
-            </ul>
           </nav>
         </div>
       </div>
     </div>
   </div>
+
+  <section class="contact-messages">
+    <div class="section sec-halfs py-0">
+      <div class="container">
+        {% if contact_messages %}
+          {% comment %}for{% endcomment %}
+          <form method="post" action="{% url 'delete_contact' %}">
+            <div class="menu d-flex">
+              <div class="contact-checkbox mt-2">
+                <input type="checkbox" name="" id="" />
+                <span>전체선택</span>
+              </div>
+              <div class="msg-delete-btn inline-block justify-content-end text-end ms-auto">
+                <input type="submit" value="🗑" class="btn" />
+              </div>
+            </div>
+            <hr />
+            {% csrf_token %}
+
+            {% for ContactMessage in contact_messages %}
+              <div class="d-lg-flex align-items-stretch mb-5">
+                <div class="contact-msg-list">
+                  <div class="contact-msg-post d-flex">
+                    <div class="contact-msg-checkbox mr-3 mt-2 align-self-start">
+                      <input type="checkbox" name="" id="" />
+                    </div>
+                    <div class="contact-msg-content inline-block">
+                      <a href="{% url 'contact_detail' post_num = ContactMessage.post_num %}" class="h2 heading text-primary mb-3">{{ ContactMessage.title }}</a>
+                      <p class="mb-4">{{ ContactMessage.email }} - {{ ContactMessage.created_at }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </form>
+        {% else %}
+          <h3>게시물이 없습니다</h3>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  {% comment %}페이지네이션{% endcomment %}
+  <section>
+    <div class="row posts-entry">
+      <div class="col">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            {% if recent_pages.has_previous %}
+              <li class="page-item prev">
+                <a class="page-link" href="?page={{ recent_pages.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+              </li>
+            {% endif %}
+
+            {% for page_number in recent_pages.paginator.page_range %}
+              {% if page_number >= (recent_pages.number|add:- 5 and page_number <= (posts.number|add:5)) %}
+                {% if page_number == recent_pages.number %}
+                  <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                  </li>
+                {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                  </li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+
+            {% if recent_pages.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ recent_pages.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+              </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+  <script src="{% static 'js/custom/contact-list.js' %}" type="text/javascript"></script>
 {% endblock %}
