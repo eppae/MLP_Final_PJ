@@ -43,9 +43,14 @@
             </ul>
             {% if contact_messages %}
               </nav>
+      <form method="post" action="{% url 'delete_contact' %}">
+          <input type="submit" value="delete_contact" class="btn btn-danger">
+        {% csrf_token %}
+
         <table class="table">
             <thead>
             <tr>
+                <th><input type="checkbox" id="check-all"></th>
                 <th>rows</th>
                 <th>content</th>
                 <th style="text-align: right;">Email</th>
@@ -53,24 +58,48 @@
                 <!--                      <th style="text-align: right;">hits</th>-->
             </tr>
             </thead>
+
             <tbody>
+
             {% for ContactMessage in contact_messages %}
             <tr>
+                <td><input type="checkbox" name="selected_boxes" value="{{ ContactMessage.post_num }}"></td>
                 <td style="max-width: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                     {{ ContactMessage.post_num }}
                 </td>
                 <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                    <a href="/contact-detail/{{ContactMessage.post_num}}">{{ ContactMessage.title }}</a></td>
+                    <a href="{% url 'contact_detail' post_num=ContactMessage.post_num %}">{{ ContactMessage.title }}</a></td>
                 <td style="text-align: right;">{{ ContactMessage.email }}</td>
                 <td style="text-align: right;">{{ ContactMessage.created_at }}</td>
                 <!--                        <td style="text-align: right;">{{ post.hit }}</td>-->
-
-
             </tr>
             {% endfor %}
+
+            <!-- 전체 선택기능 -->
+            <script>
+                document.getElementById('check-all').addEventListener('change',function(){
+                var checkboxes = document.getElementsByName('selected_boxes');
+                for (var i = 0; i<checkboxes.length; i++){
+                checkboxes[i].checked = this.checked;
+                }
+                });
+            </script>
+            <!-- 체크된 박스 삭제 기능 -->
+            <script>
+                document.querySelector('form').addEventListener('submit',function(e){
+                var checkboxes = document.getElementsByName('selected_boxes');
+                for (var i = 0; i <checkboxes.length; i++){
+                if (checkboxes[i].checked){
+                var row = checkboxes[i].closest('tr');
+                row.parentNode.removeChild(row);
+                }
+                }
+                });
+            </script>
+
             </tbody>
         </table>
-
+        </form>
         {% else %}
         <h3>게시물이 없습니다</h3>
         {% endif %}
@@ -139,7 +168,7 @@
                 </form>
 
                 <div class="navbar-nav align-items-center">
-                    <div class="nav-item d-flex align-items-center">
+                    <div class="nav-item d-flex align-items-center" style="width:100%;">
                         <input
                                 type="text"
                                 class="form-control border-0 shadow-none"
@@ -193,13 +222,13 @@
           {% comment %}for{% endcomment %}
           <div class="d-lg-flex align-items-stretch mb-5">
             <div class="text">
-              <a href="{% url 'contact_detail' %}" class="h2 heading text-primary mb-3">Resources for makers and creatives</a>
+              <a href="" class="h2 heading text-primary mb-3">Resources for makers and creatives</a>
               <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
             </div>
           </div>
           <div class="d-lg-flex align-items-stretch mb-5">
             <div class="text">
-              <a href="{% url 'contact_detail' %}" class="h2 heading text-primary mb-3">Resources for makers and creatives</a>
+              <a href="" class="h2 heading text-primary mb-3">Resources for makers and creatives</a>
               <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
             </div>
           </div>

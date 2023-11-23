@@ -56,7 +56,7 @@ def contact_list(request):
     page_number = request.GET.get('page','1')
     print("Page number:", page_number)
     contact_messages = ContactMessage.objects.all()
-    print(contact_messages)
+    print("Contact Messages:", contact_messages)
     kw = request.GET.get('contact_kw','') # 검색어
     if kw:
         contact_messages = contact_messages.filter(
@@ -64,7 +64,6 @@ def contact_list(request):
             Q(message__icontains=kw) |  # 내용 검색
             Q(email__icontains=kw)  # 이메일 검색
         ).distinct()
-
     paginator = Paginator(contact_messages, 10)
     page_obj = paginator.get_page(page_number)
     context = {'recent_page':page_obj,'page':page_number,'contact_messages':contact_messages, 'kw':kw}
@@ -99,10 +98,11 @@ def submit_contact(request):
 
     return HttpResponse("Invalid Request Method")
 
-def delete_contact(request,post_num):
-    contact_messages = ContactMessage.objects.get(post_num=post_num)
-    contact_messages.delete()
-    return redirect('contact-list')
+def delete_contact(request):
+    if request.method == 'POST':
+        selected_contacts = request.POST.getlist('selected_boxes')
+        ContactMessage.objects.filter(post_num__in=selected_contacts).delete()
+    return render(request,'pages/contact/contact_list.html')
 
 # ========================== 에러 페이지 ===============================
 
