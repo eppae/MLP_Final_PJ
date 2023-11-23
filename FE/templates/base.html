@@ -90,7 +90,13 @@
                     <a href="{% url 'news_list' %}" class="dropdown-item">News</a>
                   </div>
                 </div>
-                <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
+                <div class="nav-item dropdown">
+                  <a href="{% url 'contact' %}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Contact</a>
+                  <div class="dropdown-menu bg-light rounded-0 m-0">
+                    <a href="{% url 'contact' %}" class="dropdown-item">Contact</a>
+                    <a href="{% url 'contact_list' %}" class="dropdown-item">Contact-list</a>
+                  </div>
+                </div>
                 <a href="{% url 'support' %}" class="nav-item nav-link">Support</a>
               </div>
               <div class="border-start ps-4 d-none d-lg-block">

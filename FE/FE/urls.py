@@ -15,6 +15,7 @@ from .views import (
     admin_profile,
     contact_list,
     contact_detail,
+    submit_contact,
     # fog_result,   모델 만들어지면 예정
     review_detail,
     
@@ -51,5 +52,10 @@ urlpatterns = [
     # --- fog ---
     path("fog/", fog, name="fog"),
     path('upload_file/', upload_file, name='upload_file'),
+
+# ========================== contact BE url ===============================
+    path('submit_contact', submit_contact, name='submit_contact'),
+    path("contact_list", contact_list, name="contact_list"),
+    path("contact_detail", contact_detail, name="contact_detail"),
     # path("fog_result", fog_result, name="fog_result"),
 ]

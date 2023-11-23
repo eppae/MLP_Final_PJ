@@ -1,4 +1,8 @@
-from django.shortcuts import render, redirect
+#---안개관련---
+from django.core.paginator import Paginator
+from django.db.models import Q
+from .models import ContactMessage
+from django.shortcuts import render, redirect , get_object_or_404
 #---회원관련---
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm
@@ -49,11 +53,56 @@ def news_detail(request):
     return render(request, "pages/community/news-detail.html")
 
 def contact_list(request):
-    return render(request, "pages/contact/contact-list.html")
+    page_number = request.GET.get('page','1')
+    print("Page number:", page_number)
+    contact_messages = ContactMessage.objects.all()
+    print(contact_messages)
+    kw = request.GET.get('contact_kw','') # 검색어
+    if kw:
+        contact_messages = contact_messages.filter(
+            Q(title__icontains=kw) |  # 제목 검색
+            Q(message__icontains=kw) |  # 내용 검색
+            Q(email__icontains=kw)  # 이메일 검색
+        ).distinct()
+
+    paginator = Paginator(contact_messages, 10)
+    page_obj = paginator.get_page(page_number)
+    context = {'recent_page':page_obj,'page':page_number,'contact_messages':contact_messages, 'kw':kw}
+    return render(request, "pages/contact/contact-list.html",context)
 
 
-def contact_detail(request):
-    return render(request, "pages/contact/contact-detail.html")
+def contact_detail(request, post_num):
+    contact_message = get_object_or_404(ContactMessage, post_num=post_num)
+
+    return render(request, "pages/contact/contact-detail.html",{'contact_message':contact_message})
+
+
+def submit_contact(request):
+    page_number = request.GET.get('page','1')
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        title = request.POST.get('title')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        contact_message = ContactMessage(
+            first_name = first_name,
+            last_name = last_name,
+            title = title,
+            email = email,
+            message = message
+        )
+        contact_message.save()
+        print(contact_message)
+        return render(request, 'pages/contact/contact.html', {'contact_message': contact_message})
+
+    return HttpResponse("Invalid Request Method")
+
+def delete_contact(request,post_num):
+    contact_messages = ContactMessage.objects.get(post_num=post_num)
+    contact_messages.delete()
+    return redirect('contact-list')
 
 # ========================== 에러 페이지 ===============================
 
