@@ -14,7 +14,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: var(--md-space);
-    font-family: system-ui, sans-serif;
+    font-family: 'IBM Plex Sans KR', sans-serif;
   }
   
   section {
@@ -38,7 +38,7 @@
   
   .horizontal-media-scroller {
     /* 사이즈는 여기 수정 */
-    --size: 300px;  
+    --size: 480px;  
   
     display: grid;
     grid-auto-flow: column;
