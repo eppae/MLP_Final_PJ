@@ -1,6 +1,7 @@
 const fileInput = document.querySelector('#fileInput')
 const uploadedVideo = document.querySelector('#uploadedVideo')
 const uploadedImage = document.querySelector('#uploadedImage')
+const uploadedDisplay = document.querySelector('.image-display')
 const uploadText = document.getElementById('uploadText')
 const uploadedContent = document.querySelector('.uploaded-content')
 const loading = document.querySelector('#loading-zone')
@@ -104,7 +105,8 @@ uploadBtn.addEventListener('click', function () {
             } else {
                 alert('Please upload an image or a video file.')
             }
-
+            
+            // uploadedDisplay.style.display = 'block'
             // [E5. 파일 업로딩 시, 제한 시간을 초과할 경우]
             if (uploadTimeoutException() === 0) {
                 console.log('break');
@@ -113,6 +115,7 @@ uploadBtn.addEventListener('click', function () {
             }
             loading.style.display = 'none';
         }, 5000);
+        uploadText.style.display = 'display'
     });
 });
 

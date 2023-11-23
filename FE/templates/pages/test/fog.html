@@ -16,53 +16,60 @@
     .progressBar {
       width: 500px;
     }
-    .section{
+    .section {
       margin-bottom: 18rem;
-    }
-    .btn-for-process{
-      padding:.375rem .75rem;
-      margin-bottom: 0.5rem;
     }
   </style>
   <div class="section">
     <div class="container mt-5">
       <div class="card">
         <div class="card-body">
-          <form method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-              <input type="file" name="image">
-              <button type="submit">Upload and Process</button>
-          </form>
-          
-          {% if uploaded_file_url %}
-              <div class="image-display">
-                  <p>Original Image:</p>
-                  <img src="{{ uploaded_file_url }}" alt="Original Image">
-      
-                  <p>Processed Image:</p>
-                  <img src="{{ processed_file_url }}" alt="Processed Image">
+          <div class="before-upload mt-5">
+            <div id="loading-zone" aria-busy="true" class="text-center justify-center justify-content-center items-center">
+              <p>Loading...</p>
+              <div class="card mb-5">
+                <label>
+                  <span class="sr-only">Loading progress</span>
+                  <progress class="progressBar" indeterminate role="progressbar" aria-describedby="loading-zone" tabindex="-1"></progress>
+                </label>
               </div>
-          {% else %}
-              <!-- 사용자에게 이미지 업로드를 유도하는 메시지 표시 -->
-              <p>Upload an image to see the dehazing effect.</p>
-          {% endif %}
+            </div>
+          </div>
+
+          <div class="uploaded-content">
+            <div class="row justify-content-center">
+              <div class="col-lg-7 mb-4 mb-lg-0">
+                {% comment %} <video id="uploadedVideo" class="embed-responsive" style="display: none;" autoplay></video> {% endcomment %}
+                {% comment %} <img id="uploadedImage" class="img-fluid" style="display: none;" alt="Uploaded Image" /> {% endcomment %}
+
+                {% if uploaded_file_url %}
+                  <div class="image-display">
+                    <p>Original Image:</p>
+                    <img id="uploadedImage" class="img-fluid" style="display: none;" src="{{ uploaded_file_url }}" alt="Original Image" />
+
+                    <p>Processed Image:</p>
+                    <img id="uploadedImage" class="img-fluid" style="display: none;" src="{{ processed_file_url }}" alt="Processed Image" />
+                  </div>
+                {% else %}
+                  <!-- 사용자에게 이미지 업로드를 유도하는 메시지 표시 -->
+                  <h3 id="uploadText" class="row justify-content-center mb-5">파일을 업로드 해주세요.</h3>
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
+
+          <form id="uploadForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div id="uploadBtn" class="file-upload d-flex justify-content-center mt-3" style="bottom: 2px; right: 50%;">
+              <input type="file" style="display: none;" id="fileInput" accept="image/*, video/*" name="image" />
+              <label for="fileInput" type="submit" class="btn btn-primary rounded-full ml-3 btn-for-process">Upload and Process</label>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="{% static 'js/custom/fog.js' %}?ver=1"></script>
-  
-  <script>
-    function toggleProcessButton() {    // PROCESS! 버튼 숨기기 추가
-      var fileInput = document.getElementById('fileInput');
-      var processBtn = document.getElementById('processBtn');
-      
-      if (fileInput.files.length > 0) {
-        processBtn.style.display = 'block';
-      } else {
-        processBtn.style.display = 'none';
-      }
-    }
-  </script>
+  <script src="{% static 'js/custom/fog.js' %}?ver=2"></script>
 {% endblock %}

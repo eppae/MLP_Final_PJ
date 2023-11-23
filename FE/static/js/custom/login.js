@@ -26,8 +26,8 @@ const validatonPw = () =>{
 }
 
 Array.from(inputs).forEach(input => {
-    input.addEventListener('input', validateID);
-    input.addEventListener('input', checkDuplicateID);
+    input.addEventListener('input', validationId);
+    input.addEventListener('input', validatonPw);
 });
 
-window.addEventListener('load', validateID);
+window.addEventListener('load', validationId);
