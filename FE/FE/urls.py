@@ -15,6 +15,8 @@ from .views import (
     admin_profile,
     contact_list,
     contact_detail,
+    submit_contact,
+    delete_contact,
     # fog_result,   모델 만들어지면 예정
     review_detail,
     
@@ -36,8 +38,6 @@ urlpatterns = [
     path("about_us", about_us, name="about_us"),
     path("news_list", news_list, name="news_list"),
     path("news_detail", news_detail, name="news_detail"),
-    path("contact_list", contact_list, name="contact_list"),
-    path("contact_detail", contact_detail, name="contact_detail"),
         # --- 회원관련 ---
     path("id_res", forgot_id_result, name="forgot_id_result"),
     path("user_login", user_login, name="user_login"),
@@ -51,5 +51,11 @@ urlpatterns = [
     # --- fog ---
     path("fog/", fog, name="fog"),
     path('upload_file/', upload_file, name='upload_file'),
+
+# ========================== contact BE url ===============================
+    path('submit_contact', submit_contact, name='submit_contact'),
+    path("contact_list", contact_list, name="contact_list"),
+    path("contact_detail/<int:post_num>/", contact_detail, name="contact_detail"),
+    path("delete_contact", delete_contact, name="delete_contact"),
     # path("fog_result", fog_result, name="fog_result"),
 ]

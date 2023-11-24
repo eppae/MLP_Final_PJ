@@ -15,9 +15,12 @@ function calculateSettingAsThemeString({ localStorageTheme, systemSettingDark })
 */
 function updateButton({ buttonEl, isDark }) {
   const modeIcon = document.querySelector('#darkmodeIcon')
+  const modeText = document.querySelector('.darkmode-text')
   const newCta = isDark ? "light" : "dark";
+  const newText = isDark ? " LIGHTMODE" : " DARKMODE";
+  modeText.innerHTML = newText
   buttonEl.setAttribute("aria-label", newCta);
-  const newSrc = isDark ? darkIconURL : lightIconURL;  
+  const newSrc = isDark ? darkIconURL : lightIconURL;
   modeIcon.src = newSrc;
 }
 

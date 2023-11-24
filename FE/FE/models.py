@@ -23,3 +23,16 @@ class dehazing(models.Model):
     # original_video = models.FileField(upload_to='before_fog/')
     # processed_video = models.FileField(upload_to='after_fog/', null=True, blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+# --- contact 모델 ---
+class ContactMessage(models.Model):
+    post_num = models.BigAutoField(primary_key=True)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.title}"

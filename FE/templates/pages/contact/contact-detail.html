@@ -24,7 +24,11 @@
         <div class="col-md-12 col-lg-8 main-content">
           <div class="post-content-body">
             {% comment %}아래는 contact 내용이 들어가면 됩니다!{% endcomment %}
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, obcaecati vitae doloribus quas unde eius fugiat inventore quos libero repudiandae nam commodi, error est, dolor deleniti blanditiis illum dolore placeat. Qui similique fugit harum, officiis inventore non perferendis deserunt? Ipsam recusandae perspiciatis velit natus quod perferendis explicabo, nam deserunt iure voluptatum fugit consequatur iste nemo hic qui, eligendi, possimus maxime. Libero fugiat, accusantium quia quos magnam officia voluptatum, eos totam incidunt impedit hic. Magnam, vero optio provident eaque odio sit quae ipsam cum id ratione error eligendi autem quibusdam similique. Facere quisquam eveniet quae eaque distinctio sint repellendus aliquid, nesciunt commodi rerum, quod ea alias labore saepe, minima inventore officiis voluptatibus quidem esse incidunt ipsum. Enim rerum magni dolor non? Suscipit odio ullam ex modi officia ipsa doloremque veritatis assumenda ipsum nihil perferendis, minus temporibus tempore deserunt reprehenderit similique at qui eius, labore quia molestias. Inventore quidem illum beatae minima.</p>
+            <p>Title: {{ contact_message.title }}</p>
+            <p>Name: {{ contact_message.first_name }} {{ contact_message.last_name }}</p>
+            <p>Email: {{ contact_message.email }}</p>
+            <p>Message: {{ contact_message.message }}</p>
+            <p>Created At: {{ contact_message.created_at }}</p>
           </div>
         </div>
       </div>

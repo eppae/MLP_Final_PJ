@@ -22,145 +22,158 @@
     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}" />
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
     <link href="{% static 'css/fontawesome-free/css/all.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/custom.css' %}?ver=2" rel="stylesheet" />
     <link href="{% static 'css/darkmode.css' %}?ver=2" rel="stylesheet" />
     <style>
-      .page-header{
-        background : center center no-repeat url("../../static/img/fog.jpg")
+      .page-header {
+        background: center center no-repeat url('../../static/img/fog.jpg');
       }
-
-      .home, .login-user{
+      
+      .home,
+      .login-user {
         color: #2779a7;
       }
-
-      .nav-link{
+      
+      .nav-link {
         color: #2779a7;
       }
-
-      .color-changed, .footer .btn.btn-link::before{
-        color: #7395AE !important;
+      
+      .color-changed,
+      .footer .btn.btn-link::before {
+        color: #7395ae !important;
       }
-
-      .btn-primary, .btn-primary:hover{
-        background-color: #7395AE;
-        border-color: #7395AE;
+      
+      .btn-primary,
+      .btn-primary:hover {
+        background-color: #7395ae;
+        border-color: #7395ae;
       }
-
-      .navbar .navbar-nav .nav-link:hover{
+      
+      .navbar .navbar-nav .nav-link:hover {
         color: #becdd9;
       }
-
-      .dropdown-item:active{
+      
+      .dropdown-item:active {
         background-color: #becdd9;
+      }
+      
+      canvas {
+        display: block;
+      }
+      
+      .backToTop {
+        position: fixed;
+        right: 30px;
+        bottom: 30px;
+        z-index: 99
       }
     </style>
   </head>
   <body>
-    <div class="container-fluid bg-white sticky-top">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
-          <a href="{% url 'home' %}" class="nav-item nav-link active home">HOME</a>
-          <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto">
-              <a href="{% url 'fog' %}" class="nav-item nav-link">Our Product</a>
-              <div class="nav-item dropdown">
-                <a href="{% url 'community' %}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Community</a>
-                <div class="dropdown-menu bg-light rounded-0 m-0">
-                  <a href="{% url 'about_us' %}" class="dropdown-item">About Us</a>
-                  <a href="{% url 'news_list' %}" class="dropdown-item">News</a>
-                </div>
-              </div>
-              <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
-              <a href="{% url 'support' %}" class="nav-item nav-link">Support</a>
-            </div>
-            <div class="border-start ps-4 d-none d-lg-block">
-              <div class="row">
-                <div class="col">
-                  <div class="darkmode">
-                    <button data-theme-toggle aria-label="light" class="darkmode-btn" type="button"><img id="darkmodeIcon" src="{% static 'img/brightness-high-fill.svg' %}" alt="light mode icon" /></button>
+    <header>
+      <div class="container-fluid bg-white sticky-top">
+        <div class="container">
+          <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
+            <a href="{% url 'home' %}" class="nav-item nav-link active home">HOME</a>
+            <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <div class="navbar-nav ms-auto">
+                <a href="{% url 'fog' %}" class="nav-item nav-link">Our Product</a>
+                <div class="nav-item dropdown">
+                  <a href="{% url 'community' %}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Community</a>
+                  <div class="dropdown-menu bg-light rounded-0 m-0">
+                    <a href="{% url 'about_us' %}" class="dropdown-item">About Us</a>
+                    <a href="{% url 'news_list' %}" class="dropdown-item">News</a>
                   </div>
                 </div>
-                <div class="col">
-                  {% if user.is_authenticated %}
-                    {% if user.is_staff %}
+                <div class="nav-item dropdown">
+                  <a href="{% url 'contact' %}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Contact</a>
+                  <div class="dropdown-menu bg-light rounded-0 m-0">
+                    <a href="{% url 'contact' %}" class="dropdown-item">Contact</a>
+                    <a href="{% url 'contact_list' %}" class="dropdown-item">Contact-list</a>
+                  </div>
+                </div>
+                <a href="{% url 'support' %}" class="nav-item nav-link">Support</a>
+              </div>
+              <div class="border-start ps-4 d-none d-lg-block">
+                <div class="row">
+                  <div class="col">
+                    <div class="darkmode d-flex">
+                      <button data-theme-toggle aria-label="light" class="darkmode-btn" type="button" id="darkmodeBtn"><img id="darkmodeIcon" src="{% static 'img/brightness-high-fill.svg' %}" alt="light mode icon" /></button>
+                      <label for="darkmodeBtn" class="darkmode-text align-self-end mt-2" style="color: black;">DARKMODE</label>
+                    </div>
+                  </div>
+                  <div class="col">
+                    {% if user.is_authenticated %}
+                      {% if user.is_superuser %}
                         <a href="{% url 'admin_profile' %}" class="nav-item nav-link login-user">{{ user.username }}!</a>
                         <a href="{% url 'user_logout' %}" class="nav-item nav-link login-user">LOGOUT</a>
                       {% else %}
                         <a href="{% url 'user_profile' %}" class="nav-item nav-link login-user">{{ user.username }}!</a>
                         <a href="{% url 'user_logout' %}" class="nav-item nav-link login-user">LOGOUT</a>
                       {% endif %}
-                  {% else %}
-                    <a href="{% url 'user_login' %}" class="nav-item nav-link login-user">LOGIN</a>
-                  {% endif %}
+                    {% else %}
+                      <a href="{% url 'user_login' %}" class="nav-item nav-link login-user">LOGIN</a>
+                    {% endif %}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+        </div>
       </div>
-    </div>
-
+    </header>
     <div>
       {% block content %}
 
       {% endblock %}
     </div>
 
- 
     <footer>
-    <div class="container-fluid footer bg-dark footer mt-5 py-4 wow fadeIn" data-wow-delay="0.1s">
-      <div class="container">
-        <div class="row g-5">
-          <div class="col-lg-3 col-md-6">
-            <h4 class="text-primary mb-4 color-changed">Our Office</h4>
-            <p class="mb-2">
-              <i class="fa fa-map-marker-alt text-primary me-3 color-changed"></i>123 Street, New York, USA
-            </p>
-            <p class="mb-2">
-              <i class="fa fa-phone-alt text-primary me-3 color-changed"></i>+012 345 67890
-            </p>
-            <p class="mb-2">
-              <i class="fa fa-envelope text-primary me-3 color-changed"></i>info@example.com
-            </p>
-            <div class="d-flex pt-3">
-              <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i class="fab fa-twitter"></i></a>
-              <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a>
-              <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i class="fab fa-youtube"></i></a>
-              <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i class="fab fa-linkedin-in"></i></a>
+      <div class="container-fluid footer bg-dark footer mt-5 py-4 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+          <div class="row g-5">
+            <div class="col-lg-3 col-md-6">
+              <h4 class="text-primary mb-4 color-changed">Our Team</h4>
+              <p class="mb-2">
+                <i class="fa fa-users text-primary me-3 color-changed"></i>오리무중 (2조)
+              </p>
+              <p class="mb-2">
+                <i class="fa fa-school text-primary me-3 color-changed"></i>Multi Campus | AI BackEnd Developer
+              </p>
+              <p class="mb-2">
+                <i class="fab fa-github fa-lg text-primary me-3 color-changed"></i>github.com/eppae/MLP_Final_PJ
+              </p>
+              <div class="d-flex pt-3">
+                <a class="btn btn-square btn-primary rounded-circle me-2" href="https://twitter.com/?lang=ko"><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-square btn-primary rounded-circle me-2" href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                <a class="btn btn-square btn-primary rounded-circle me-2" href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a>
+              </div>
             </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <h4 class="text-primary mb-4 color-changed">Quick Links</h4>
-            <a class="btn btn-link" href="{% url 'fog' %}">Our Product</a>
-            <a class="btn btn-link" href="{% url 'community' %}">Community</a>
-            <a class="btn btn-link" href="{% url 'contact' %}">Contact Us</a>
-            <a class="btn btn-link" href="{% url 'support' %}">Support</a>
-          </div>
-          <div class="col-lg-3 col-md-6"></div>
-          <div class="col-lg-3 col-md-6">
-            <div class="row"></div>&copy; <a class="fw-medium color-changed" href="#">Fog Filtering</a>, All Right Reserved.
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+            <div class="col-lg-3 col-md-6">
+              <h4 class="text-primary mb-4 color-changed">Quick Links</h4>
+              <a class="btn btn-link" href="{% url 'fog' %}">Our Product</a>
+              <a class="btn btn-link" href="{% url 'community' %}">Community</a>
+              <a class="btn btn-link" href="{% url 'contact' %}">Contact Us</a>
+              <a class="btn btn-link" href="{% url 'support' %}">Support</a>
+            </div>
+            <div class="col-lg-3 col-md-6"></div>
+            <div class="col-lg-3 col-md-6">
+              &copy; <a class="fw-medium color-changed" href="#">Fog Filtering</a>, All Right Reserved.
+              <button onclick="topFunction()" class="btn btn-lg btn-primary btn-lg-square rounded-circle backToTop"><i class="bi bi-arrow-up"></i></button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </footer> 
-
-    {% comment %} <div id="overlayer"></div>
-    <div class="loader">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div> {% endcomment %}
+    </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>    <script src="{% static 'js/aos.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script> <script src="{% static 'js/aos.js' %}"></script>
     <script src="{% static 'lib/wow/wow.min.js' %}"></script>
     <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
     <script src="{% static 'lib/easing/easing.min.js' %}"></script>
@@ -171,9 +184,12 @@
     <script>
       const darkIconURL = "{% static 'img/brightness-high-fill.svg' %}"
       const lightIconURL = "{% static 'img/moon-stars-fill.svg' %}"
-    </script>
-    <script src="{% static 'js/custom/dayandnight.js' %}"></script>
-    {% comment %} <script src="{% load 'js/custom/error.js' %}"></script> {% endcomment %}
 
+      function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      }
+    </script>
+    <script src="{% static 'js/custom/dayandnight.js' %}?ver=1"></script>
   </body>
 </html>
