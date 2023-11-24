@@ -2,7 +2,8 @@
 {% load static %}
 {% block content %}
   <link rel="stylesheet" href="{% static 'css/media-scroller/style.css' %}?ver=2" />
-  <link rel="stylesheet" href="{% static 'css/home.css' %}?ver=1" />
+  <link href="https://db.onlinewebfonts.com/c/67680f2eb947c5cbd58b40961b4a61e9?family=Apple+SD+Gothic+Neo+Bold" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
   <script type="module" src="{% static 'js/media-scroller/index.js' %}"></script>
 
   {% comment %}안개 걷히는 효과{% endcomment %}
@@ -19,15 +20,66 @@
   </section>
 
   <section class="hero product-1 mb-3">
-    <div class="container">
+    <div class="container-home">
       <div class="title title-top align-items-end">
-        <div class="title-heading">제목</div>
-        <div class="title-sub-heading">부제목</div>
-        <p class="title-content">
-          1. 제공하는 서비스에 대한 간단한 소개말을 적음.<br />
-          2. img나 영상을 배경으로 하면 더 멋있을 것 같음.<br />
-          3. 간단한 overview이기 때문에 컨셉을 사용자에게 알려주는 방향으로 진행하면 괜찮을 듯 하다.
-        </p>
+        <div class="title-heading">Fog Filter.</div>
+        <div class="title-sub-heading">그 본질을 관통하다.</div>
+        {% comment %}뿌옇고 흐린 날 사진을 찍을 때, 어떻게 해야 더 잘 찍을지 고민을 하지 않아도 됨. 왜냐면 우리는 사진 자체에서 흐린 요소를 필터링 해주니까! 본질 자체를 해결한다는 의미에서 '본질을 관통하다'라는 문구 사용{% endcomment %}
+        <p class="title-content mt-3">사진의 안개를 필터링, 인생샷을 건지세요.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="introduce mb-5">
+    <div class="row">
+      <div class="container-home">
+        <div class="title title-dark">
+          <div class="title-heading">인터넷 사용자 53억 명.</div>
+          <div class="title-heading">SNS 사용자 49.5억 명.</div>
+          <div class="title-sub-heading">바야흐로 SNS의 시대.</div>
+          <div class="product-introduce-first mx-5 px-5 mt-5 d-flex">
+            {% comment %} <div class="col-7 embed-responsive embed-responsive-16by9">
+              <video autoplay loop class="embed-responsive-item" muted>
+                <source src="{% static 'img/home/instagram.mp4' %}" class="w-500" type="video/mp4" />
+              </video>
+            </div> {% endcomment %}
+            <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?q=80&w=3174&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" style="width: 55%;" />
+            <div class="introduct-content align-self-center ml-4">
+              <h4 class="mt-4 home-h4">SNS의 평균 사용시간 <span class="fs-2">151분.</span></h4>
+              <h4 class="mt-4 home-h4"><span class="fs-2">인스타그램</span>, 그 선두를 달리다.</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="introduce my-5">
+    <div class="row">
+      <div class="container-home">
+        <div class="title title-dark mb-5">
+          <div class="title-heading">미세먼지, 안개 적절히 제거하다.</div>
+          <div class="title-sub-heading">
+            뿌옇고 흐린 날 걱정없이 <span class="fs-1">📸</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="product-2">
+    <div class="row gap-0">
+      <div class="container-home col-lg-6 col-md-6 col-sm-12 my-5">
+        <div class="title title-dark">
+          <div class="title-heading d-flex align-items-center justify-content-center">Fog Filter</div>
+          <div class="title-sub-heading d-flex align-items-center justify-content-center">보다 뚜렷하게, 선명하게.</div>
+        </div>
+        <div class="cta">
+          <a href="{% url 'fog' %}" class="cta-link cta-link-darker btn btn-primary btn-sm rounded-pill home-a">바로가기</a>
+        </div>
+      </div>
+      <div class="img-src col-lg-6 col-md-6 col-sm-12">
+        <img src="{% static 'img/fog.jpg' %}" class="img-fluid" />
       </div>
     </div>
   </section>
@@ -38,7 +90,7 @@
         <a href="#">
           <figure>
             <picture>
-              <img alt="A placeholder image" loading="lazy" src="https://picsum.photos/500/500?14" />
+              <img alt="A placeholder image" loading="lazy" src="{% static 'img/home/001.jpeg' %}" />
             </picture>
           </figure>
         </a>
@@ -47,7 +99,7 @@
         <a href="#">
           <figure>
             <picture>
-              <img alt="A placeholder image" loading="lazy" src="https://picsum.photos/500/500?15" />
+              <img alt="A placeholder image" loading="lazy" src="{% static 'img/home/002.jpeg' %}" />
             </picture>
           </figure>
         </a>
@@ -56,7 +108,7 @@
         <a href="#">
           <figure>
             <picture>
-              <img alt="A placeholder image" loading="lazy" src="https://picsum.photos/500/500?16" />
+              <img alt="A placeholder image" loading="lazy" src="{% static 'img/home/003.jpeg' %}" />
             </picture>
           </figure>
         </a>
@@ -65,7 +117,7 @@
         <a href="#">
           <figure>
             <picture>
-              <img alt="A placeholder image" loading="lazy" src="https://picsum.photos/500/500?17" />
+              <img alt="A placeholder image" loading="lazy" src="{% static 'img/home/004.jpeg' %}" />
             </picture>
           </figure>
         </a>
@@ -74,7 +126,7 @@
         <a href="#">
           <figure>
             <picture>
-              <img alt="A placeholder image" loading="lazy" src="https://picsum.photos/500/500?18" />
+              <img alt="A placeholder image" loading="lazy" src="{% static 'img/home/005.jpeg' %}" />
             </picture>
           </figure>
         </a>
@@ -83,7 +135,7 @@
         <a href="#">
           <figure>
             <picture>
-              <img alt="A placeholder image" loading="lazy" src="https://picsum.photos/500/500?19" />
+              <img alt="A placeholder image" loading="lazy" src="{% static 'img/home/005.jpeg' %}" />
             </picture>
           </figure>
         </a>
@@ -91,77 +143,39 @@
     </ul>
   </section>
 
-  {% comment %}배경 white{% endcomment %}
-  <section class="product-2">
-    <div class="row gap-0">
-      <div class="container col-lg-6 col-md-6 col-sm-12 mb-5">
-        <div class="title title-dark">
-          <div class="title-heading">제목</div>
-          <div class="title-sub-heading">부제목</div>
-          <p class="title-content">
-            1. 여기에는 본격적인 서비스에 대한 이야기가 있을 것. <br />
-            2. 밑에 바로가기 링크를 통해서 our product로 가서 테스트해볼 수 있도록 함
-          </p>
-        </div>
-        <div class="cta">
-          <a href="{% url 'fog' %}" class="cta-link cta-link-darker btn btn-primary btn-sm rounded-pill">바로가기</a>
-        </div>
-      </div>
-      <div class="img-src col-lg-6 col-md-6 col-sm-12">
-        <img src="{% static 'img/fog.jpg' %}" class="img-fluid" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="container">
-        <div class="title title-dark">
-          <div class="title-sub-heading">좀 더 세부적인 소개글 시작</div>
-          <p class="title-content">
-            1. 여기에는 구체적으로 왜 이러한 주제를 선택했는지, 어떻게 아이디어를 발전시켰는지, 그리고 어떤 방향에서 활용할 수 있을지에 대한 내용을 적으면 될 듯.<br />
-            2. 만약 더 공간이 필요하다 싶으면 레이아웃을 변경시키면서 추가해가면 됨. 너무 꽉꽉 채우지 않는 것이 핵심
-          </p>
-          <div class="product-introduce-first mx-5 px-5 mt-5 d-flex">
-            <img src="{% static 'img/fog.jpg' %}" style="width: 60%;" />
-            <div class="introduct-content align-self-center ml-4">
-              <h4 class="my-4">소개글1</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt vero, tempora magnam rem corrupti velit aspernatur rerum cupiditate quisquam culpa delectus fugit et perspiciatis assumenda. Eligendi, maxime deserunt. Odit, totam.</p>
-              <h4 class="my-4">소개글2</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt vero, tempora magnam rem corrupti velit aspernatur rerum cupiditate quisquam culpa delectus fugit et perspiciatis assumenda. Eligendi, maxime deserunt. Odit, totam.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <section class="help">
     <div class="row mt-5">
-      <div class="container page-support-part">
-        <h3 class="text-center fw-bold" style="color: black;">도움이 필요하신가요?</h3>
+      <div class="container-home page-support-part">
+        <h3 class="text-center fw-bold home-h3" style="color: black;">도움이 필요하신가요?</h3>
         <div class="mt-5 d-flex justify-content-center text-center">
           <div class="col-3 page-support-item">
             <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="community image" class="img-fluid rounded mb-3" />
-            <h5 class="text-left" style="color: black;">Community</h5>
-            <p class="text-left" style="color: black;">
+            <h5 class="text-left home-h5" style="color: black;">Community</h5>
+            <p class="text-left home-p" style="color: black;">
               프로젝트 팀에 대해서 궁금하신가요?<br /> 그렇다면 Community로 가보세요!<br /> 프로젝트와 관련된 기사도 볼 수 있답니다!
             </p>
-            <a href="{% url 'community' %}" class="text-left" style="color: #2779a7;">자세히 보기</a>
+            <a href="{% url 'community' %}" class="text-left home-a" style="color: #2779a7;">자세히 보기</a>
           </div>
           <div class="col-3 page-support-item">
             <img src="https://plus.unsplash.com/premium_photo-1682125235036-d1ab54136ff4?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="contact image" class="img-fluid rounded mb-3" />
-            <h5 class="text-left" style="color: black;">Contact</h5>
-            <p class="text-left" style="color: black;">
+            <h5 class="text-left home-h5" style="color: black;">Contact</h5>
+            <p class="text-left home-p" style="color: black;">
               서비스 관련해서 개인적으로<br /> 문의할 것이 있으신가요?<br /> Contact 페이지로 가보세요!
             </p>
-            <a href="{% url 'contact' %}" class="text-left" style="color: #2779a7;">자세히 보기</a>
+            <a href="{% url 'contact' %}" class="text-left home-a" style="color: #2779a7;">자세히 보기</a>
           </div>
           <div class="col-3 page-support-item">
             <img src="https://images.unsplash.com/photo-1484069560501-87d72b0c3669?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="ask image" class="img-fluid rounded mb-3" />
-            <h5 class="text-left" style="color: black;">Support</h5>
-            <p class="text-left" style="color: black;">
+            <h5 class="text-left home-h5" style="color: black;">Support</h5>
+            <p class="text-left home-p" style="color: black;">
               서비스에 대한 리뷰나 질문을 남기고 싶으신가요?<br /> Support로 가보세요!<br /> 직접 리뷰나 질문을 남길 수 있답니다!
             </p>
-            <a href="{% url 'support' %}" class="text-left" style="color: #2779a7;">자세히 보기</a>
+            <a href="{% url 'support' %}" class="text-left home-a" style="color: #2779a7;">자세히 보기</a>
           </div>
         </div>
       </div>
     </div>
   </section>
+
   <script src="{% static 'js/custom/home.js' %}?ver=1"></script>
 {% endblock %}
