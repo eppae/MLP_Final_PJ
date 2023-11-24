@@ -1,154 +1,171 @@
-a{
-    display: block;
-    text-decoration: none;
+a {
+  display: block;
+  text-decoration: none;
 }
 
-a:hover{
-    text-decoration: none;
+a:hover {
+  text-decoration: none;
 }
 
-.container{
-    max-width: 98rem;
-    margin: 0 auto;
-    padding: 0 2.2rem;
+.container-home {
+  max-width: 98rem;
+  margin: 0 auto;
+  padding: 0 2.2rem;
 }
-
 
 /* Product-1 */
-.product-1{
-    background:url('../img/fog.jpg');
-    background-color: #212529;
+.product-1 {
+  background: url("../img/fog.jpg");
+  background-color: #212529;
 }
 
-.title{
-    text-align: center;
-    padding-top: 5.5rem;
+.title {
+  text-align: center;
+  padding-top: 5.5rem;
 }
 
-.title-heading{
-    font-size: 4rem;
-    line-height: 1.07143;
-    letter-spacing: -.005rem;;
+.title-heading {
+  font-size: 4rem;
+  line-height: 1.07143;
+  letter-spacing: -0.005rem;
+  font-family: "Apple SD Gothic Neo Bold";
 }
 
-.title-sub-heading{
-    font-size: 1.8rem;
-    margin-top: .6rem;
-    letter-spacing: .008rem;
-    font-weight: 400;
+.title-sub-heading {
+  font-size: 1.8rem;
+  margin-top: 0.6rem;
+  letter-spacing: 0.008rem;
+  font-weight: 400;
+  font-family: "Apple SD Gothic Neo Bold";
 }
 
-.title-content{
-    font-size: 1rem;
-    margin: 0 1.5rem;
-    padding: 1rem;
+.title-content {
+  font-size: 1rem;
+  margin: 0 1.5rem;
+  padding: 1rem;
+  font-family: "Apple SD Gothic Neo Bold";
 }
 
-.cta{
-    text-align: center;
-    margin-top: 1.8rem;
+.cta {
+  text-align: center;
+  margin-top: 1.8rem;
 }
 
-.cta-link{
-    color: #000;
-    font-size: 1rem;
-    display: inline-block;
-    padding: 11px 12px;
+.cta-link {
+  color: #000;
+  font-size: 1rem;
+  display: inline-block;
+  padding: 11px 12px;
 }
 
-.cta-link:nth-child(2){
-    margin-left: 2.6rem;
+.cta-link:nth-child(2) {
+  margin-left: 2.6rem;
 }
 
 /* Product-2 */
-.product-2{
-    height: auto;
+.product-2 {
+  height: auto;
 }
 
-.title-dark{
-    color: var(--color-fg);
+.title-dark {
+  color: var(--color-fg);
 }
 
-.cta-link-darker{
-    color: #000;
+.cta-link-darker {
+  color: #000;
 }
 
-.hero{
-    height: 70rem;
-    background-size: auto 73.6rem;
-    background-position: center;
-    background-repeat: no-repeat;
+.hero {
+  height: 70rem;
+  background-size: auto 73.6rem;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.title-top{
-    color:#000;
-    margin-top: 20rem;
+.title-top {
+  color: #000;
+  margin-top: 20rem;
 }
 
-.page-support-part{
-    padding: 5rem;
-    background-color: ghostwhite;
-    margin-bottom: 0px;
+.page-support-part {
+  padding: 5rem;
+  background-color: ghostwhite;
+  margin-bottom: 0px;
 }
 
+.home-h3,
+.home-h4,
+.home-h5,
+.home-p,
+.home-a {
+  font-family: "Apple SD Gothic Neo Bold";
+}
 
 /* 안개 걷히는 효과 추가 */
 .background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 20rem;
-    z-index: 1; /* 더 작은 z-index 값으로 설정 */
-    overflow: hidden; /* 스크롤을 숨기는 속성 추가 */
-  }
-  
-  .fog-section {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 55rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: stretch;
-    position: fixed;
-  }
-  
-  .fog-container-left,
-  .fog-container-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    position: relative;
-    z-index: 1;
-    transition: transform 0.2s ease, filter 0.2s ease; /* 트랜지션 추가 */
-  }
-  
-  .fog-box {
-    background-size: cover;
-    background-position: center;
-    box-sizing: border-box;
-    height: 100%;
-  }
-  
-  .fog-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .fog-container-left {
-    margin-right: -40vw; /* 좌우로 겹치게 설정 */
-    filter: blur(0); /* 초기에는 흐리지 않음 */
-  }
-  
-  .fog-container-right {
-    margin-left: -40vw; /* 좌우로 겹치게 설정 */
-    filter: blur(0); /* 초기에는 흐리지 않음 */
-  }
-  
-  .fog-container-left.blur,
-  .fog-container-right.blur {
-    filter: blur(10px); /* 흐려진 효과 적용 */
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20rem;
+  z-index: 1;
+  /* 더 작은 z-index 값으로 설정 */
+  overflow: hidden;
+  /* 스크롤을 숨기는 속성 추가 */
+}
+
+.fog-section {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  position: fixed;
+}
+
+.fog-container-left,
+.fog-container-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  /* 트랜지션 추가 */
+}
+
+.fog-box {
+  background-size: cover;
+  background-position: center;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.fog-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fog-container-left {
+  margin-right: -40vw;
+  /* 좌우로 겹치게 설정 */
+  filter: blur(0);
+  /* 초기에는 흐리지 않음 */
+}
+
+.fog-container-right {
+  margin-left: -40vw;
+  /* 좌우로 겹치게 설정 */
+  filter: blur(0);
+  /* 초기에는 흐리지 않음 */
+}
+
+.fog-container-left.blur,
+.fog-container-right.blur {
+  filter: blur(10px);
+  /* 흐려진 효과 적용 */
+}
