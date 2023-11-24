@@ -52,12 +52,16 @@ def news_list(request):
 def news_detail(request):
     return render(request, "pages/community/news-detail.html")
 
-def contact_list(request):
+def contact_list(request,category=None):
     page_number = request.GET.get('page','1')
     print("Page number:", page_number)
     contact_messages = ContactMessage.objects.all()
     print("Contact Messages:", contact_messages)
     kw = request.GET.get('contact_kw','') # 검색어
+
+    if category:
+        contact_messages = contact_messages.filter(category=category)
+
     if kw:
         contact_messages = contact_messages.filter(
             Q(title__icontains=kw) |  # 제목 검색
@@ -69,7 +73,8 @@ def contact_list(request):
     context = {'recent_page':page_obj,'page':page_number,'contact_messages':contact_messages, 'kw':kw}
     return render(request, "pages/contact/contact-list.html",context)
 
-
+def contact_list_category(request,category):
+    return contact_list(request, category=category)
 def contact_detail(request, post_num):
     contact_message = get_object_or_404(ContactMessage, post_num=post_num)
 
@@ -84,13 +89,16 @@ def submit_contact(request):
         title = request.POST.get('title')
         email = request.POST.get('email')
         message = request.POST.get('message')
+        category = request.POST.get('category')
 
         contact_message = ContactMessage(
             first_name = first_name,
             last_name = last_name,
             title = title,
             email = email,
-            message = message
+            category = category,
+            message = message,
+
         )
         contact_message.save()
         print(contact_message)
@@ -102,7 +110,7 @@ def delete_contact(request):
     if request.method == 'POST':
         selected_contacts = request.POST.getlist('selected_boxes')
         ContactMessage.objects.filter(post_num__in=selected_contacts).delete()
-    return render(request,'pages/contact/contact_list.html')
+    return render(request,'pages/contact/contact-list.html')
 
 # ========================== 에러 페이지 ===============================
 

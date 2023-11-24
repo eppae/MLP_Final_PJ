@@ -30,3 +30,21 @@ btnSearch.addEventListener("click", function () {
   document.getElementById("page").value = 1;
   document.getElementById("BoardSearch").submit();
 });
+
+document.getElementById('check-all').addEventListener('change',function(){
+var checkboxes = document.getElementsByName('selected_boxes');
+for (var i = 0; i<checkboxes.length; i++){
+checkboxes[i].checked = this.checked;
+}
+});
+
+
+document.querySelector('form').addEventListener('submit',function(e){
+var checkboxes = document.getElementsByName('selected_boxes');
+for (var i = 0; i <checkboxes.length; i++){
+if (checkboxes[i].checked){
+var row = checkboxes[i].closest('tr');
+row.parentNode.removeChild(row);
+}
+}
+});

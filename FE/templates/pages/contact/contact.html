@@ -31,6 +31,14 @@
           <form method="post" action="{% url 'submit_contact' %}" id="myForm">
             {% csrf_token %}
             <div class="row">
+              <div class="col-12 mb-3">
+                <label for="category">카테고리 </label>
+                <select name="category" id="category">
+                  <option value="normal">일반</option>
+                  <option value="use">제품사용</option>
+                  <option value="etc">기타</option>
+                </select>
+              </div>
               <div class="col-6 mb-3">
                 <input type="text" class="form-control" placeholder="이름" name="last_name" />
               </div>

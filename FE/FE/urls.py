@@ -14,6 +14,7 @@ from .views import (
     user_profile,
     admin_profile,
     contact_list,
+    contact_list_category,
     contact_detail,
     submit_contact,
     delete_contact,
@@ -55,6 +56,7 @@ urlpatterns = [
 # ========================== contact BE url ===============================
     path('submit_contact', submit_contact, name='submit_contact'),
     path("contact_list", contact_list, name="contact_list"),
+    path("contact_list/<str:category>/", contact_list_category, name="contact_list_category"),
     path("contact_detail/<int:post_num>/", contact_detail, name="contact_detail"),
     path("delete_contact", delete_contact, name="delete_contact"),
     # path("fog_result", fog_result, name="fog_result"),

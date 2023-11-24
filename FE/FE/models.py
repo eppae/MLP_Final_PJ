@@ -33,6 +33,6 @@ class ContactMessage(models.Model):
     email = models.EmailField()
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-
+    category = models.CharField(max_length=50, default='normal')
     def __str__(self):
         return f"{self.title}"

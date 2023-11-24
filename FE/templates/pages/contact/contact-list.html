@@ -27,16 +27,16 @@
           <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
             <ul class="nav">
               <li class="nav-item">
-                <a class="nav-link active" href="#">전체</a>
+                <a class="nav-link active" href="{% url 'contact_list' %}">전체</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">일반</a>
+                <a class="nav-link" href="{% url 'contact_list_category' category='normal' %}">일반</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">제품사용</a>
+                <a class="nav-link" href="{% url 'contact_list_category' category='use' %}">제품사용</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">기타</a>
+                <a class="nav-link" href="{% url 'contact_list_category' category='etc' %}">기타</a>
               </li>
             </ul>
             <div class="d-flex justify-content-end">
@@ -73,7 +73,7 @@
                 <span>전체선택</span>
               </div>
               <div class="msg-delete-btn inline-block justify-content-end text-end ms-auto">
-                <input type="submit" value="🗑" class="btn" />
+                <input type="submit" value="delete_contact" class="btn btn-danger"/>
               </div>
             </div>
             <hr />
@@ -84,10 +84,10 @@
                 <div class="contact-msg-list">
                   <div class="contact-msg-post d-flex">
                     <div class="contact-msg-checkbox mr-3 mt-2 align-self-start">
-                      <input type="checkbox" name="" id="" />
+                      <input type="checkbox" name="selected_boxes" value="{{ ContactMessage.post_num}}" id="" />
                     </div>
                     <div class="contact-msg-content inline-block">
-                      <a href="{% url 'contact_detail' post_num = ContactMessage.post_num %}" class="h2 heading text-primary mb-3">{{ ContactMessage.title }}</a>
+                      <a href="{% url 'contact_detail' post_num=ContactMessage.post_num %}" class="h2 heading text-primary mb-3">{{ ContactMessage.title }}</a>
                       <p class="mb-4">{{ ContactMessage.email }} - {{ ContactMessage.created_at }}</p>
                     </div>
                   </div>
@@ -119,7 +119,7 @@
             {% endif %}
 
             {% for page_number in recent_pages.paginator.page_range %}
-              {% if page_number >= (recent_pages.number|add:- 5 and page_number <= (posts.number|add:5)) %}
+              {% if page_number >= recent_pages.number|add:-5 and page_number <= posts.number|add:5 %}
                 {% if page_number == recent_pages.number %}
                   <li class="page-item active" aria-current="page">
                     <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
