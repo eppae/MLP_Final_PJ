@@ -8,20 +8,22 @@
     .contact {
       width: 300px;
     }
-
-    span a, h2 a{
-      color: #7395AE;
+    
+    span a,
+    h2 a {
+      color: #7395ae;
     }
-
-    span a:hover, h2 a:hover{
+    
+    span a:hover,
+    h2 a:hover {
       color: var(--color-fg);
     }
-
+    
     .accordion-button:not(.collapsed) {
       background-color: #becdd9;
-      color:white;
+      color: white;
     }
-
+    
     .admin-box h1 {
       margin-bottom: 1rem;
     }
@@ -49,15 +51,16 @@
             <div class="card-body profile-box">
               <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">프로필 수정</button>
-                  </h2>
+                  <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">프로필 수정</button></h2>
                   <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <form method="post">     <!-- 이부분 css 수정원하시면 forms.py에 주석 표시했읍니다 -->
-                        {% csrf_token %}
-                        <p>{{ form.profile_message.label_tag }} {{ form.profile_message }}</p>
-                        <p>{{ form.git_address.label_tag }} {{ form.git_address }}</p>
-                        <button type="submit">Submit</button>
+                    <form method="post">
+                      <!-- 이부분 css 수정원하시면 forms.py에 주석 표시했읍니다 -->
+                      {% csrf_token %}
+                      <p class="mt-2">{{ form.profile_message.label_tag }} {{ form.profile_message }}</p>
+                      <p>{{ form.git_address.label_tag }} {{ form.git_address }}</p>
+                      <div class="submit-btn d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary rounded-pill">Submit</button>
+                      </div>
                     </form>
                   </div>
                 </div>
@@ -74,7 +77,7 @@
         <div class="admin-box text-center col-md-4 mb-5">
           <h1>Support</h1>
         </div>
-        <div style="text-align: left;" class="mb-4"> 
+        <div style="text-align: left;" class="mb-4">
           <span class="date">review 날짜 &bullet; <a href="#">카테고리</a></span>
           <h2><a href="{% url 'news_detail' %}">review 이름</a></h2>
         </div>

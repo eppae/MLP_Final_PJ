@@ -259,7 +259,7 @@ def about_us(request):
 
     # 수현님 프로필 조회
     try:
-        user_b = User.objects.get(last_name="강수현", username="sh1")1q2w3e4rQ
+        user_b = User.objects.get(last_name="강수현", username="sh1")
         profiles.append(Profile.objects.get(user=user_b))
     except (User.DoesNotExist, Profile.DoesNotExist):
         pass  
