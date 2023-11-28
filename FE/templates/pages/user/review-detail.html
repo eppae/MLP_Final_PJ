@@ -27,6 +27,8 @@
       color: var(--color-fg);
     }
   </style>
+  <script defer src="{% static 'js/custom/support.js' %}"></script>
+
   <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
       {% comment %}BE : post에 대한 title, author, date, category{% endcomment %}
@@ -199,74 +201,4 @@
     </div>
   </div>
 
-  {% comment %}아래는 동엽님꺼. BE 할 때 참고가 될거 같아서 남겨둠{% endcomment %}
-
-  <div class="container mt-4">
-    <!-- 포스트 카드 -->
-    <div class="card mt-3">
-      <div class="card-header">
-        <!-- 포스트 제목과 작성자 정보 -->
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <h5>{{ post.title }}</h5>
-            <p>작성자: {{ post.author.username }}</p>
-          </div>
-          <div>
-            {% if user.is_authenticated %}
-              {% if user == post.author or user.is_staff %}
-                <!-- 편집 및 삭제 버튼 (작성자 또는 스태프만 표시) -->
-                <a href="{% url 'edit_post' post.id %}" class="btn btn-primary btn-sm">Edit</a>
-                <a href="{% url 'delete_post' post.id %}" class="btn btn-danger btn-sm">Delete</a>
-              {% endif %}
-            {% endif %}
-          </div>
-        </div>
-        <!-- 포스트의 카테고리, 작성날짜 표시 -->
-        <p>카테고리: {{ post.category }}</p>
-        <p>작성날짜: {{ post.date }}</p>
-      </div>
-      <!-- 포스트 내용 -->
-      <div class="card-body">{{ post.content }}</div>
-      <!-- 좋아요 및 싫어요 버튼 및 표시 -->
-      <div class="card-footer">
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-primary">좋아요</button>
-            <button type="button" class="btn btn-sm btn-danger">싫어요</button>
-          </div>
-          <small>좋아요: {{ post.likes }} | 싫어요: {{ post.dislikes }}</small>
-        </div>
-      </div>
-      <!-- 댓글 섹션 -->
-      <div class="card-footer">
-        <h5>댓글</h5>
-        {% comment %}
-        <!-- 댓글 작성 폼 -->
-        <form method="post" action="{% url 'add_comment' post.id %}">
-          {% csrf_token %}
-          <div class="form-group">
-            <textarea class="form-control" rows="3" name="comment_text"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">댓글 작성</button>
-        </form>
-        {% endcomment %}
-        <!-- 댓글 목록 표시 -->
-        <ul class="list-group mt-3">
-          {% for comment in post.comments.all %}
-            <li class="list-group-item">
-              {{ comment.comment_text }}
-              <!-- 댓글에 대한 좋아요 및 싫어요 버튼 -->
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-primary">좋아요</button>
-                <button type="button" class="btn btn-sm btn-danger">싫어요</button>
-              </div>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <script src="{% static 'js/custom/scroll.js' %}"></script>
-  <script src="{% static 'js/custom/support.js' %}"></script>
 {% endblock %}
