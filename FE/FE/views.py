@@ -3,6 +3,12 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import ContactMessage
 from django.shortcuts import render, redirect , get_object_or_404
+from django.http import HttpResponse
+from .models import dehazing
+from finalProject.ml_utils.inference import inference
+from django.core.files.base import ContentFile
+import os
+from django.contrib.auth.decorators import login_required
 #---회원관련---
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm
@@ -10,14 +16,9 @@ from django.contrib.auth import authenticate, logout as auth_logout, login as au
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from django.utils import timezone
-from .models import Profile, UploadedFile
+from .models import Profile
 from .forms import ProfileForm
-# --- fog 관련 ---
-from django.http import HttpResponse
-from django.core.files.storage import FileSystemStorage
-from .models import dehazing
-from finalProject.ml_utils.inference import inference, FLAGS
-import os
+from django.forms.models import modelform_factory
 
 def home(request):
     return render(request, "pages/home.html")
@@ -52,12 +53,16 @@ def news_list(request):
 def news_detail(request):
     return render(request, "pages/community/news-detail.html")
 
-def contact_list(request):
+def contact_list(request,category=None):
     page_number = request.GET.get('page','1')
     print("Page number:", page_number)
     contact_messages = ContactMessage.objects.all()
     print("Contact Messages:", contact_messages)
     kw = request.GET.get('contact_kw','') # 검색어
+
+    if category:
+        contact_messages = contact_messages.filter(category=category)
+
     if kw:
         contact_messages = contact_messages.filter(
             Q(title__icontains=kw) |  # 제목 검색
@@ -69,7 +74,8 @@ def contact_list(request):
     context = {'recent_page':page_obj,'page':page_number,'contact_messages':contact_messages, 'kw':kw}
     return render(request, "pages/contact/contact-list.html",context)
 
-
+def contact_list_category(request,category):
+    return contact_list(request, category=category)
 def contact_detail(request, post_num):
     contact_message = get_object_or_404(ContactMessage, post_num=post_num)
 
@@ -84,13 +90,16 @@ def submit_contact(request):
         title = request.POST.get('title')
         email = request.POST.get('email')
         message = request.POST.get('message')
+        category = request.POST.get('category')
 
         contact_message = ContactMessage(
             first_name = first_name,
             last_name = last_name,
             title = title,
             email = email,
-            message = message
+            category = category,
+            message = message,
+
         )
         contact_message.save()
         print(contact_message)
@@ -102,7 +111,7 @@ def delete_contact(request):
     if request.method == 'POST':
         selected_contacts = request.POST.getlist('selected_boxes')
         ContactMessage.objects.filter(post_num__in=selected_contacts).delete()
-    return render(request,'pages/contact/contact_list.html')
+    return render(request,'pages/contact/contact-list.html')
 
 # ========================== 에러 페이지 ===============================
 
@@ -218,33 +227,121 @@ def forgot_pw(request):
     return render(request, 'pages/user/forgot-password.html', {'password_found': False})
 
 
+# --- 프로필 변경 ---profile model을 찢어놓음
+ProfilePictureForm = modelform_factory(Profile, fields=('profile_picture',))
+ProfileInfoForm = modelform_factory(Profile, fields=('profile_message', 'git_address',))
 
+
+@login_required
 def user_profile(request):
+    profile_picture_form = ProfilePictureForm(request.POST or None, request.FILES or None, instance=request.user.profile)
+    profile_info_form = ProfileInfoForm(request.POST or None, instance=request.user.profile)
+    
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=request.user.profile)
         if form.is_valid():
             form.save()
     else:
         form = ProfileForm(instance=request.user.profile)
+        
+    if request.method == 'POST':
+        # 프사 업데이트 폼 처리
+        if 'profile_picture' in request.FILES:
+            if profile_picture_form.is_valid():
+                profile_picture_form.save()
+                messages.success(request, '프로필 사진이 성공적으로 업데이트되었습니다.')
+                return redirect('user_profile')
+        # 메시지 수정 폼 처리
+        if profile_info_form.is_valid():
+            profile_info_form.save()
+            messages.success(request, '프로필 정보가 성공적으로 업데이트되었습니다.')
+            return redirect('user_profile')
 
+    # 페이지당 4개로 처리한 이미지 넣기
+    user_dehazing_images = dehazing.objects.filter(user=request.user)
+    paginator = Paginator(user_dehazing_images, 4) 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     context = {
+        'profile_picture_form': profile_picture_form,
+        'profile_info_form': profile_info_form,
+        'profile': request.user.profile,
+        
         'form': form,
+        'page_obj': page_obj,
     }
     return render(request, 'pages/user/user-profile.html', context)
 
 
 def admin_profile(request):
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=request.user.profile)
-        if form.is_valid():
-            form.save()
-    else:
-        form = ProfileForm(instance=request.user.profile)
+    # ProfileForm에서 profile_picture 필드만 사용하는 새로운 폼 클래스를 생성
+    profile_picture_form = ProfilePictureForm(request.POST or None, request.FILES or None, instance=request.user.profile)
+    profile_info_form = ProfileInfoForm(request.POST or None, instance=request.user.profile)
+    
+    #통계 context 넣기
+    daily_visitors = get_daily_visitors()
+    daily_contact = get_daily_contact()
+    # daily_reviews = get_daily_reviews()
+    daily_users = get_daily_users()
+    total_users = get_total_users()
 
+    if request.method == 'POST':
+        # 프사 업데이트 폼 처리
+        if 'profile_picture' in request.FILES:
+            if profile_picture_form.is_valid():
+                profile_picture_form.save()
+                messages.success(request, '프로필 사진이 성공적으로 업데이트되었습니다.')
+                return redirect('admin_profile')
+        # 메시지 수정 폼 처리
+        if profile_info_form.is_valid():
+            profile_info_form.save()
+            messages.success(request, '프로필 정보가 성공적으로 업데이트되었습니다.')
+            return redirect('admin_profile')
+        
     context = {
-        'form': form,
+        'profile_picture_form': profile_picture_form,
+        'profile_info_form': profile_info_form,
+        'profile': request.user.profile,
+        # ▼통계 context
+        'daily_visitors': daily_visitors,
+        'daily_contact': daily_contact,
+        # 'daily_reviews': daily_reviews,
+        'daily_users': daily_users,
+        'total_users': total_users,
     }
+    
     return render(request, 'pages/admin/admin-profile.html', context)
+    
+    
+def get_daily_visitors():   # 방문자 수
+    today = timezone.now().date()
+    daily_visitors = User.objects.filter(last_login__date=today).count()
+    
+    return daily_visitors
+
+
+def get_daily_contact():    # 문의 수
+    today = timezone.now().date()
+    daily_contact = ContactMessage.objects.filter(created_at__date=today).count()
+    
+    return daily_contact
+
+def get_daily_reviews():
+    pass
+
+
+def get_daily_users():  # 오늘 모델 사용자 수 
+    today = timezone.now().date()
+    daily_users = dehazing.objects.filter(uploaded_at__date=today).count()
+    
+    return daily_users
+    
+    
+def get_total_users():  # 모델 총 사용자 수 
+    total_users = dehazing.objects.all().count()
+    
+    return total_users
 
 
 def about_us(request):
@@ -280,7 +377,7 @@ def about_us(request):
 
     # 홍태광 프로필 조회
     try:
-        user_htk96 = User.objects.get(last_name="홍태광", username="htk96")
+        user_htk96 = User.objects.get(last_name="홍태광", username="tk1")
         profiles.append(Profile.objects.get(user=user_htk96))
     except (User.DoesNotExist, Profile.DoesNotExist):
         pass
@@ -290,93 +387,38 @@ def about_us(request):
     }
     return render(request, 'pages/community/aboutus.html', context)
 
-    
-def get_today_visitors():
-    today = timezone.now().date()
-    return User.objects.filter(last_login__date=today).count()
-
-def get_daily_users():
-    today = timezone.now().date()
-    
-    daily_users = UploadedFile.objects.filter(upload_date__date=today).count()
-    
-    return daily_users
-
-#json파일에 한줄씩///
-
-def my_stats_view(request):
-    daily_visitors = get_today_visitors()
-    daily_users = get_daily_users()
-    
-    context = {
-        'daily_visitors': daily_visitors,
-        # 'daily_reviews': 문의학기 만들어지면 추가 예정
-        'daily_users': daily_users # 파일 처리 완성되면 손봐야함
-    }
-    return render(request, 'pages/admin/admin-profile.html', context)
 
 # --- fog 관련 ---
+@login_required
 def fog(request):
     context = {}
 
     if request.method == 'POST' and request.FILES.get('image'):
         # 이미지 파일 저장
         image_file = request.FILES['image']
-        fs = FileSystemStorage(location='before_fog/')
-        filename = fs.save(image_file.name, image_file)
-        uploaded_file_url = fs.url(filename)
-
-        # 데이터베이스에 이미지 정보 저장
-        new_image = dehazing(original_image=filename)
+        new_image = dehazing(user=request.user, original_image=image_file)
         new_image.save()
 
-        # inference 설정
-        input_file_path = os.path.join(fs.location, filename)
-        output_file_path = os.path.join('after_fog', 'processed_' + filename)
-        FLAGS.model = 'finalProject/ml_models/Hazy_to_Clear.pb'
-        FLAGS.input_file = input_file_path  # 단일 파일 경로 설정
-        FLAGS.output_file = output_file_path  # 결과 파일 경로 설정
+        # inference 설정 및 이미지 처리
+        input_file_path = new_image.original_image.path
+        output_file_name = 'processed_' + image_file.name
+        output_file_path = os.path.join('media/after_fog/', output_file_name)
         
         # AI 모델을 사용하여 이미지 처리
         model_path = 'finalProject/ml_models/Hazy_to_Clear.pb'
         image_size = 256
         inference(input_file_path, output_file_path, model_path, image_size)
 
-        # 처리된 이미지의 URL
-        processed_file_url = '/after_fog/processed_' + filename
-
-        # 데이터베이스에 처리된 이미지 정보 업데이트
-        new_image.processed_image = 'processed_' + filename
+        # 처리된 이미지 저장
+        new_image.processed_image.save(output_file_name, ContentFile(open(output_file_path, 'rb').read()))
         new_image.save()
 
         context = {
-            'uploaded_file_url': uploaded_file_url,
-            'processed_file_url': processed_file_url
+            'uploaded_file_url': new_image.original_image.url,
+            'processed_file_url': new_image.processed_image.url
         }
 
     return render(request, 'pages/test/fog.html', context)
 
 
-def upload_file(request):
-    if request.method == 'POST':
-        uploaded_file = request.FILES['myfile']
-        
-        if uploaded_file:
-            fs = FileSystemStorage(location='before_fog')
-            filename = fs.save(uploaded_file.name, uploaded_file)
-            
-            UploadedFile.objects.create(file=filename)
-            
-            file_url = fs.url(filename)
-            
-            return HttpResponse(f"파일이 성공적으로 처리됨: {file_url}")
-        else:
-            return HttpResponse("파일이 처리되지 않음")
-            
-    return HttpResponse("처리 실패")
-
-
-# def process_file(request):
-    # 파일을 처리 > after_fog에 저장 > 웹페이지에 표출 구현 예정
     
-# --- 민제님 views ---

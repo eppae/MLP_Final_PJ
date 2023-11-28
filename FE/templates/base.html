@@ -110,7 +110,7 @@
                   </div>
                   <div class="col d-flex">
                     {% if user.is_authenticated %}
-                      {% if user.is_superuser %}
+                      {% if user.is_staff %}
                         <a href="{% url 'admin_profile' %}" class="nav-item nav-link login-user">{{ user.username }}!</a>
                         <a href="{% url 'user_logout' %}" class="nav-item nav-link login-user inline-block">LOGOUT</a>
                       {% else %}

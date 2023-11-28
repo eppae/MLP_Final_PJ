@@ -55,146 +55,35 @@
   </div>
   <div class="container main-container">
     <div class="circle-container mb-5">
-      <div class="row text-center">
-        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
-          {% comment %}admin image{% endcomment %}
-          <div id="admin-1" class="circle" onclick="showContent(1)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
-        </div>
-        <label for="admin-1">김민제</label>
-      </div>
-      <div class="row text-center">
-        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
-          {% comment %}admin image{% endcomment %}
-          <div id="admin-2" class="circle" onclick="showContent(2)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
-        </div>
-        <label for="admin-2">강수현</label>
-      </div>
-      <div class="row text-center">
-        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
-          {% comment %}admin image{% endcomment %}
-          <div id="admin-3" class="circle" onclick="showContent(3)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
-        </div>
-        <label for="admin-3">이동엽</label>
-      </div>
-      <div class="row text-center">
-        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
-          {% comment %}admin image{% endcomment %}
-          <div id="admin-4" class="circle" onclick="showContent(4)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
-        </div>
-        <label for="admin-4">장우림</label>
-      </div>
-      <div class="row text-center">
-        <div class="col mx-1 d-flex flex-column align-items-center mb-2">
-          {% comment %}admin image{% endcomment %}
-          <div id="admin-5" class="circle" onclick="showContent(5)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
-        </div>
-        <label for="admin-5">홍태광</label>
-      </div>
-    </div>
-
-    <div class="content-box" id="content1" style="display: flex;">
-      <div class="container">
-        <div class="content-user-profile mx-5 p-5">
-          <div class="row justify-content-evenly">
-            <div class="col-8">
-              <div class="admin-name mb-4">
-                <h3>김민제</h3>
-              </div>
-              <div class="admin-self-introduce mb-4">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio nam fuga quo consequatur reiciendis consectetur aliquam obcaecati ipsa! Necessitatibus, neque odit. Odit repellendus dolorum repudiandae optio suscipit rerum minima velit.</p>
-              </div>
-              <div class="admin-github">
-                <p class="mb-2">
-                  <a href="https://github.com/eppae"><i class="fab fa-github fa-lg text-primary me-3 color-changed"></i>github.com/eppae</a>
-                </p>
-              </div>
-            </div>
+      {% for profile in profiles %}
+        <div class="row text-center">
+          <div class="col mx-1 d-flex flex-column align-items-center mb-2">
+            <div id="admin-{{ forloop.counter }}" class="circle" onclick="showContent({{ forloop.counter }})" style="background-image: url('{{ profile.profile_picture.url }}'); background-size: cover;"></div>
           </div>
+          <label for="admin-{{ forloop.counter }}">{{ profile.user.get_full_name }}</label>
         </div>
-      </div>
+      {% endfor %}
     </div>
 
-    <div class="content-box" id="content2">
+    {% for profile in profiles %}
+    <div class="content-box"  id="content{{ forloop.counter }}">
       <div class="container">
-        <div class="content-user-profile mx-5 p-5">
+        <div class="content-user-profile">
           <div class="row justify-content-evenly">
             <div class="col-8">
-              <div class="admin-name mb-4">
-                <h3>강수현</h3>
-              </div>
-              <div class="admin-self-introduce mb-4">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio nam fuga quo consequatur reiciendis consectetur aliquam obcaecati ipsa! Necessitatibus, neque odit. Odit repellendus dolorum repudiandae optio suscipit rerum minima velit.</p>
-              </div>
-              <div class="admin-github">
-                <p class="mb-2">
-                  <a href="https://github.com/Imshyeon"><i class="fab fa-github fa-lg text-primary me-3 color-changed"></i>github.com/Imshyeon</a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="content-box" id="content3">
-      <div class="container">
-        <div class="content-user-profile mx-5 p-5">
-          <div class="row justify-content-evenly">
-            <div class="col-8">
-              <div class="admin-name mb-4">
-                <h3>이동엽</h3>
-              </div>
-              <div class="admin-self-introduce mb-4">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio nam fuga quo consequatur reiciendis consectetur aliquam obcaecati ipsa! Necessitatibus, neque odit. Odit repellendus dolorum repudiandae optio suscipit rerum minima velit.</p>
-              </div>
-              <div class="admin-github">
-                <p class="mb-2">
-                  <a href="https://github.com/Imshyeon"><i class="fab fa-github fa-lg text-primary me-3 color-changed"></i>github.com/Imshyeon</a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="content-box" id="content4">
-      <div class="container">
-        <div class="content-user-profile mx-5 p-5">
-          <div class="row justify-content-evenly">
-            <div class="col-8">
-              <div class="admin-name mb-4">
-                <h3>장우림</h3>
-              </div>
-              <div class="admin-self-introduce mb-4">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio nam fuga quo consequatur reiciendis consectetur aliquam obcaecati ipsa! Necessitatibus, neque odit. Odit repellendus dolorum repudiandae optio suscipit rerum minima velit.</p>
-              </div>
-              <div class="admin-github">
-                <p class="mb-2">
-                  <a href="https://github.com/Imshyeon"><i class="fab fa-github fa-lg text-primary me-3 color-changed"></i>github.com/Imshyeon</a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="content-box" id="content5">
-      <div class="container">
-        <div class="content-user-profile mx-5 p-5">
-          <div class="row justify-content-evenly">
-            <div class="col-8">
-              <div class="admin-name mb-4">
-                <h3>홍태광</h3>
-              </div>
-              <div class="admin-self-introduce mb-4">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio nam fuga quo consequatur reiciendis consectetur aliquam obcaecati ipsa! Necessitatibus, neque odit. Odit repellendus dolorum repudiandae optio suscipit rerum minima velit.</p>
-              </div>
-              <div class="admin-github">
-                <p class="mb-2">
-                  <a href="https://github.com/Imshyeon"><i class="fab fa-github fa-lg text-primary me-3 color-changed"></i>github.com/Imshyeon</a>
-                </p>
+              <div class="card">
+                <div class="card-content-1 border-bottom">
+                  <div class="card-header">이름</div>
+                  <div class="card-body">{{ profile.user.get_full_name }}</div>
+                </div>
+                <div class="card-content-2 border-bottom">
+                  <div class="card-header">소개</div>
+                  <div class="card-body">{{ profile.profile_message }}</div>
+                </div>
+                <div class="card-content-3">
+                  <div class="card-header">github</div>
+                  <div class="card-body">{{ profile.git_address }}</div>
+                </div>
               </div>
             </div>
           </div>
@@ -202,6 +91,7 @@
       </div>
     </div>
   </div>
+  {% endfor %}
 
   <script>
     function showContent(index) {

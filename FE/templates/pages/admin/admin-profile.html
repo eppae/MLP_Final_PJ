@@ -34,7 +34,29 @@
         <!-- 백엔드: 좌측 상단 프로필 이미지 -->
         <div class="col text-center">
           <div>
-            <img src="{% static 'img/person_2.jpg' %}" class="rounded-circle profile-image" alt="{{ user.username }}" width="300" height="300" data-toggle="modal" data-target="#profilePictureModal" />
+            {% if error_messages %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for field, errors in error_messages.items %}
+                        {% for error in errors %}
+                            <li><strong>{{ field }}:</strong> {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <h5>{{request.user.last_name}}님! 프로필 사진을 바꾸려면 사진을 클릭하세요.</h5>
+            <div>
+              <img src="{{ profile.profile_picture.url }}" id="profile-image-preview" class="rounded-circle profile-image" 
+              alt="{{ profile.user.username }}" width="300" height="300" 
+              onclick="document.getElementById('id_profile_picture').click();" />
+            </div>
+            <div>
+              <form method="post" enctype="multipart/form-data" id="profile-picture-form">
+                {% csrf_token %}
+                <input type="file" name="profile_picture" id="id_profile_picture" style="display: none;" onchange="previewImage(this);">
+              </form>
+            </div>
           </div>
         </div>
         <!-- '하루 접속자 수', '하루 작성된 리뷰 수', '하루 서비스 이용자 수'를 표시하는 박스 -->
@@ -43,24 +65,32 @@
             <div class="card-body">
               <h5 class="card-title">통계 정보</h5>
               <ul class="list-group">
-                <li class="list-group-item">하루 접속자 수: 값은 구해오는데 템플릿 변수 표출이 안돼서 해결예정..{{ daily_visitors }}</li>
-                <li class="list-group-item">하루 작성된 리뷰 수: 민제님이 리뷰부분 만드시면 만들예정{{ daily_reviews }}</li>
-                <li class="list-group-item">하루 서비스 이용자 수: 1번과 같이 해결예정..{{ daily_users }}</li>
+                <li class="list-group-item">오늘 접속자 수: {{ daily_visitors }}명</li>
+                <li class="list-group-item">오늘 작성된 문의 수: {{ daily_reviews }}명</li>
+                <li class="list-group-item">오늘 작성된 리뷰 수: 민제님 만드시면 만들어야함{{ daily_reviews }}명</li>
+                <li class="list-group-item">오늘/누적 서비스 이용자 수: {{ daily_users }}명/ {{ total_users }}명</li>
               </ul>
             </div>
             <div class="card-body profile-box">
               <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item">
-                  <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">프로필 수정</button></h2>
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                      프로필 수정
+                    </button>
+                  </h2>
                   <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <form method="post">
-                      <!-- 이부분 css 수정원하시면 forms.py에 주석 표시했읍니다 -->
+                    <form method="post" action="{% url 'admin_profile' %}" id="profile-info-form">
                       {% csrf_token %}
-                      <p class="mt-2">{{ form.profile_message.label_tag }} {{ form.profile_message }}</p>
-                      <p>{{ form.git_address.label_tag }} {{ form.git_address }}</p>
-                      <div class="submit-btn d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary rounded-pill">Submit</button>
+                      <div>
+                        <!-- 이부분 css 수정원하시면 forms.py에 주석 표시했읍니다 -->
+                        <p class="mt-2" for="id_profile_message">{{ profile_info_form.profile_message.label }} {{ profile_info_form.profile_message }}</p>
                       </div>
+                      <div>
+                        <p for="id_git_address">{{ profile_info_form.git_address.label }} {{ profile_info_form.git_address }}</p>
+                      </div>
+                      <button class="btn btn-primary rounded-pill" type="submit" name="form_type" value="profile_info_form">Submit</button>
                     </form>
                   </div>
                 </div>
@@ -119,4 +149,21 @@
       </div>
     </div>
   </div>
+  <script>
+    function previewImage(input) {
+      if (input.files && input.files[0]) {
+        var form = document.getElementById('profile-picture-form');
+        form.submit();
+      }
+    }
+  </script>
+
+  <script>      //프로필사진 업로드 버튼 없이 바로 바뀌게 하려고 넣음
+    function previewImage(input) {
+      if (input.files && input.files[0]) {
+        input.form.submit();
+      }
+    }
+  </script>
+
 {% endblock %}
