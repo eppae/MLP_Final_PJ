@@ -8,10 +8,6 @@
     <title>Front End</title>
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap5" />
-    <!-- Google Web Fonts -->
-    {% comment %} <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;300;400;500;600;700&display=swap" rel="stylesheet" /> {% endcomment %}
     <link href="https://db.onlinewebfonts.com/c/67680f2eb947c5cbd58b40961b4a61e9?family=Apple+SD+Gothic+Neo+Bold" rel="stylesheet" />
 
     <!-- Icon Font Stylesheet -->
@@ -21,6 +17,7 @@
     <!-- Libraries Stylesheet -->
     <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet" />
     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <!-- Customized Bootstrap Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}" />
@@ -73,6 +70,18 @@
         z-index: 99;
       }
     </style>
+
+    <!-- script -->
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script> 
+    <script defer src="{% static 'js/aos.js' %}"></script>
+    <script defer src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script defer src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script defer src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script defer src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script defer src="{% static 'js/custom/dayandnight.js' %}?ver=1"></script>
+    <script defer src="{% static 'js/main.js' %}"></script>
   </head>
   <body>
     <header>
@@ -83,11 +92,12 @@
             <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <div class="navbar-nav ms-auto">
-                <a href="{% url 'fog' %}" class="nav-item nav-link">Our Product</a>
+                <a href="{% url 'fog' %}" class="nav-item nav-link">이름 수정 필요</a>
+                <a href="{% url 'about_us' %}" class="nav-item nav-link">About</a>
                 <div class="nav-item dropdown">
-                  <a href="{% url 'community' %}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Community</a>
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Community</a>
                   <div class="dropdown-menu bg-light rounded-0 m-0">
-                    <a href="{% url 'about_us' %}" class="dropdown-item">About Us</a>
+                    <a href="{% url 'support' %}" class="dropdown-item">문의/리뷰</a>
                     <a href="{% url 'news_list' %}" class="dropdown-item">News</a>
                   </div>
                 </div>
@@ -95,10 +105,10 @@
                   <a href="{% url 'contact' %}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Contact</a>
                   <div class="dropdown-menu bg-light rounded-0 m-0">
                     <a href="{% url 'contact' %}" class="dropdown-item">Contact</a>
+                    {% comment %}관리자일 때만 이 메뉴가 보여야 함.{% endcomment %}
                     <a href="{% url 'contact_list' %}" class="dropdown-item">Contact-list</a>
                   </div>
                 </div>
-                <a href="{% url 'support' %}" class="nav-item nav-link">Support</a>
               </div>
               <div class="border-start ps-4 d-none d-lg-block">
                 <div class="row">
@@ -138,7 +148,7 @@
       <div class="container-fluid footer bg-dark footer mt-5 py-4 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
           <div class="row g-5">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
               <h4 class="text-primary mb-4 color-changed">Our Team</h4>
               <p class="mb-2">
                 <i class="fa fa-users text-primary me-3 color-changed"></i>오리무중 (2조)
@@ -157,14 +167,13 @@
             </div>
             <div class="col-lg-3 col-md-6">
               <h4 class="text-primary mb-4 color-changed">Quick Links</h4>
-              <a class="btn btn-link" href="{% url 'fog' %}">Our Product</a>
+              <a class="btn btn-link" href="{% url 'fog' %}">이름 수정 필요</a>
               <a class="btn btn-link" href="{% url 'community' %}">Community</a>
               <a class="btn btn-link" href="{% url 'contact' %}">Contact Us</a>
               <a class="btn btn-link" href="{% url 'support' %}">Support</a>
             </div>
-            <div class="col-lg-3 col-md-6"></div>
-            <div class="col-lg-3 col-md-6">
-              &copy; <a class="fw-medium color-changed" href="#">Fog Filtering</a>, All Right Reserved.
+            <div class="ms-auto col-lg-3 col-md-6">
+              &copy; <a class="fw-medium color-changed" href="#">Fog Filter</a>, All Right Reserved.
               <button onclick="topFunction()" class="btn btn-lg btn-primary btn-lg-square rounded-circle backToTop"><i class="bi bi-arrow-up"></i></button>
             </div>
           </div>
@@ -172,16 +181,6 @@
       </div>
     </footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script> <script src="{% static 'js/aos.js' %}"></script>
-    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
-    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
-    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
-
-    <!-- Template Javascript -->
-    <script src="{% static 'js/main.js' %}"></script>
     <script>
       const darkIconURL = "{% static 'img/brightness-high-fill.svg' %}"
       const lightIconURL = "{% static 'img/moon-stars-fill.svg' %}"
@@ -191,6 +190,5 @@
         document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
       }
     </script>
-    <script src="{% static 'js/custom/dayandnight.js' %}?ver=1"></script>
   </body>
 </html>

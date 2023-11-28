@@ -11,7 +11,9 @@
   }
 </style>
 
+
 {% block content %}
+<script defersrc="{% static 'js/custom/contact.js' %}"></script>
 
   <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
@@ -31,9 +33,9 @@
           <form method="post" action="{% url 'submit_contact' %}" id="myForm">
             {% csrf_token %}
             <div class="row">
-              <div class="col-12 mb-3">
-                <label for="category">카테고리 </label>
-                <select name="category" id="category">
+              <div class="mb-3 d-flex">
+                <label for="category" class="mr-2 mt-1">Category</label>
+                <select name="category" id="category" class="form-select form-select-sm inline-block col-2 mx-0">
                   <option value="normal">일반</option>
                   <option value="use">제품사용</option>
                   <option value="etc">기타</option>
@@ -64,5 +66,4 @@
       </div>
     </div>
   </div>
-  <script src="{% static 'js/custom/contact.js' %}"></script>
 {% endblock %}

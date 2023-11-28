@@ -34,59 +34,49 @@
     }
     
     .content-user-profile {
-      border: 1px solid ghostwhite;
+      border: 1px solid var(--color-fg);
       border-radius: 2rem;
     }
   </style>
   <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
       <h1 class="display-2 text-dark mb-4 animated slideInDown">About Us</h1>
-      <nav aria-label="breadcrumb animated slideInDown">
-        <ol class="breadcrumb justify-content-center mb-0 bg-transparent">
-          <li class="breadcrumb-item">
-            <a href="{% url 'community' %}">Community</a>
-          </li>
-          <li class="breadcrumb-item">
-            <a href="news_list">News</a>
-          </li>
-        </ol>
-      </nav>
     </div>
   </div>
   <div class="container main-container">
     <div class="circle-container mb-5">
       <div class="row text-center">
         <div class="col mx-1 d-flex flex-column align-items-center mb-2">
-          {% comment %}admin image{% endcomment %}
-          <div id="admin-1" class="circle" onclick="showContent(1)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+          {% comment %}프사로 하고 싶은 것 있으면 img/about안에서 선택하시면 됩니다!{% endcomment %}
+          {% comment %} https://emojipedia.org/ko/apple   에서 원하는 거 다운받아서 폴더 내에 넣으시면 됩니다! {% endcomment %}
+          <div id="admin-1" class="circle" onclick="showContent(1)" style="background: url('/static/img/about/ghost.png') center no-repeat;"></div>
         </div>
         <label for="admin-1">김민제</label>
       </div>
       <div class="row text-center">
         <div class="col mx-1 d-flex flex-column align-items-center mb-2">
-          {% comment %}admin image{% endcomment %}
-          <div id="admin-2" class="circle" onclick="showContent(2)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+          <div id="admin-2" class="circle" onclick="showContent(2)" style="background: url('/static/img/about/chick.png') center no-repeat;"></div>
         </div>
         <label for="admin-2">강수현</label>
       </div>
       <div class="row text-center">
         <div class="col mx-1 d-flex flex-column align-items-center mb-2">
           {% comment %}admin image{% endcomment %}
-          <div id="admin-3" class="circle" onclick="showContent(3)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+          <div id="admin-3" class="circle" onclick="showContent(3)" style="background: url('/static/img/about/unicorn.png') center no-repeat;"></div>
         </div>
         <label for="admin-3">이동엽</label>
       </div>
       <div class="row text-center">
         <div class="col mx-1 d-flex flex-column align-items-center mb-2">
           {% comment %}admin image{% endcomment %}
-          <div id="admin-4" class="circle" onclick="showContent(4)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+          <div id="admin-4" class="circle" onclick="showContent(4)" style="background: url('/static/img/about/robot.png') center no-repeat;"></div>
         </div>
         <label for="admin-4">장우림</label>
       </div>
       <div class="row text-center">
         <div class="col mx-1 d-flex flex-column align-items-center mb-2">
           {% comment %}admin image{% endcomment %}
-          <div id="admin-5" class="circle" onclick="showContent(5)" style="background-image: url('/static/img/person_2.jpg'); background-size: cover;"></div>
+          <div id="admin-5" class="circle" onclick="showContent(5)" style="background: url('/static/img/about/dog.png') center no-repeat;"></div>
         </div>
         <label for="admin-5">홍태광</label>
       </div>
@@ -207,10 +197,6 @@
     function showContent(index) {
       document.querySelectorAll('.content-box').forEach((box) => (box.style.display = 'none'))
       document.getElementById(`content${index}`).style.display = 'flex'
-      // 백엔드: (설명) 해당 content-box에 admin의 profile을 동적으로 추가하는 부분입니다.
-      // 서버에서 해당 정보를 받아오는 방식에 따라 구현이 달라질 수 있습니다.
-      // 실제 서버에서 데이터를 받아오는 부분을 추가해야 합니다.
-      // document.getElementById(`content${index}`).innerHTML = "{{ admin.profile }}";
     }
   </script>
 {% endblock %}

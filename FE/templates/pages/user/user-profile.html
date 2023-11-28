@@ -20,7 +20,7 @@
         <div>
           <img src="{% static 'img/person_2.jpg' %}" class="rounded-circle profile-image" alt="{{ user.username }}" width="300" height="300" data-toggle="modal" data-target="#profilePictureModal" />
         </div>
-        <div class="profile-box justify-content-center">
+        <div class="profile-box justify-content-center mt-4">
           <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
               <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">프로필 수정</button></h2>
@@ -90,21 +90,12 @@
   </nav>
   <script>
     function saveProfile() {
-      // textarea에서 프로필 내용 가져오기
       var profileContent = document.getElementById('profileContent').value
-      // 여기에서 서버에 프로필 내용을 저장하는 로직을 추가할 수 있습니다.
-    
-      // 이 예시에서는 콘솔에 출력하는 것으로 대체하였습니다.
       console.log('프로필 내용 저장: ' + profileContent)
     }
     
     function uploadImage(imagePath, afterImgPath, imgResultJsonPath) {
-      // 백엔드: 이미지 업로드 및 파일 불러오기 로직...
-      // imagePath, afterImgPath, imgResultJsonPath를 서버에 전송하고, 결과를 받아올 수 있습니다.
       console.log('이미지 업로드: ' + imagePath)
-    
-      // 여기에서 결과를 받아와서 처리하는 로직을 추가할 수 있습니다.
-      // 업로드한 이미지의 경로와 관련 파일 경로를 포함하여 fog-result.html로 리다이렉트
       window.location.href = "{% url 'fog' %}?image_path=" + imagePath + '&after_img_path=' + afterImgPath + '&img_result_json_path=' + imgResultJsonPath
     }
   </script>
