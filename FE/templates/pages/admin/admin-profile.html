@@ -34,17 +34,6 @@
         <!-- 백엔드: 좌측 상단 프로필 이미지 -->
         <div class="col text-center">
           <div>
-            {% if error_messages %}
-            <div class="alert alert-danger">
-                <ul>
-                    {% for field, errors in error_messages.items %}
-                        {% for error in errors %}
-                            <li><strong>{{ field }}:</strong> {{ error }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
             <h5>{{request.user.last_name}}님! 프로필 사진을 바꾸려면 사진을 클릭하세요.</h5>
             <div>
               <img src="{{ profile.profile_picture.url }}" id="profile-image-preview" class="rounded-circle profile-image" 
@@ -67,7 +56,7 @@
               <ul class="list-group">
                 <li class="list-group-item">오늘 접속자 수: {{ daily_visitors }}명</li>
                 <li class="list-group-item">오늘 작성된 문의 수: {{ daily_reviews }}명</li>
-                <li class="list-group-item">오늘 작성된 리뷰 수: 민제님 만드시면 만들어야함{{ daily_reviews }}명</li>
+                <li class="list-group-item">오늘 작성된 리뷰 수: {{ daily_reviews }}명</li>
                 <li class="list-group-item">오늘/누적 서비스 이용자 수: {{ daily_users }}명/ {{ total_users }}명</li>
               </ul>
             </div>

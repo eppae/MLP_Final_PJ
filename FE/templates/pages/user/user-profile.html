@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load FE_tags %}
 
 {% block content %}
   {% load static %}
@@ -18,7 +19,7 @@
       <!-- 백엔드: 좌측 상단 프로필 이미지 -->
       <div class="col-sm-4 text-center mb-4">
         <div>
-          <h5>{{request.user.last_name}}님! 프로필 사진을 바꾸려면 사진을 클릭하세요.</h5>
+          <h5>{{request.user.last_name}}님! <br>프로필 사진을 바꾸려면 사진을 클릭하세요.</h5>
           <img src="{{ profile.profile_picture.url }}" id="profile-image-preview" class="rounded-circle profile-image" 
           alt="{{ profile.user.username }}" width="300" height="300" 
           onclick="document.getElementById('id_profile_picture').click();" />
@@ -27,7 +28,7 @@
             <input type="file" name="profile_picture" class="rounded-circle profile-image" id="id_profile_picture" style="display: none;" onchange="previewImage(this);">
           </form>
         </div>
-        <div class="profile-box justify-content-center">
+        <div class="profile-box justify-content-center mt-4">
           <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
               <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">프로필 수정</button></h2>
@@ -50,15 +51,22 @@
       </div>
 
       <div class="col">
+        <h5>총 처리된 이미지: {{total_images}}장이 존재합니다.</h5>
         <div class="container">
           <div class="row">
             {% for image in page_obj %}
-              <div class="col-md-6 mb-4">
-                <!-- 이미지 클릭 시 uploadImage 함수 호출 -->
-                <a href="fog_result" onclick="uploadImage('{{ image.processed_image.url }}', 'after_img', 'img_result.json')">
-                  <img src="{{ image.processed_image.url }}" class="img-fluid grid-image" alt="Processed Image" />
-                </a>
+            <div class="col-md-6 mb-4">
+                <h5>{% calculate_order page_obj.number forloop.counter %}번째 Original Image</h5>
+                <img src="{{ image.original_image.url }}" class="img-fluid grid-image" alt="Original Image" />
               </div>
+              <div class="col-md-6 mb-4">
+                <h5>{% calculate_order page_obj.number forloop.counter %}번째 Processed Image</h5>
+                <img src="{{ image.processed_image.url }}" class="img-fluid grid-image" alt="Processed Image" />
+              </div>
+              <hr>
+              {% if forloop.counter|divisibleby:2 %}
+                </div><div class="row">
+              {% endif %}
             {% endfor %}
           </div>
         </div>
@@ -95,21 +103,12 @@
   </nav>
   <script>
     function saveProfile() {
-      // textarea에서 프로필 내용 가져오기
       var profileContent = document.getElementById('profileContent').value
-      // 여기에서 서버에 프로필 내용을 저장하는 로직을 추가할 수 있습니다.
-    
-      // 이 예시에서는 콘솔에 출력하는 것으로 대체하였습니다.
       console.log('프로필 내용 저장: ' + profileContent)
     }
     
     function uploadImage(imagePath, afterImgPath, imgResultJsonPath) {
-      // 백엔드: 이미지 업로드 및 파일 불러오기 로직...
-      // imagePath, afterImgPath, imgResultJsonPath를 서버에 전송하고, 결과를 받아올 수 있습니다.
       console.log('이미지 업로드: ' + imagePath)
-    
-      // 여기에서 결과를 받아와서 처리하는 로직을 추가할 수 있습니다.
-      // 업로드한 이미지의 경로와 관련 파일 경로를 포함하여 fog-result.html로 리다이렉트
       window.location.href = "{% url 'fog' %}?image_path=" + imagePath + '&after_img_path=' + afterImgPath + '&img_result_json_path=' + imgResultJsonPath
     }
   </script>

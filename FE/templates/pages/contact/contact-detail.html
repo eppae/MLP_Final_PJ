@@ -5,30 +5,30 @@
   .post-meta span a{
     color: #141c22;
   }
+
+  .contact-content{
+    height: 30rem;
+  }
 </style>
   <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
       {% comment %}BE : post에 대한 title, author, date, category{% endcomment %}
-      <h1 class="display-2 text-dark mb-4 animated slideInDown">Contact Title</h1>
+      <h1 class="display-2 text-dark mb-4 animated slideInDown">{{ contact_message.title }}</h1>
       <div class="post-meta align-items-center text-center">
         {% comment %} Author의 email주소 링크 {% endcomment %}
-        <span class="d-inline-block mt-1"><a href="#">By Author</a></span>
-        <span>&nbsp;-&nbsp; December 25, 2023</span>
+        <span class="d-inline-block mt-1">By. {{ contact_message.first_name }} {{ contact_message.last_name }}</span>
+        <span>&nbsp;-&nbsp; {{ contact_message.created_at }}</span>
+        <p>{{ contact_message.email }}</p>
       </div>
     </div>
   </div>
 
-  <section class="section">
+  <section class="section contact-content">
     <div class="container">
       <div class="row blog-entries element-animate justify-content-center">
         <div class="col-md-12 col-lg-8 main-content">
           <div class="post-content-body">
-            {% comment %}아래는 contact 내용이 들어가면 됩니다!{% endcomment %}
-            <p>Title: {{ contact_message.title }}</p>
-            <p>Name: {{ contact_message.first_name }} {{ contact_message.last_name }}</p>
-            <p>Email: {{ contact_message.email }}</p>
-            <p>Message: {{ contact_message.message }}</p>
-            <p>Created At: {{ contact_message.created_at }}</p>
+            <p>{{ contact_message.message }}</p>
           </div>
         </div>
       </div>

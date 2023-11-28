@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block content %}
+  <script defer src="{% static 'js/custom/reset_pw.js' %}"></script>
+
   <div class="container">
     <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
@@ -16,7 +18,7 @@
                 <p>비밀번호를 잊어버리셨나요?</p>
               </div>
               <div class="container form-container">
-                {% comment %} 비밀번호 리셋 {% endcomment %}
+                {% comment %}비밀번호 리셋{% endcomment %}
                 <form class="validated_form user" id="forgotPasswordForm" method="POST">
                   {% csrf_token %}
                   {{ form }}
@@ -24,7 +26,7 @@
                     <div class="form-group col-8 mb-4">
                       <input type="password" class="form-control form-control-user form-input-pw" id="InputPassword" aria-describedby="InputPassword" placeholder="재설정할 비밀번호를 입력하세요" />
                       <div class="valid-pw-inform text-success" style="display: block;">영어 + 숫자 + 특수문자(!@#$%^&*~)</div>
-                      <div class="valid-pw text-danger" style="display: block;"></div>    
+                      <div class="valid-pw text-danger" style="display: block;"></div>
                     </div>
                     <div class="form-group col-8 mb-4">
                       <input type="password" class="form-control form-control-user form-input-pw-re" id="RepeatPassword" aria-describedby="RepeatPassword" placeholder="다시 한 번 비밀번호를 입력하세요" />
@@ -42,5 +44,4 @@
       </div>
     </div>
   </div>
-<script src="{% static 'js/custom/reset_pw.js' %}"></script>
 {% endblock %}

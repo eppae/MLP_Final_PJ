@@ -259,7 +259,9 @@ def user_profile(request):
 
     # 페이지당 4개로 처리한 이미지 넣기
     user_dehazing_images = dehazing.objects.filter(user=request.user)
-    paginator = Paginator(user_dehazing_images, 4) 
+    total_images = user_dehazing_images.count()
+    
+    paginator = Paginator(user_dehazing_images, 2) 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
@@ -270,6 +272,7 @@ def user_profile(request):
         
         'form': form,
         'page_obj': page_obj,
+        'total_images': total_images,
     }
     return render(request, 'pages/user/user-profile.html', context)
 
@@ -281,8 +284,9 @@ def admin_profile(request):
     
     #통계 context 넣기
     daily_visitors = get_daily_visitors()
-    daily_contact = get_daily_contact()
-    # daily_reviews = get_daily_reviews()
+    daily_reviews = get_daily_reviews()
+    total_reviews = get_total_reviews()
+    # daily_count = get_daily_count()
     daily_users = get_daily_users()
     total_users = get_total_users()
 
@@ -305,8 +309,9 @@ def admin_profile(request):
         'profile': request.user.profile,
         # ▼통계 context
         'daily_visitors': daily_visitors,
-        'daily_contact': daily_contact,
-        # 'daily_reviews': daily_reviews,
+        'daily_reviews': daily_reviews,
+        'total_reviews': total_reviews,
+        # 'daily_count': daily_count,
         'daily_users': daily_users,
         'total_users': total_users,
     }
@@ -320,14 +325,25 @@ def get_daily_visitors():   # 방문자 수
     
     return daily_visitors
 
+# 도대체 왜인지 모르겠는데
+#>>> from FE.views import get_daily_contact     get_daily_contact이함수명이 안먹혀서 이름좀 꼬아놨음
+# Traceback (most recent call last):
+#   File "<console>", line 1, in <module>
+# ImportError: cannot import name 'get_daily_contact' from 'FE.views' (C:\Users\User\Desktop\Final_Project\Real_Final\MLP_Final_PJ\FE\FE\views.py)
 
-def get_daily_contact():    # 문의 수
+def get_daily_reviews():
     today = timezone.now().date()
     daily_contact = ContactMessage.objects.filter(created_at__date=today).count()
     
     return daily_contact
 
-def get_daily_reviews():
+def get_total_reviews():
+    total_contacts = ContactMessage.objects.all().count()
+    
+    return total_contacts
+
+
+def get_daily_count():
     pass
 
 
@@ -342,6 +358,7 @@ def get_total_users():  # 모델 총 사용자 수
     total_users = dehazing.objects.all().count()
     
     return total_users
+
 
 
 def about_us(request):
