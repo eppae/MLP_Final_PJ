@@ -11,19 +11,19 @@
     <link href="https://db.onlinewebfonts.com/c/67680f2eb947c5cbd58b40961b4a61e9?family=Apple+SD+Gothic+Neo+Bold" rel="stylesheet" />
 
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+    {% comment %} <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" disabled /> {% endcomment %}
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" disabled /> {% endcomment %}
 
     <!-- Libraries Stylesheet -->
     <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet" />
-    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    {% comment %} <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" disabled/> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" disalbed/> {% endcomment %}
 
     <!-- Customized Bootstrap Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}" />
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/fontawesome-free/css/all.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/fontawesome-free/css/all.min.css' %}" rel="stylesheet" disalbed />
     <link href="{% static 'css/custom.css' %}?ver=2" rel="stylesheet" />
     <link href="{% static 'css/darkmode.css' %}?ver=2" rel="stylesheet" />
     <style>
@@ -70,18 +70,6 @@
         z-index: 99;
       }
     </style>
-
-    <!-- script -->
-    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script> 
-    <script defer src="{% static 'js/aos.js' %}"></script>
-    <script defer src="{% static 'lib/wow/wow.min.js' %}"></script>
-    <script defer src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-    <script defer src="{% static 'lib/easing/easing.min.js' %}"></script>
-    <script defer src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
-    <script defer src="{% static 'js/custom/dayandnight.js' %}?ver=1"></script>
-    <script defer src="{% static 'js/main.js' %}"></script>
   </head>
   <body>
     <header>
@@ -160,9 +148,9 @@
                 <i class="fab fa-github fa-lg text-primary me-3 color-changed"></i>github.com/eppae/MLP_Final_PJ
               </p>
               <div class="d-flex pt-3">
-                <a class="btn btn-square btn-primary rounded-circle me-2" href="https://twitter.com/?lang=ko"><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-square btn-primary rounded-circle me-2" href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
-                <a class="btn btn-square btn-primary rounded-circle me-2" href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a>
+                <a class="btn btn-square btn-primary rounded-circle me-2" href="https://twitter.com/?lang=ko" aria-label="twitter"><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-square btn-primary rounded-circle me-2" href="https://www.instagram.com/" aria-label="instagram"><i class="fab fa-instagram"></i></a>
+                <a class="btn btn-square btn-primary rounded-circle me-2" href="https://www.youtube.com/" aria-label="youtube"><i class="fab fa-youtube"></i></a>
               </div>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -174,7 +162,7 @@
             </div>
             <div class="ms-auto col-lg-3 col-md-6">
               &copy; <a class="fw-medium color-changed" href="#">Fog Filter</a>, All Right Reserved.
-              <button onclick="topFunction()" class="btn btn-lg btn-primary btn-lg-square rounded-circle backToTop"><i class="bi bi-arrow-up"></i></button>
+              <button onclick="topFunction()" class="btn btn-lg btn-primary btn-lg-square rounded-circle backToTop" aria-label="buttonForTop"><i class="fa fa-arrow-up"></i></button>
             </div>
           </div>
         </div>
@@ -190,5 +178,16 @@
         document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
       }
     </script>
+    <!-- script -->
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script defer src="{% static 'js/aos.js' %}"></script>
+    <script defer src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script defer src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script defer src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script defer src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script defer src="{% static 'js/custom/dayandnight.js' %}?ver=1"></script>
+    <script defer src="{% static 'js/main.js' %}"></script>
   </body>
 </html>

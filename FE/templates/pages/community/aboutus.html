@@ -29,7 +29,7 @@
     }
     
     .main-container {
-      margin-bottom: 10rem;
+      margin-bottom: 4rem;
     }
     
     .content-user-profile {
@@ -47,15 +47,16 @@
       {% for profile in profiles %}
         <div class="row text-center">
           <div class="col mx-1 d-flex flex-column align-items-center mb-2">
-            <div id="admin-{{ forloop.counter }}" class="circle" onclick="showContent({{ forloop.counter }})" 
-            style="background-image: url('{{ profile.profile_picture.url }}'); background-size: cover; center no-repeat;"></div>
+            <div id="admin-{{ forloop.counter }}" class="circle" onclick="showContent({{ forloop.counter }})" style="background-image: url('{{ profile.profile_picture.url }}'); background-size: cover; center no-repeat;"></div>
           </div>
           <label for="admin-{{ forloop.counter }}">{{ profile.user.get_full_name }}</label>
         </div>
       {% endfor %}
     </div>
-    {% for profile in profiles %}
-    <div class="content-box"  id="content{{ forloop.counter }}" style="display: flex;">
+  </div>
+
+  {% for profile in profiles %}
+    <div class="content-box" id="content{{ forloop.counter }}" style="display: flex;">
       <div class="container">
         <div class="content-user-profile mx-5 p-5">
           <div class="row justify-content-evenly">
@@ -76,19 +77,14 @@
         </div>
       </div>
     </div>
-  </div>
   {% endfor %}
 
   <script>
-    // 처음에는 모든 content-box를 숨김
-    document.querySelectorAll('.content-box').forEach((box) => (box.style.display = 'none'));
-  
+    document.querySelectorAll('.content-box').forEach((box) => (box.style.display = 'none'))
+    document.querySelector('.content-box').style.display = 'flex'
     function showContent(index) {
-      // 모든 content-box를 숨김
-      document.querySelectorAll('.content-box').forEach((box) => (box.style.display = 'none'));
-      // 클릭한 content-box만 보이도록 함
-      document.getElementById(`content${index}`).style.display = 'flex';
+      document.querySelectorAll('.content-box').forEach((box) => (box.style.display = 'none'))
+      document.getElementById(`content${index}`).style.display = 'flex'
     }
   </script>
-  
 {% endblock %}

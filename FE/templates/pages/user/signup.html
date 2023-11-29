@@ -95,7 +95,7 @@
                   <div class="form-group mb-3">
                     <div class="custom-control custom-checkbox small d-flex justify-content-center align-self-center">
                       {{ form.terms_agreed }}
-                      <label for="{{ form.terms_agreed.id_for_label }}">개인정보처리방침 및 이용약관 동의 여부</label>
+                      <label for="{{ form.terms_agreed.id_for_label }}" class="mx-1">개인정보처리방침 및 이용약관 동의 여부</label>
                       {% if form.terms_agreed.errors %}
                         <div class="text-danger">{{ form.terms_agreed.errors }}</div>
                       {% endif %}

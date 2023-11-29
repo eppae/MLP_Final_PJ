@@ -11,9 +11,8 @@
   }
 </style>
 
-
 {% block content %}
-<script defersrc="{% static 'js/custom/contact.js' %}"></script>
+  <script defersrc="{% static 'js/custom/contact.js' %}"></script>
 
   <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
@@ -27,31 +26,33 @@
         <p class="fs-5 fw-medium fst-italic text-primary">Contact Us</p>
         <h1 class="display-6">If You Have Any Query, Please Contact Us</h1>
       </div>
-      {% comment %} contact 작성 -> db {% endcomment %}
+      {% comment %}contact 작성 -> db{% endcomment %}
       <div class="row justify-content-center">
         <div class="col-8" data-aos="fade-up" data-aos-delay="200">
           <form method="post" action="{% url 'submit_contact' %}" id="myForm">
             {% csrf_token %}
             <div class="row">
-              <div class="mb-3 d-flex">
-                <label for="category" class="mr-2 mt-1">Category</label>
-                <select name="category" id="category" class="form-select form-select-sm inline-block col-2 mx-0">
-                  <option value="normal">일반</option>
-                  <option value="use">제품사용</option>
-                  <option value="etc">기타</option>
-                </select>
+              <div class="mb-3">
+                <div class="col-4 d-flex">
+                  <label for="category" class="mr-2 mt-1 px-1">Category</label>
+                  <select name="category" id="category" class="form-select form-select-sm col-sm-6 inline-block">
+                    <option value="normal">일반</option>
+                    <option value="use">제품사용</option>
+                    <option value="etc">기타</option>
+                  </select>
+                </div>
               </div>
               <div class="col-6 mb-3">
                 <input type="text" class="form-control" placeholder="이름" name="last_name" />
               </div>
               <div class="col-6 mb-3">
-                <input type="text" class="form-control" placeholder="성" name="first_name"/>
+                <input type="text" class="form-control" placeholder="성" name="first_name" />
               </div>
               <div class="col-12 mb-3">
-                <input type="text" class="form-control" placeholder="Title" name="title"/>
+                <input type="text" class="form-control" placeholder="Title" name="title" />
               </div>
               <div class="col-12 mb-3">
-                <input type="email" class="form-control" placeholder="Email" name="email"/>
+                <input type="email" class="form-control" placeholder="Email" name="email" />
               </div>
               <div class="col-12 mb-3">
                 <textarea name="message" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
