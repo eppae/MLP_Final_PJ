@@ -48,13 +48,13 @@
                   <input type="hidden" id="contact_kw" name="contact_kw" value="{{ contact_kw|default_if_none:'' }}" />
                   <input type="hidden" id="page" name="page" value="{{ page }}" />
                 </form>
-                <div class="navbar-nav align-items-center mr-2">
+                <div class="navbar-nav align-items-center mx-1">
                   <div class="nav-item d-flex align-items-center" style="width:100%;">
                     <input type="text" class="form-control border-1 shadow-none" placeholder="게시글 검색" aria-label="Search..." id="contact_search_kw" name="contact_search_kw" value="{{ contact_search_kw|default_if_none:'' }}" />
                   </div>
                 </div>
-                <div style="list-style:none; ml-2">
-                  <button class="btn btn-primary" type="button" id="btnSearch"><i class="fas fa-search"></i></button>
+                <div style="list-style:none;">
+                  <button class="btn btn-primary" type="button" id="btnSearch" aria-label="buttonForSearch"><i class="fas fa-search"></i></button>
                 </div>
               </form>
             </div>
