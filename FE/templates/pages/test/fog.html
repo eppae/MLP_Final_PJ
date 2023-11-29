@@ -43,14 +43,14 @@
               <div class="col-lg-7 mb-4 mb-lg-0">
                 {% comment %} <video id="uploadedVideo" class="embed-responsive" style="display: none;" autoplay></video> {% endcomment %}
                 {% comment %} <img id="uploadedImage" class="img-fluid" style="display: none;" alt="Uploaded Image" /> {% endcomment %}
-
+                
                 {% if uploaded_file_url %}
-                  <div class="image-display">
+                  <div class="image-display d-flex justify-content-center align-items-center">
                     <p>Original Image:</p>
-                    <img id="uploadedImage" class="img-fluid" style="display: none;" src="{{ uploaded_file_url }}" alt="Original Image" />
+                    <img id="uploadedImage" class="img-fluid" src="{{ uploaded_file_url }}" alt="Original Image" width="400" height="300" />
 
                     <p>Processed Image:</p>
-                    <img id="uploadedImage" class="img-fluid" style="display: none;" src="{{ processed_file_url }}" alt="Processed Image" />
+                    <img id="uploadedImage" class="img-fluid" src="{{ processed_file_url }}" alt="Processed Image" width="700" height="500" />
                   </div>
                 {% else %}
                   <!-- 사용자에게 이미지 업로드를 유도하는 메시지 표시 -->
@@ -59,17 +59,28 @@
               </div>
             </div>
           </div>
-
           <form id="uploadForm" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div id="uploadBtn" class="file-upload d-flex justify-content-center mt-3" style="bottom: 2px; right: 50%;">
-              <input type="file" style="display: none;" id="fileInput" accept="image/*, video/*" name="image" />
-              <label for="fileInput" type="submit" class="btn btn-primary rounded-full ml-3 btn-for-process">Upload and Process</label>
+              <input type="file" style="display: none;" id="fileInput" accept="image/*, video/*" name="image" onchange="toggleProcessButton()"/>
+              <label for="fileInput" class="btn btn-primary rounded-full">Upload</label>
+              <button id="processBtn" type="submit" class="btn btn-primary rounded-full" style="display: none; margin-bottom: 8px;">Process!</button>
             </div>
-          </form>
+          </form>          
         </div>
       </div>
     </div>
   </div>
-
+  <script>
+    function toggleProcessButton() {    // PROCESS! 버튼 숨기기 추가
+      var fileInput = document.getElementById('fileInput');
+      var processBtn = document.getElementById('processBtn');
+      
+      if (fileInput.files.length > 0) {
+        processBtn.style.display = 'block';
+      } else {
+        processBtn.style.display = 'none';
+      }
+    }
+  </script>
 {% endblock %}

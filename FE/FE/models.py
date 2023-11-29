@@ -7,6 +7,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_message  = models.TextField()
     git_address = models.URLField(max_length=30, default='')
+    profile_picture = models.ImageField(upload_to='profile/', default='profile/default.jpg')
+    dateTimeOfUpload = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.user.username
@@ -14,10 +16,11 @@ class Profile(models.Model):
 # --- fog 관련 model ---
 
 class UploadedFile(models.Model):
-    file = models.FileField(upload_to='before_fog/')
+    file = models.FileField(upload_to='after_fog/')
     upload_date = models.DateTimeField(auto_now_add=True)
     
 class dehazing(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     original_image = models.ImageField(upload_to='before_fog/')
     processed_image = models.ImageField(upload_to='after_fog/', null=True, blank=True)
     # original_video = models.FileField(upload_to='before_fog/')

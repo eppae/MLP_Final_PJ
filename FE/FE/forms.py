@@ -12,15 +12,13 @@ from .models import Profile
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['profile_message', 'git_address']
+        fields = ['profile_message', 'git_address', 'profile_picture']
         
     def __init__(self, *args, **kwargs):           
         super(ProfileForm, self).__init__(*args, **kwargs)
         
         # 프로필 메시지 CSS 수정은 이곳에서!
         self.fields['profile_message'].widget.attrs.update({'class': 'form-control form-control-user'})
-        self.fields['git_address'].widget.attrs.update({'class': 'form-control form-control-user'})
-        
         
 
 class CustomUserCreationForm(UserCreationForm):

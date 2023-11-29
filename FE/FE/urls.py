@@ -21,13 +21,16 @@ from .views import (
     # fog_result,   모델 만들어지면 예정
     review_detail,
     
-    upload_file,
     forgot_id_result,
     user_login,
     user_logout,
+    # change_profile_info,
+    # change_profile_picture,
     
 )
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("", home, name="home"),
@@ -36,10 +39,10 @@ urlpatterns = [
     path("post_form", post_form, name="post_form"),
     path("support", support, name="support"),
     path("review_detail", review_detail, name="review_detail"),
-    path("about_us", about_us, name="about_us"),
     path("news_list", news_list, name="news_list"),
     path("news_detail", news_detail, name="news_detail"),
         # --- 회원관련 ---
+    path("about_us", about_us, name="about_us"),
     path("id_res", forgot_id_result, name="forgot_id_result"),
     path("user_login", user_login, name="user_login"),
     path("user_logout", user_logout, name="user_logout"),
@@ -49,9 +52,10 @@ urlpatterns = [
     path("signup", signup, name="signup"),
     path("user_profile", user_profile, name="user_profile"),
     path("admin_profile", admin_profile, name="admin_profile"),
+    # path("change_profile_picture", change_profile_picture, name="change_profile_picture"),
+    # path("change_profile_info", change_profile_info, name="change_profile_info"),
     # --- fog ---
     path("fog/", fog, name="fog"),
-    path('upload_file/', upload_file, name='upload_file'),
 
 # ========================== contact BE url ===============================
     path('submit_contact', submit_contact, name='submit_contact'),
@@ -60,4 +64,4 @@ urlpatterns = [
     path("contact_detail/<int:post_num>/", contact_detail, name="contact_detail"),
     path("delete_contact", delete_contact, name="delete_contact"),
     # path("fog_result", fog_result, name="fog_result"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
