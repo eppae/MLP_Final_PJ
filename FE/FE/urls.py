@@ -20,6 +20,8 @@ from .views import (
     delete_contact,
     create_post,
     n_category_news_list,
+    create_comment,
+
     # fog_result,   모델 만들어지면 예정
     review_detail,
     
@@ -42,7 +44,7 @@ urlpatterns = [
     path("support", support, name="support"),
     path("review_detail", review_detail, name="review_detail"),
     path("news_list", news_list, name="news_list"),
-    path("news_detail", news_detail, name="news_detail"),
+
         # --- 회원관련 ---
     path("about_us", about_us, name="about_us"),
     path("id_res", forgot_id_result, name="forgot_id_result"),
@@ -67,5 +69,7 @@ urlpatterns = [
     path("delete_contact", delete_contact, name="delete_contact"),
     path("create_post", create_post, name="create_post"),
     path("news_list/<str:n_category>/", n_category_news_list, name="news_list_category"),
+    path("news_detail/<int:post_num>/", news_detail, name="news_detail"),
+    path("create_comment/<int:post_num>/", create_comment, name="create_comment"),
     # path("fog_result", fog_result, name="fog_result"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

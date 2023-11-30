@@ -55,17 +55,9 @@ class Comment(models.Model):
     content = models.TextField()
     writer = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
-    #
     post = models.ForeignKey(PostForm, on_delete=models.CASCADE)
-
-class ReComment(models.Model):
-    replied_to = models.ForeignKey(Comment, related_name="re_comments", on_delete=models.CASCADE)
-    replier = models.CharField(max_length=255, default="익명2")
-    content = models.TextField()
-    replied_created_at = models.DateTimeField(auto_now_add=True)
-
+    parentcomment = models.ForeignKey('self',on_delete=models.CASCADE, null=True)
     def __str__(self):
-        return '%s' % (self.author)
-
+        return f"{self.content}"
     class Meta:
-        ordering = ["-replied_created_at"]
+        ordering = ["-created_at"]

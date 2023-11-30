@@ -20,7 +20,10 @@ from datetime import datetime
 from .models import Profile
 from .forms import ProfileForm
 from django.forms.models import modelform_factory
-
+#--- comment ---
+from .models import Comment
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 def home(request):
     return render(request, "pages/home.html")
 
@@ -64,8 +67,12 @@ def news_list(request,n_category=None):
 def n_category_news_list(request,n_category):
     return news_list(request,n_category=n_category)
 
-def news_detail(request):
-    return render(request, "pages/community/news-detail.html")
+def news_detail(request,post_num):
+    writer = request.user
+    current_time = datetime.now()
+    newspost = get_object_or_404(PostForm,post_num=post_num)
+    context = {'newspost':newspost,'writer':writer,'current_time':current_time}
+    return render(request, "pages/community/news-detail.html", context)
 
 def create_post(request):
     if request.method =='POST':
@@ -88,6 +95,34 @@ def create_post(request):
         else:
             return render(request, 'pages/admin/support.html', {'Post':Post})
     return HttpResponse("Invalid Request Method")
+
+def create_comment(request,post_num):
+    if request.method == 'POST':
+        writer = request.POST.get('comment_name')
+        message = request.POST.get('comment_message')
+        parent_id = int(request.POST.get('parent_id',"0"))
+        post = PostForm.objects.get(post_num=post_num)
+        if parent_id ==0:
+            comment = Comment(
+                writer = writer,
+                content= message,
+                post=post
+                )
+        else:
+            parent_comment = Comment.objects.get(pk=parent_id)
+            comment = Comment(
+                writer=writer,
+                content=message,
+                post=post,
+                parent_comment=parent_comment,
+            )
+        comment.save()
+        comments = Comment.objects.filter(post=post)
+        context = {'comments': comments}
+        return render(request, 'pages/community/news-detail.html', context)
+
+    return render(request, 'pages/community/news-detail.html')
+
 
 def contact_list(request,category=None):
     page_number = request.GET.get('page','1')

@@ -63,27 +63,7 @@
   <div class="section search-result-wrap">
     <div class="container">
       <div class="row">
-        <div class="col-md-12 my-3">
-          <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-            <!-- '네비' (카테고리 선택) -->
-            <ul class="nav">
-              <li class="nav-item">
-                <a class="nav-link active" href="{% url 'news_list' %}">전체</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'news_list_category' n_category='normal' %}">일반</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'news_list_category' n_category='use' %}">제품사용</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'news_list_category' n_category='preview' %}">시연</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'news_list_category' n_category='etc' %}">기타</a>
-              </li>
-            </ul>
-            <div class="row">
+        <div class="row">
               <form class="form-inline text-end justify-content-end">
                 <div class="sidebar-box search-form-wrap mb-2">
                   <form action="#" class="sidebar-search-form">
@@ -91,14 +71,13 @@
                   </form>
                 </div>
                 {% comment %}해당 부분은 admin만 보이게 해야함{% endcomment %}
-                {% if user.is_superuser %}
-                  <div>
-                    <!-- 백엔드: '질문하기' 버튼 -->
-                    <a href="{% url 'post_form' %}" class="btn btn-primary">글쓰기</a>
-                  </div>
-                {% endif %}
               </form>
             </div>
+        <div class="col-md-12 my-3">
+          <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
+            <!-- '네비' (카테고리 선택) -->
+
+
           </nav>
         </div>
       </div>
@@ -111,7 +90,7 @@
             <div class="blog-entry d-flex blog-entry-search-item mb-5">
               <div>
                 <span class="date">{{ newspost.created_at }} <a href="#">{{ newspost.category }}</a></span>
-                <h2><a href="{% url 'news_detail' %}">{{ newspost.title }}</a></h2>
+                <h2><a href="{% url 'news_detail' post_num=newspost.post_num %}">{{ newspost.title }}</a></h2>
                 <p>{{ newspost.text }}</p>
               </div>
             </div>
@@ -139,6 +118,13 @@
             </li>
           </ul>
         </nav>
+      {% if user.is_superuser %}
+                  <div>
+                    <!-- 백엔드: '질문하기' 버튼 -->
+                    <a href="{% url 'post_form' %}" class="btn btn-primary">글쓰기</a>
+                  </div>
+                {% endif %}
+
       </div>
     </div>
 {% endblock %}

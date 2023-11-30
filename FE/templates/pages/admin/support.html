@@ -66,28 +66,23 @@
       <!-- '네비' (카테고리 선택) -->
       <div class="col-md-12 my-4">
         <!-- 백엔드: 카테고리 네비게이션 -->
-        <ul class="nav justify-content-end">
-          <li class="nav-item">
-            <!-- 백엔드: 전체 카테고리 링크 -->
-            <a class="nav-link active" href="#">전체</a>
-          </li>
-          <li class="nav-item">
-            <!-- 백엔드: 일반 카테고리 링크 -->
-            <a class="nav-link" href="#">일반</a>
-          </li>
-          <li class="nav-item">
-            <!-- 백엔드: 시연 카테고리 링크 -->
-            <a class="nav-link" href="#">시연</a>
-          </li>
-          <li class="nav-item">
-            <!-- 백엔드: 제품사용 카테고리 링크 -->
-            <a class="nav-link" href="#">제품사용</a>
-          </li>
-          <li class="nav-item">
-            <!-- 백엔드: 기타 카테고리 링크 -->
-            <a class="nav-link" href="#">기타</a>
-          </li>
-        </ul>
+        <ul class="nav">
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'support' %}">전체</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'news_list_category' n_category='normal' %}">일반</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'news_list_category' n_category='use' %}">제품사용</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'news_list_category' n_category='preview' %}">시연</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'news_list_category' n_category='etc' %}">기타</a>
+              </li>
+            </ul>
       </div>
     </div>
 
