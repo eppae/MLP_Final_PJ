@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils import timezone
 # --- 회원 관련 ---
 
 class Profile(models.Model):
@@ -39,3 +39,33 @@ class ContactMessage(models.Model):
     category = models.CharField(max_length=50, default='normal')
     def __str__(self):
         return f"{self.title}"
+
+class PostForm(models.Model):
+    post_num = models.BigAutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+    writer = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    img = models.ImageField(upload_to='img', null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    category = models.CharField(max_length=50, default='normal')
+    def __str__(self):
+        return f"{self.title}"
+
+class Comment(models.Model):
+    content = models.TextField()
+    writer = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
+    #
+    post = models.ForeignKey(PostForm, on_delete=models.CASCADE)
+
+class ReComment(models.Model):
+    replied_to = models.ForeignKey(Comment, related_name="re_comments", on_delete=models.CASCADE)
+    replier = models.CharField(max_length=255, default="익명2")
+    content = models.TextField()
+    replied_created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '%s' % (self.author)
+
+    class Meta:
+        ordering = ["-replied_created_at"]

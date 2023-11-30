@@ -65,16 +65,19 @@
             <!-- '네비' (카테고리 선택) -->
             <ul class="nav">
               <li class="nav-item">
-                <a class="nav-link active" href="#">전체</a>
+                <a class="nav-link active" href="{% url 'news_list' %}">전체</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">일반</a>
+                <a class="nav-link" href="{% url 'news_list_category' n_category='normal' %}">일반</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">제품사용</a>
+                <a class="nav-link" href="{% url 'news_list_category' n_category='use' %}">제품사용</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">기타</a>
+                <a class="nav-link" href="{% url 'news_list_category' n_category='preview' %}">시연</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'news_list_category' n_category='etc' %}">기타</a>
               </li>
             </ul>
             <div class="row">
@@ -85,9 +88,10 @@
                   </form>
                 </div>
                 {% comment %} 해당 부분은 admin만 보이게 해야함 {% endcomment %}
-                {% if user.is_authenticated and user.role == 'admin' %}
-                <div class="col text-end">
-                  <a href="{% url 'post_form' %}" class="btn btn-primary">작성하기</a>
+                {% if user.is_superuser %}
+                <div>
+                <!-- 백엔드: '질문하기' 버튼 -->
+                <a href="{% url 'post_form' %}" class="btn btn-primary">글쓰기</a>
                 </div>
                 {% endif %}
               </form>
@@ -98,21 +102,18 @@
 
       {% comment %}for 문으로 반복 필요{% endcomment %}
       <div class="row posts-entry">
+        {% csrf_token %}
+        {% for newspost in newsposts %}
         <div class="col">
           <div class="blog-entry d-flex blog-entry-search-item mb-5">
             <div>
-              <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
-              <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2>
-              <p>기사 내용</p>
+              <span class="date">{{ newspost.created_at }} <a href="#">{{ newspost.category }}</a></span>
+              <h2><a href="{% url 'news_detail' %}">{{ newspost.title }}</a></h2>
+              <p>{{ newspost.text }}</p>
             </div>
           </div>
-          <div class="blog-entry d-flex blog-entry-search-item mb-5">
-            <div>
-              <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
-              <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2>
-              <p>기사 내용</p>
-            </div>
-          </div>
+          {% endfor %}
+
 
           {% comment %} pagination {% endcomment %}
           <nav aria-label="Page navigation">

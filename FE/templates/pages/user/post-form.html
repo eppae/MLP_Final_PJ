@@ -6,42 +6,47 @@
       height: 500px;
     }
   </style>
+<div>
+  <form method="POST" action="{% url 'create_post' %}" enctype="multipart/form-data">
+    {% csrf_token %}
   <div class="container mt-4">
     <!-- 작성 개요 카드 -->
     <div class="card">
       <div class="card-body">
-        <form>
           <div class="row">
             <!-- 카테고리 선택 폼 -->
             <div class="first-row d-flex">
               <div class="form-group col-2 me-auto p-2">
                 <label for="selectCategory">카테고리</label>
-                <select class="form-control" id="selectCategory">
-                  <option>질문</option>
+                <select class="form-control" name="SelectCategory" id="SelectCategory">
+                  <option value="qusetion">질문</option>
+                  <option value="normal">일반</option>
+                  <option value="preview">시연</option>
+                  <option value="use">제품사용</option>
+                  <option value="etc">기타</option>
                   {% comment %} 관리자일때만 보임! {% endcomment %}
-                  {% if user.is_authenticated and user.role == 'admin' %}
-                    <option>뉴스</option>
+                  {% if user.is_superuser %}
+                    <option value="news">뉴스</option>
                   {% endif %}
                 </select>
               </div>
               <!-- 작성자 정보 표시 (로그인한 사람) -->
               <div class="form-group col-2 p-2">
                 <label for="author">작성자</label>
-                <input type="text" class="form-control" id="author" value="로그인한 사람" disabled />
+                <input type="text" class="form-control" id="author" value="{{ current_user.username }}" disabled />
               </div>
               <!-- 작성 날짜 표시 (현재 시간) -->
               <div class="form-group col-3 p-2">
                 <label for="date">날짜</label>
-                <input type="text" class="form-control" id="date" value="현재" disabled />
+                <input type="text" class="form-control" id="date" value="{{ current_time }}" disabled />
               </div>
             </div>
             <!-- 제목 입력 폼 -->
             <div class="form-group">
               <label for="title">제목</label>
-              <input type="text" class="form-control" id="title" />
+              <input type="text" class="form-control" name="title" id="title" />
             </div>
           </div>
-        </form>
       </div>
     </div>
   </div>
@@ -50,23 +55,23 @@
     <!-- 본문 작성 카드 -->
     <div class="card content-area">
       <div class="card-body">
-        <form>
           <!-- 본문 작성 폼 -->
           <div class="form-group mb-3">
             <label for="content">본문 작성</label>
-            <textarea class="form-control" id="content" rows="14"></textarea>
+            <textarea class="form-control" name="text" id="content" rows="14"></textarea>
           </div>
           <!-- 파일 첨부 폼 -->
           <div class="form-group">
-            <label for="file">파일 첨부</label>
-            <input type="file" class="form-control-file" id="file" />
+            <label for="img">파일 첨부</label>
+            <input type="file" class="form-control-file" name="img" id="img" />
           </div>
           <!-- 글 작성 버튼 -->
           <div class="justify-content-end text-end">
             <button type="submit" class="btn btn-primary">글 작성</button>
           </div>
-        </form>
       </div>
     </div>
   </div>
+  </form>
+</div>
 {% endblock %}

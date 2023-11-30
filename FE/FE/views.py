@@ -1,7 +1,7 @@
 #---안개관련---
 from django.core.paginator import Paginator
 from django.db.models import Q
-from .models import ContactMessage
+from .models import ContactMessage,PostForm
 from django.shortcuts import render, redirect , get_object_or_404
 from django.http import HttpResponse
 from .models import dehazing
@@ -16,6 +16,7 @@ from django.contrib.auth import authenticate, logout as auth_logout, login as au
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from django.utils import timezone
+from datetime import datetime
 from .models import Profile
 from .forms import ProfileForm
 from django.forms.models import modelform_factory
@@ -36,9 +37,14 @@ def contact_list(request):
 def contact_detail(request):
     return render(request, "pages/contact/contact-detail.html")
 
-
+@login_required
 def post_form(request):
-    return render(request, "pages/user/post-form.html")
+    current_time = datetime.now()
+    context = {
+        'current_user':request.user,
+        'current_time':current_time,
+    }
+    return render(request, "pages/user/post-form.html",context)
 
 def support(request):
     return render(request, "pages/admin/support.html")
@@ -47,11 +53,41 @@ def review_detail(request):
     return render(request, "pages/user/review-detail.html")
 
 
-def news_list(request):
-    return render(request, "pages/community/news-list.html")
+def news_list(request,n_category=None):
+    newsposts = PostForm.objects.filter(category='news')
+    if n_category:
+        newsposts = PostForm.objects.filter(category=n_category)
+    print(newsposts)
+    context = {'newsposts':newsposts}
+    return render(request, "pages/community/news-list.html", context)
+
+def n_category_news_list(request,n_category):
+    return news_list(request,n_category=n_category)
 
 def news_detail(request):
     return render(request, "pages/community/news-detail.html")
+
+def create_post(request):
+    if request.method =='POST':
+        title = request.POST.get('title')
+        text = request.POST.get('text')
+        category = request.POST.get('SelectCategory')
+        img = request.FILES.get('img')
+        writer = request.user
+        Post = PostForm(
+            title = title,
+            text = text,
+            category = category,
+            img = img,
+            writer = writer,
+        )
+        Post.save()
+        print(Post)
+        if category == 'news':
+            return render(request, 'pages/community/news-list.html',{'Post':Post})
+        else:
+            return render(request, 'pages/admin/support.html', {'Post':Post})
+    return HttpResponse("Invalid Request Method")
 
 def contact_list(request,category=None):
     page_number = request.GET.get('page','1')
