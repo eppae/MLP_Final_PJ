@@ -5,37 +5,40 @@
 {% block content %}
   <style>
     .footer-container {
-      display: none; 
+      display: none;
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background-color: #000; 
-      color: #fff; 
-      padding: 20px 0; 
+      background-color: #000;
+      color: #fff;
+      padding: 20px 0;
       z-index: 100;
     }
     
     .show-footer {
-      display: block; 
+      display: block;
     }
-
+    
     .form-control-sm {
       max-width: 280px;
     }
-
-    a, a:hover{
+    
+    a,
+    a:hover {
       color: var(--color-fg);
     }
-
-    .nav-link, h2 a{
-      color: #7395AE;
+    
+    .nav-link,
+    h2 a {
+      color: #7395ae;
     }
-    .nav-link:hover, h2 a:hover{
+    .nav-link:hover,
+    h2 a:hover {
       color: var(--color-fg);
     }
-
-    .page-link{
+    
+    .page-link {
       color: black;
     }
   </style>
@@ -87,12 +90,12 @@
                     <input type="text" class="form-control-sm" id="s" placeholder="검색" />
                   </form>
                 </div>
-                {% comment %} 해당 부분은 admin만 보이게 해야함 {% endcomment %}
+                {% comment %}해당 부분은 admin만 보이게 해야함{% endcomment %}
                 {% if user.is_superuser %}
-                <div>
-                <!-- 백엔드: '질문하기' 버튼 -->
-                <a href="{% url 'post_form' %}" class="btn btn-primary">글쓰기</a>
-                </div>
+                  <div>
+                    <!-- 백엔드: '질문하기' 버튼 -->
+                    <a href="{% url 'post_form' %}" class="btn btn-primary">글쓰기</a>
+                  </div>
                 {% endif %}
               </form>
             </div>
@@ -104,39 +107,38 @@
       <div class="row posts-entry">
         {% csrf_token %}
         {% for newspost in newsposts %}
-        <div class="col">
-          <div class="blog-entry d-flex blog-entry-search-item mb-5">
-            <div>
-              <span class="date">{{ newspost.created_at }} <a href="#">{{ newspost.category }}</a></span>
-              <h2><a href="{% url 'news_detail' %}">{{ newspost.title }}</a></h2>
-              <p>{{ newspost.text }}</p>
+          <div class="col-12">
+            <div class="blog-entry d-flex blog-entry-search-item mb-5">
+              <div>
+                <span class="date">{{ newspost.created_at }} <a href="#">{{ newspost.category }}</a></span>
+                <h2><a href="{% url 'news_detail' %}">{{ newspost.title }}</a></h2>
+                <p>{{ newspost.text }}</p>
+              </div>
             </div>
           </div>
-          {% endfor %}
+        {% endfor %}
+      </div>
 
-
-          {% comment %} pagination {% endcomment %}
-          <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+        {% comment %}pagination{% endcomment %}
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
-  </div>
 {% endblock %}

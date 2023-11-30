@@ -60,3 +60,11 @@ form {
     aspect-ratio: 1;
     border-radius: 50%;
 }
+
+.darkmode, .darkmode-btn{
+    cursor: pointer;
+}
+
+label{
+    cursor: pointer;
+}
