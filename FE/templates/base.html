@@ -8,21 +8,26 @@
     <title>Front End</title>
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap5" />
-    <link href="https://db.onlinewebfonts.com/c/67680f2eb947c5cbd58b40961b4a61e9?family=Apple+SD+Gothic+Neo+Bold" rel="stylesheet" />
-    <!-- Customized Bootstrap Stylesheet -->
-    <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet" />
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
     <link href="{% static 'css/fontawesome-free/css/all.min.css' %}" rel="stylesheet" disalbed />
-    <link href="{% static 'css/custom.css' %}?ver=3" rel="stylesheet" />
+    <link href="{% static 'css/custom.css' %}?ver=1" rel="stylesheet" />
     <link href="{% static 'css/darkmode.css' %}?ver=1" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+      .navbar .navbar-nav .nav-link {
+        color: var(--color-fg);
+      }
+    </style>
   </head>
   <body>
-    <header>
-      <div class="container-fluid bg-white sticky-top">
+    <header class="headerForNavBar">
+      <div class="container-fluid sticky-top">
         <div class="container">
-          <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
+          <nav class="navbar navbar-expand-lg navbar-light py-2 py-lg-0">
             <a href="{% url 'home' %}" class="nav-item nav-link active home">HOME</a>
             <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -50,7 +55,7 @@
                   <div class="col">
                     <div class="darkmode d-flex">
                       <button data-theme-toggle aria-label="light" class="darkmode-btn" type="button" id="darkmodeBtn"><img id="darkmodeIcon" src="{% static 'img/brightness-high-fill.svg' %}" alt="light mode icon" /></button>
-                      <label for="darkmodeBtn" class="darkmode-text align-self-end mt-2" style="color: black;">DARKMODE</label>
+                      <label for="darkmodeBtn" class="darkmode-text align-self-end mt-2">DARKMODE</label>
                     </div>
                   </div>
                   <div class="col d-flex">
@@ -117,7 +122,7 @@
     </footer>
 
     <script>
-      const darkIconURL = "{% static 'img/brightness-high-fill.svg' %}"
+      const darkIconURL = "{% static 'img/brightness-high-fill.svg' %}?ver=1"
       const lightIconURL = "{% static 'img/moon-stars-fill.svg' %}"
       
       function topFunction() {
@@ -130,11 +135,11 @@
     <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <script defer src="{% static 'js/aos.js' %}"></script>
-    <script defer src="{% static 'lib/wow/wow.min.js' %}"></script>
-    <script defer src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-    <script defer src="{% static 'lib/easing/easing.min.js' %}"></script>
-    <script defer src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    {% comment %} <script defer src="{% static 'lib/wow/wow.min.js' %}"></script> {% endcomment %}
+    {% comment %} <script defer src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script> {% endcomment %}
+    {% comment %} <script defer src="{% static 'lib/easing/easing.min.js' %}"></script> {% endcomment %}
+    {% comment %} <script defer src="{% static 'lib/waypoints/waypoints.min.js' %}"></script> {% endcomment %}
     <script defer src="{% static 'js/custom/dayandnight.js' %}?ver=1"></script>
-    <script defer src="{% static 'js/main.js' %}"></script>
+    {% comment %} <script defer src="{% static 'js/main.js' %}"></script> {% endcomment %}
   </body>
 </html>

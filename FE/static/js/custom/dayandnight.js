@@ -3,16 +3,16 @@ function calculateSettingAsThemeString({ localStorageTheme, systemSettingDark })
     return localStorageTheme;
   }
 
+  // window.matchMedia('(prefers-color-scheme:dark)').matches가 true일때.
   if (systemSettingDark.matches) {
     return "dark";
   }
 
+  // localStorageTheme이 light가 초기.
   return "light";
 }
 
-/**
-* Utility function to update the button text and aria-label.
-*/
+// Utility function to update the button text and aria-label. + icon
 function updateButton({ buttonEl, isDark }) {
   const modeIcon = document.querySelector('#darkmodeIcon')
   const modeText = document.querySelector('.darkmode-text')
@@ -24,22 +24,18 @@ function updateButton({ buttonEl, isDark }) {
   modeIcon.src = newSrc;
 }
 
-/**
-* Utility function to update the theme setting on the html tag
-*/
+//Utility function to update the theme setting on the html tag
 function updateThemeOnHtmlEl({ theme }) {
   document.querySelector("html").setAttribute("data-theme", theme);
 }
 
 
-/**
-* On page load:
-*/
+// Page
 
 /**
 * 1. Grab what we need from the DOM and system settings on page load
 */
-const button = document.querySelector("[data-theme-toggle]");
+const buttonForDarkMode = document.querySelector("[data-theme-toggle]");
 const localStorageTheme = localStorage.getItem("theme");
 const systemSettingDark = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -51,17 +47,17 @@ let currentThemeSetting = calculateSettingAsThemeString({ localStorageTheme, sys
 /**
 * 3. Update the theme setting and button text accoridng to current settings
 */
-updateButton({ buttonEl: button, isDark: currentThemeSetting === "dark" });
+updateButton({ buttonEl: buttonForDarkMode, isDark: currentThemeSetting === "dark" });
 updateThemeOnHtmlEl({ theme: currentThemeSetting });
 
 /**
 * 4. Add an event listener to toggle the theme
 */
-button.addEventListener("click", (event) => {
-  const newTheme = currentThemeSetting === "dark" ? "light" : "dark";
+buttonForDarkMode.addEventListener("click", (event) => {
+  const newTheme = currentThemeSetting === "dark" ? "light" : "dark"; // dark이면 light로 바꿀 수 있게.
 
   localStorage.setItem("theme", newTheme);
-  updateButton({ buttonEl: button, isDark: newTheme === "dark" });
+  updateButton({ buttonEl: buttonForDarkMode, isDark: newTheme === "dark" });
   updateThemeOnHtmlEl({ theme: newTheme });
 
   currentThemeSetting = newTheme;

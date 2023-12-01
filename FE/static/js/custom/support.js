@@ -1,7 +1,7 @@
 // 대댓글 작성
-const button = document.querySelector('#reply-btn');
+const buttonForReply = document.querySelector('#reply-btn');
 const collapseElement = document.querySelector('#reply-form-content');
-button.addEventListener('click', function () {
+buttonForReply.addEventListener('click', function () {
     collapseElement.classList.toggle('show');
 });
 

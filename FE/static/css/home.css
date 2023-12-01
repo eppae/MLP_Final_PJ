@@ -29,7 +29,8 @@ a:hover {
   font-size: 4rem;
   line-height: 1.07143;
   letter-spacing: -0.005rem;
-  font-family: "Apple SD Gothic Neo Bold";
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-weight: 700;
 }
 
 .title-sub-heading {
@@ -37,14 +38,15 @@ a:hover {
   margin-top: 0.6rem;
   letter-spacing: 0.008rem;
   font-weight: 400;
-  font-family: "Apple SD Gothic Neo Bold";
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-weight: 600;
 }
 
 .title-content {
   font-size: 1rem;
   margin: 0 1.5rem;
   padding: 1rem;
-  font-family: "Apple SD Gothic Neo Bold";
+  font-family: "IBM Plex Sans KR", sans-serif;
 }
 
 .cta {
@@ -99,7 +101,7 @@ a:hover {
 .home-h5,
 .home-p,
 .home-a {
-  font-family: "Apple SD Gothic Neo Bold";
+  font-family: "Nanum Gothic", sans-serif;
 }
 
 /* 안개 */
@@ -165,17 +167,21 @@ a:hover {
 
 /* section gap X */
 section {
-    --gap: var(--md-space);
-    display: grid;
-    gap: var(--gap);
+  --gap: var(--md-space);
+  display: grid;
+  gap: var(--gap);
 }
 
 /* extra-content */
-.card-img{
+.card-img {
   border-radius: 12px;
   height: 28rem;
 }
 
-.card{
+.card {
   border: none;
+}
+
+.sticky-top {
+  background-color: var(--color-bg);
 }
