@@ -182,7 +182,6 @@ section {
   border: none;
 }
 
-.headerForNavBar {
-  position: relative;
-  z-index: 4;
+.sticky-top {
+  background-color: var(--color-bg);
 }
