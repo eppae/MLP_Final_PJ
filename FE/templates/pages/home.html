@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-  <link rel="stylesheet" href="{% static 'css/home.css' %}?ver=1" />
-  <script defer src="{% static 'js/custom/home.js' %}?ver=1"></script>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}?ver=3" />
 
   <section class="background">
     <section class="fog-section">
@@ -67,10 +66,7 @@
         <h3 class="text-center fw-bold home-h3">도움이 필요하신가요?</h3>
         <div class="mt-5 d-flex justify-content-center text-center">
           <div class="col-3 page-support-item">
-            <img src="https://images.unsplash.com/photo-1484069560501-87d72b0c3669?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-            alt="ask image" 
-            class="img-fluid rounded mb-3"
-            sizes="(max-width: 600px) 50vw, (max-width: 992px) 33.3vw, 25vw" />
+            <img src="https://images.unsplash.com/photo-1484069560501-87d72b0c3669?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="ask image" class="img-fluid rounded mb-3" sizes="(max-width: 600px) 50vw, (max-width: 992px) 33.3vw, 25vw" />
             <h5 class="text-left home-h5">About</h5>
             <p class="text-left home-p">
               프로젝트 팀에 대해서 궁금하신가요?<br /> 그렇다면 About으로 가보세요!
@@ -78,10 +74,7 @@
             <a href="{% url 'about_us' %}" class="a-home text-left home-a" style="color: #2779a7;">자세히 보기</a>
           </div>
           <div class="col-3 page-support-item">
-            <img src="https://plus.unsplash.com/premium_photo-1682125235036-d1ab54136ff4?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-            alt="contact image" 
-            class="img-fluid rounded mb-3" 
-            sizes="(max-width: 600px) 50vw, (max-width: 992px) 33.3vw, 25vw" />
+            <img src="https://plus.unsplash.com/premium_photo-1682125235036-d1ab54136ff4?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="contact image" class="img-fluid rounded mb-3" sizes="(max-width: 600px) 50vw, (max-width: 992px) 33.3vw, 25vw" />
             <h5 class="text-left home-h5">Contact</h5>
             <p class="text-left home-p">
               서비스 관련해서 개인적으로<br /> 문의할 것이 있으신가요?<br /> Contact 페이지로 가보세요!
@@ -89,10 +82,7 @@
             <a href="{% url 'contact' %}" class="a-home text-left home-a" style="color: #2779a7;">자세히 보기</a>
           </div>
           <div class="col-3 page-support-item">
-            <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-            alt="community image" 
-            class="img-fluid rounded mb-3" 
-            sizes="(max-width: 600px) 50vw, (max-width: 992px) 33.3vw, 25vw" />
+            <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="community image" class="img-fluid rounded mb-3" sizes="(max-width: 600px) 50vw, (max-width: 992px) 33.3vw, 25vw" />
             <h5 class="text-left home-h5">Community</h5>
             <p class="text-left home-p">
               서비스에 대한 리뷰와 뉴스를 보고 싶으신가요?<br /> Community로 가보세요!<br /> 직접 리뷰를 남길 수 있답니다!
@@ -103,4 +93,5 @@
       </div>
     </div>
   </section>
+  <script defer src="{% static 'js/custom/home.js' %}?ver=2" defer></script>
 {% endblock %}

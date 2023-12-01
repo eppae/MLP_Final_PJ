@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // 애니메이션
-const observer = new IntersectionObserver(callback, { threshold: 0.07 });
+const observer = new IntersectionObserver(callback, { threshold: 0.05 });
 const targetElements = document.querySelectorAll(".animation-target");
 targetElements.forEach((targetElement) => {
   observer.observe(targetElement);
