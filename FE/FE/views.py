@@ -9,6 +9,7 @@ from finalProject.ml_utils.inference import inference
 from django.core.files.base import ContentFile
 import os
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 #---회원관련---
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm
@@ -371,9 +372,10 @@ def admin_profile(request):
     
     #통계 context 넣기
     daily_visitors = get_daily_visitors()
+    daily_contacts = get_total_contacts()
+    total_contacts = get_total_contacts()
     daily_reviews = get_daily_reviews()
     total_reviews = get_total_reviews()
-    # daily_count = get_daily_count()
     daily_users = get_daily_users()
     total_users = get_total_users()
 
@@ -396,9 +398,10 @@ def admin_profile(request):
         'profile': request.user.profile,
         # ▼통계 context
         'daily_visitors': daily_visitors,
+        'daily_contacts': daily_contacts,
+        'total_contacts': total_contacts,
         'daily_reviews': daily_reviews,
         'total_reviews': total_reviews,
-        # 'daily_count': daily_count,
         'daily_users': daily_users,
         'total_users': total_users,
     }
@@ -412,36 +415,40 @@ def get_daily_visitors():   # 방문자 수
     
     return daily_visitors
 
-# 도대체 왜인지 모르겠는데
-#>>> from FE.views import get_daily_contact     get_daily_contact이함수명이 안먹혀서 이름좀 꼬아놨음
-# Traceback (most recent call last):
-#   File "<console>", line 1, in <module>
-# ImportError: cannot import name 'get_daily_contact' from 'FE.views' (C:\Users\User\Desktop\Final_Project\Real_Final\MLP_Final_PJ\FE\FE\views.py)
 
-def get_daily_reviews():
+def get_daily_contacts():
     today = timezone.now().date()
-    daily_contact = ContactMessage.objects.filter(created_at__date=today).count()
+    daily_contacts = ContactMessage.objects.filter(created_at__date=today).count()
     
-    return daily_contact
+    return daily_contacts
 
-def get_total_reviews():
+
+def get_total_contacts():
     total_contacts = ContactMessage.objects.all().count()
     
     return total_contacts
 
 
-def get_daily_count():
-    pass
+def get_daily_reviews():
+    today = timezone.now().date()
+    daily_reviews = Comment.objects.filter(created_at__date=today).count()
+    
+    return daily_reviews
 
+def get_total_reviews():
+    total_reviews = Comment.objects.all().count()
+    
+    return total_reviews
+    
 
-def get_daily_users():  # 오늘 모델 사용자 수 
+def get_daily_users():
     today = timezone.now().date()
     daily_users = dehazing.objects.filter(uploaded_at__date=today).count()
     
     return daily_users
     
     
-def get_total_users():  # 모델 총 사용자 수 
+def get_total_users():
     total_users = dehazing.objects.all().count()
     
     return total_users
@@ -453,36 +460,36 @@ def about_us(request):
 
     # 민제님 프로필 조회
     try:
-        user_a = User.objects.get(last_name="김민제", username="mj1")
-        profiles.append(Profile.objects.get(user=user_a))
+        staff = User.objects.get(last_name="김민제", username="mj1")
+        profiles.append(Profile.objects.get(user=staff))
     except (User.DoesNotExist, Profile.DoesNotExist):
         pass 
 
     # 수현님 프로필 조회
     try:
-        user_b = User.objects.get(last_name="강수현", username="sh1")
-        profiles.append(Profile.objects.get(user=user_b))
+        staff = User.objects.get(last_name="강수현", username="sh1")
+        profiles.append(Profile.objects.get(user=staff))
     except (User.DoesNotExist, Profile.DoesNotExist):
         pass  
 
     # 동엽님 프로필 조회
     try:
-        user_b = User.objects.get(last_name="이동엽", username="dy1")
-        profiles.append(Profile.objects.get(user=user_b))
+        staff = User.objects.get(last_name="이동엽", username="dy1")
+        profiles.append(Profile.objects.get(user=staff))
     except (User.DoesNotExist, Profile.DoesNotExist):
         pass
 
     # 우림님 프로필 조회
     try:
-        user_b = User.objects.get(last_name="장우림", username="wl1")  
-        profiles.append(Profile.objects.get(user=user_b))
+        staff = User.objects.get(last_name="장우림", username="wl1")  
+        profiles.append(Profile.objects.get(user=staff))
     except (User.DoesNotExist, Profile.DoesNotExist):
         pass
 
     # 홍태광 프로필 조회
     try:
-        user_htk96 = User.objects.get(last_name="홍태광", username="tk1")
-        profiles.append(Profile.objects.get(user=user_htk96))
+        staff = User.objects.get(last_name="홍태광", username="tk1")
+        profiles.append(Profile.objects.get(user=staff))
     except (User.DoesNotExist, Profile.DoesNotExist):
         pass
 
@@ -493,9 +500,14 @@ def about_us(request):
 
 
 # --- fog 관련 ---
+progress_status = {}
+
 @login_required
 def fog(request):
     context = {}
+    
+    def update_progress(progress_value):
+        progress_status[request.user.id] = progress_value
 
     if request.method == 'POST' and request.FILES.get('image'):
         # 이미지 파일 저장
@@ -511,11 +523,14 @@ def fog(request):
         # AI 모델을 사용하여 이미지 처리
         model_path = 'finalProject/ml_models/Hazy_to_Clear.pb'
         image_size = 256
-        inference(input_file_path, output_file_path, model_path, image_size)
+        inference(input_file_path, output_file_path, model_path, image_size, update_progress)
 
         # 처리된 이미지 저장
         new_image.processed_image.save(output_file_name, ContentFile(open(output_file_path, 'rb').read()))
         new_image.save()
+        
+        # 진행상태 초기화
+        update_progress(0)
 
         context = {
             'uploaded_file_url': new_image.original_image.url,
@@ -524,5 +539,9 @@ def fog(request):
 
     return render(request, 'pages/test/fog.html', context)
 
+def get_progress(request):
+    user_id = request.user.id
+    progress = progress_status.get(user_id, 0)
+    return JsonResponse({'progress': progress})
 
     

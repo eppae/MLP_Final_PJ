@@ -28,13 +28,14 @@
         <div class="card-body">
           <div class="before-upload mt-5">
             <div id="loading-zone" aria-busy="true" class="text-center justify-center justify-content-center items-center">
-              <p>Loading...</p>
-              <div class="card mb-5">
+              <p>Loading.../Process 버튼을 눌러주세요</p>
                 <label>
                   <span class="sr-only">Loading progress</span>
                   <progress class="progressBar" indeterminate role="progressbar" aria-describedby="loading-zone" tabindex="-1"></progress>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
                 </label>
-              </div>
             </div>
           </div>
 
@@ -63,7 +64,7 @@
             {% csrf_token %}
             <div id="uploadBtn" class="file-upload d-flex justify-content-center mt-3" style="bottom: 2px; right: 50%;">
               <input type="file" style="display: none;" id="fileInput" accept="image/*, video/*" name="image" onchange="toggleProcessButton()"/>
-              <label for="fileInput" class="btn btn-primary rounded-full">Upload</label>
+              <label for="fileInput" class="btn btn-primary rounded-full" style="margin-bottom: 8px;">Upload</label>
               <button id="processBtn" type="submit" class="btn btn-primary rounded-full" style="display: none; margin-bottom: 8px;">Process!</button>
             </div>
           </form>          
@@ -82,5 +83,23 @@
         processBtn.style.display = 'none';
       }
     }
+  </script>
+  <script>
+    function updateProgress() {
+      fetch('/get_progress')
+        .then(response => response.json())
+        .then(data => {
+          console.log("Progress:", data.progress); // 지워도 됨
+          const progressBar = document.querySelector('.progress-bar');
+          if (progressBar) { 
+            progressBar.style.width = data.progress + '%';
+            progressBar.textContent = data.progress + '%';
+          } else {
+            console.error('Progress bar element not found');
+          }
+        });
+    }
+    
+    setInterval(updateProgress, 100); // 짧게하면 더 많이 읽어옴
   </script>
 {% endblock %}
