@@ -95,3 +95,6 @@ class CustomUserCreationForm(UserCreationForm):
             user.save()
         return user
     
+class CommentForm(forms.Form):
+    comment_message = forms.CharField(widget=forms.Textarea)
+    parent_id = forms.IntegerField(required=False, widget=forms.HiddenInput)

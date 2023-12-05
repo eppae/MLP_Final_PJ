@@ -22,6 +22,7 @@ from .forms import ProfileForm
 from django.forms.models import modelform_factory
 #--- comment ---
 from .models import Comment
+from .forms import CommentForm
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 def home(request):
@@ -96,33 +97,48 @@ def create_post(request):
             return render(request, 'pages/admin/support.html', {'Post':Post})
     return HttpResponse("Invalid Request Method")
 
-def create_comment(request,post_num):
+@login_required()
+def create_comment(request, post_num):
+    post = get_object_or_404(PostForm, post_num=post_num)
+
     if request.method == 'POST':
-        writer = request.POST.get('comment_name')
-        message = request.POST.get('comment_message')
-        parent_id = int(request.POST.get('parent_id',"0"))
-        post = PostForm.objects.get(post_num=post_num)
-        if parent_id ==0:
-            comment = Comment(
-                writer = writer,
-                content= message,
-                post=post
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            writer = request.user
+            content = form.cleaned_data['comment_message']
+            parent_id = form.cleaned_data.get('parent_id', None)
+
+            if parent_id:
+                parent_comment = get_object_or_404(Comment, pk=parent_id)
+                comment = Comment(
+                    writer=writer,
+                    content=content,
+                    post=post,
+                    parentcomment=parent_comment  # Use 'parentcomment' instead of 'parent_comment'
                 )
-        else:
-            parent_comment = Comment.objects.get(pk=parent_id)
-            comment = Comment(
-                writer=writer,
-                content=message,
-                post=post,
-                parent_comment=parent_comment,
-            )
-        comment.save()
-        comments = Comment.objects.filter(post=post)
-        context = {'comments': comments}
-        return render(request, 'pages/community/news-detail.html', context)
+            else:
+                comment = Comment(
+                    writer=writer,
+                    content=content,
+                    post=post
+                )
 
-    return render(request, 'pages/community/news-detail.html')
+            comment.save()
 
+    comments = Comment.objects.filter(post=post)
+
+    # Redirect to the news_detail view for the same post_num
+    return redirect('news_detail', post_num=post_num)
+
+def delete_comment(request,post_num,comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+
+    # Check if the user has permission to delete the comment (optional)
+    if request.user == comment.writer:
+        comment.delete()
+
+    return redirect('news_detail', post_num=post_num)
 
 def contact_list(request,category=None):
     page_number = request.GET.get('page','1')

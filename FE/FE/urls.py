@@ -21,6 +21,7 @@ from .views import (
     create_post,
     n_category_news_list,
     create_comment,
+    delete_comment,
 
     # fog_result,   모델 만들어지면 예정
     review_detail,
@@ -71,5 +72,6 @@ urlpatterns = [
     path("news_list/<str:n_category>/", n_category_news_list, name="news_list_category"),
     path("news_detail/<int:post_num>/", news_detail, name="news_detail"),
     path("create_comment/<int:post_num>/", create_comment, name="create_comment"),
+    path("delete_comment/<int:post_num>/<int:comment_id>/", delete_comment, name="delete_comment"),
     # path("fog_result", fog_result, name="fog_result"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
