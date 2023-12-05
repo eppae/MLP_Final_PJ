@@ -36,7 +36,7 @@ def inference(input_file, output_file, model_path, image_size, progress_callback
             input_image.set_shape([image_size, image_size, 3])
             progress_callback(50)
 
-            with tf.io.gfile.GFile(model_path, 'rb') as model_file:  # 여기를 수정함
+            with tf.io.gfile.GFile(model_path, 'rb') as model_file:
                 graph_def = tf.compat.v1.GraphDef()
                 progress_callback(60)
                 graph_def.ParseFromString(model_file.read())

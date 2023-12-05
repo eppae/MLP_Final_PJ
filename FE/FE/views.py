@@ -540,7 +540,6 @@ def fog(request):
     return render(request, 'pages/test/fog.html', context)
 
 def get_progress(request):
-    # 사용자별 진행 상태 반환
     user_id = request.user.id
     progress = progress_status.get(user_id, 0)
     return JsonResponse({'progress': progress})
