@@ -22,6 +22,7 @@ from .views import (
     n_category_news_list,
     create_comment,
     delete_comment,
+    get_progress,
 
     # fog_result,   모델 만들어지면 예정
     review_detail,
@@ -61,6 +62,7 @@ urlpatterns = [
     # path("change_profile_info", change_profile_info, name="change_profile_info"),
     # --- fog ---
     path("fog/", fog, name="fog"),
+    path('get_progress/', get_progress, name='get_progress'),
 
 # ========================== contact BE url ===============================
     path('submit_contact', submit_contact, name='submit_contact'),
