@@ -56,7 +56,8 @@ class Comment(models.Model):
     writer = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     post = models.ForeignKey(PostForm, on_delete=models.CASCADE)
-    parentcomment = models.ForeignKey('self',on_delete=models.CASCADE, null=True)
+    parentcomment = models.ForeignKey('self',on_delete=models.CASCADE, null=True, related_name='replies')
+    is_reply = models.BooleanField(default=False)
     def __str__(self):
         return f"{self.content}"
     class Meta:
