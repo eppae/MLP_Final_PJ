@@ -63,22 +63,29 @@
   <div class="section search-result-wrap">
     <div class="container">
       <div class="row">
-        <div class="row">
-              <form class="form-inline text-end justify-content-end">
-                <div class="sidebar-box search-form-wrap mb-2">
-                  <form action="#" class="sidebar-search-form">
-                    <input type="text" class="form-control-sm" id="s" placeholder="검색" />
-                  </form>
-                </div>
-                {% comment %}해당 부분은 admin만 보이게 해야함{% endcomment %}
-              </form>
+        <div class="col">
+          {% if user.is_superuser %}
+            <div>
+              <!-- 백엔드: '질문하기' 버튼 -->
+              <a href="{% url 'post_form' %}" class="btn btn-primary">글쓰기</a>
             </div>
-        <div class="col-md-12 my-3">
-          <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-            <!-- '네비' (카테고리 선택) -->
-
-
-          </nav>
+          {% endif %}
+        </div>
+        <div class="col d-flex justify-content-end">
+          <form action="#" class="sidebar-search-form d-sm-inline-flex flex-row-reverse">
+            <form action="{% url 'contact_list' %}" method="GET" id="BoardSearch" name="BoardSearch">
+              <input type="hidden" id="contact_kw" name="contact_kw" value="{{ contact_kw|default_if_none:'' }}" />
+              <input type="hidden" id="page" name="page" value="{{ page }}" />
+            </form>
+            <div class="navbar-nav align-items-center mx-1">
+              <div class="nav-item d-flex align-items-center" style="width:100%;">
+                <input type="text" class="form-control border-1 shadow-none" placeholder="게시글 검색" aria-label="Search..." id="contact_search_kw" name="contact_search_kw" value="{{ contact_search_kw|default_if_none:'' }}" />
+              </div>
+            </div>
+            <div style="list-style:none;">
+              <button class="btn btn-primary" type="button" id="btnSearch" aria-label="buttonForSearch"><i class="fas fa-search"></i></button>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -97,34 +104,51 @@
           </div>
         {% endfor %}
       </div>
+    </div>
+  </div>
 
-        {% comment %}pagination{% endcomment %}
-        <nav aria-label="Page navigation">
+    {% comment %}페이지네이션{% endcomment %}
+  <section>
+    <div class="row posts-entry">
+      <div class="col">
+        <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-            </li>
+            {% if recent_pages.has_previous %}
+              <li class="page-item prev">
+                <a class="page-link" href="?page={{ recent_pages.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+              </li>
+            {% endif %}
+
+            {% for page_number in recent_pages.paginator.page_range %}
+              {% if page_number >= recent_pages.number|add:-5 and page_number <= posts.number|add:5 %}
+                {% if page_number == recent_pages.number %}
+                  <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                  </li>
+                {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                  </li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+
+            {% if recent_pages.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ recent_pages.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+              </li>
+            {% endif %}
           </ul>
         </nav>
-      {% if user.is_superuser %}
-                  <div>
-                    <!-- 백엔드: '질문하기' 버튼 -->
-                    <a href="{% url 'post_form' %}" class="btn btn-primary">글쓰기</a>
-                  </div>
-                {% endif %}
-
       </div>
     </div>
+  </section>
 {% endblock %}
