@@ -372,7 +372,7 @@ def admin_profile(request):
     
     #통계 context 넣기
     daily_visitors = get_daily_visitors()
-    daily_contacts = get_total_contacts()
+    daily_contacts = get_daily_contacts()
     total_contacts = get_total_contacts()
     daily_reviews = get_daily_reviews()
     total_reviews = get_total_reviews()
