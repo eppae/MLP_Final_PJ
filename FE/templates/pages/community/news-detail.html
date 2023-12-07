@@ -61,12 +61,34 @@
         <div class="post-good-or-not">
           {% comment %}좋아요/싫어요{% endcomment %}
           {% if user.is_authenticated %}
-            <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up text-white"></i></button>
-            <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-danger btn-sm"><i class="fas fa-thumbs-down"></i></button>
+            <form method="post" action="{% url 'like_newspost' newspost.post_num %}" class="d-inline">
+              {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-sm">
+                  <i class="fas fa-thumbs-up text-white"></i> {{ newspost.likes.count }}
+                </button>
+            </form>
+
+            <form method="post" action="{% url 'dislike_newspost' newspost.post_num %}" class="d-inline">
+              {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">
+                  <i class="fas fa-thumbs-down"></i> {{ newspost.dislikes.count }}
+                </button>
+            </form>
           {% else %}
             <div class="valid text-danger mb-2">로그인이 필요한 서비스입니다.</div>
-            <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm disabled"><i class="fas fa-thumbs-up text-white"></i></button>
-            <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-danger btn-sm disabled"><i class="fas fa-thumbs-down"></i></button>
+            <form method="post" action="{% url 'like_newspost' newspost.post_num %}" class="d-inline">
+              {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-sm">
+                  <i class="fas fa-thumbs-up text-white"></i> {{ newspost.likes.count }}
+                </button>
+            </form>
+
+            <form method="post" action="{% url 'dislike_newspost' newspost.post_num %}" class="d-inline">
+              {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">
+                  <i class="fas fa-thumbs-down"></i> {{ newspost.dislikes.count }}
+                </button>
+            </form>
           {% endif %}
         </div>
 

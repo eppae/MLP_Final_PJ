@@ -51,8 +51,18 @@ def post_form(request):
     }
     return render(request, "pages/user/post-form.html",context)
 
-def support(request):
-    return render(request, "pages/admin/support.html")
+def support(request, n_category=None):
+    newsposts = PostForm.objects.exclude(category='news')
+    if n_category:
+        newsposts = PostForm.objects.filter(category=n_category)
+    print(newsposts)
+    context = {'newsposts': newsposts}
+    return render(request, "pages/admin/support.html", context)
+
+def delete_post(request,pk):
+    post = get_object_or_404(PostForm, post_num=pk)
+    post.delete()
+    return redirect('support')
 
 def review_detail(request):
     return render(request, "pages/user/review-detail.html")
@@ -67,7 +77,7 @@ def news_list(request,n_category=None):
     return render(request, "pages/community/news-list.html", context)
 
 def n_category_news_list(request,n_category):
-    return news_list(request,n_category=n_category)
+    return support(request,n_category=n_category)
 
 def news_detail(request,post_num):
     writer = request.user
@@ -79,6 +89,27 @@ def news_detail(request,post_num):
     context = {'newspost':newspost,'writer':writer,'current_time':current_time,'comments':comments}
     return render(request, "pages/community/news-detail.html", context)
 
+def like_newspost(request, pk):
+    newspost = get_object_or_404(PostForm, post_num=pk)
+    liked = False
+    if newspost.likes.filter(id=request.user.id).exists():
+        newspost.likes.remove(request.user)
+        liked = False
+    else:
+        newspost.likes.add(request.user)
+        liked = True
+    return HttpResponseRedirect(reverse('news_detail', args=[str(pk)]))
+
+def dislike_newspost(request, pk):
+    newspost = get_object_or_404(PostForm, post_num=pk)
+    disliked = False
+    if newspost.dislikes.filter(id=request.user.id).exists():
+        newspost.dislikes.remove(request.user)
+        disliked = False
+    else:
+        newspost.dislikes.add(request.user)
+        disliked = True
+    return HttpResponseRedirect(reverse('news_detail', args=[str(pk)]))
 
 def create_post(request):
     if request.method =='POST':
@@ -97,9 +128,9 @@ def create_post(request):
         Post.save()
         print(Post)
         if category == 'news':
-            return render(request, 'pages/community/news-list.html',{'Post':Post})
+            return redirect('news_list')
         else:
-            return render(request, 'pages/admin/support.html', {'Post':Post})
+            return redirect('support')
     return HttpResponse("Invalid Request Method")
 
 @login_required()

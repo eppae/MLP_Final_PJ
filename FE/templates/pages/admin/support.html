@@ -35,8 +35,8 @@
     .page-link {
       color: black;
     }
-    
-    .content-support {
+
+    .content-support{
       height: 60vh;
     }
   </style>
@@ -53,20 +53,11 @@
         <a href="{% url 'post_form' %}" class="btn btn-primary">글쓰기</a>
       </div>
       <!-- 우측 상단 '검색' 입력란 -->
-      <div class="col d-flex justify-content-end">
+      <div class="col-md-3 offset-md-7 justify-content-end">
+        <!-- 백엔드: '검색' 입력란 -->
         <form action="#" class="sidebar-search-form d-sm-inline-flex flex-row-reverse">
-          <form action="{% url 'contact_list' %}" method="GET" id="BoardSearch" name="BoardSearch">
-            <input type="hidden" id="contact_kw" name="contact_kw" value="{{ contact_kw|default_if_none:'' }}" />
-            <input type="hidden" id="page" name="page" value="{{ page }}" />
-          </form>
-          <div class="navbar-nav align-items-center mx-1">
-            <div class="nav-item d-flex align-items-center" style="width:100%;">
-              <input type="text" class="form-control border-1 shadow-none" placeholder="게시글 검색" aria-label="Search..." id="contact_search_kw" name="contact_search_kw" value="{{ contact_search_kw|default_if_none:'' }}" />
-            </div>
-          </div>
-          <div style="list-style:none;">
-            <button class="btn btn-primary" type="button" id="btnSearch" aria-label="buttonForSearch"><i class="fas fa-search"></i></button>
-          </div>
+          <input type="text" class="form-control-sm" id="s" placeholder="검색" />
+          <span class="bi-search p-1"></span>
         </form>
       </div>
     </div>
@@ -76,85 +67,71 @@
       <div class="col-md-12 my-4">
         <!-- 백엔드: 카테고리 네비게이션 -->
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'support' %}">전체</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'news_list_category' n_category='normal' %}">일반</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'news_list_category' n_category='use' %}">제품사용</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'news_list_category' n_category='preview' %}">시연</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'news_list_category' n_category='etc' %}">기타</a>
-          </li>
-        </ul>
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'support' %}">전체</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'news_list_category' n_category='normal' %}">일반</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'news_list_category' n_category='use' %}">제품사용</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'news_list_category' n_category='preview' %}">시연</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'news_list_category' n_category='etc' %}">기타</a>
+              </li>
+            </ul>
       </div>
     </div>
 
-    <div class="row mb-3">
-      <div class="blog-entry col-6 d-flex blog-entry-search-item">
-        <div>
-          <span class="date">review 날짜 &bullet; <a href="#">카테고리</a></span>
-          <h2><a href="{% url 'review_detail' %}">review 이름</a></h2>
-          <p>review 내용</p>
-        </div>
-      </div>
-      <div class="blog-entry col-6 d-flex blog-entry-search-item">
-        <div>
-          <span class="date">review 날짜 &bullet; <a href="#">카테고리</a></span>
-          <h2><a href="{% url 'review_detail' %}">review 이름</a></h2>
-          <p>review 내용</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {% comment %}페이지네이션{% endcomment %}
-  <section>
+    {% comment %}for{% endcomment %}
     <div class="row posts-entry">
-      <div class="col">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
-            {% if recent_pages.has_previous %}
-              <li class="page-item prev">
-                <a class="page-link" href="?page={{ recent_pages.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-              </li>
-            {% else %}
-              <li class="page-item disabled">
-                <a class="page-link" tabindex="-1" aria-disabled="true" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-              </li>
-            {% endif %}
-
-            {% for page_number in recent_pages.paginator.page_range %}
-              {% if page_number >= recent_pages.number|add:-5 and page_number <= posts.number|add:5 %}
-                {% if page_number == recent_pages.number %}
-                  <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-                  </li>
-                {% else %}
-                  <li class="page-item">
-                    <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-                  </li>
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-
-            {% if recent_pages.has_next %}
-              <li class="page-item">
-                <a class="page-link" href="?page={{ recent_pages.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-              </li>
-            {% else %}
-              <li class="page-item disabled">
-                <a class="page-link" tabindex="-1" aria-disabled="true" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-              </li>
-            {% endif %}
-          </ul>
-        </nav>
+        {% csrf_token %}
+        {% for newspost in newsposts %}
+          <div class="col-12">
+            <div class="blog-entry d-flex blog-entry-search-item mb-5">
+              <div>
+                <span class="date">{{ newspost.created_at }} <a href="#">{{ newspost.category }}</a></span>
+                <h2><a href="{% url 'news_detail' post_num=newspost.post_num %}">{{ newspost.title }}</a></h2>
+                <p>{{ newspost.text }}</p>
+              </div>
+            </div>
+            <form action="{% url 'delete_post' pk=newspost.post_num %}">
+              {% csrf_token %}
+              <div class="menu d-flex">
+              <div class="msg-delete-btn inline-block justify-content-end text-end ms-auto">
+                <input type="submit" value="DELETE" class="btn btn-danger" />
+              </div>
+            </div>
+            </form>
+          </div>
+        {% endfor %}
       </div>
-    </div>
-  </section>
+  </div>
+  {% comment %}endfor{% endcomment %}
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        {% comment %}page 링크 추가{% endcomment %}
+        <a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">1</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">2</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">3</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+    </ul>
+  </nav>
+
 {% endblock %}
+

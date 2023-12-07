@@ -37,8 +37,17 @@ class ContactMessage(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     category = models.CharField(max_length=50, default='normal')
+    likes = models.ManyToManyField(User, related_name="likes", blank=True)
+    dislikes = models.ManyToManyField(User, related_name="dislikes", blank=True)
+
     def __str__(self):
         return f"{self.title}"
+
+    def total_likes(self):
+        return self.likes.count()
+
+    def total_dislikes(self):
+        return self.dislikes.count()
 
 class PostForm(models.Model):
     post_num = models.BigAutoField(primary_key=True)
