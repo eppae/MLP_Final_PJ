@@ -74,76 +74,82 @@
           <div class="pt-5 comment-wrap">
             {% comment %}댓글 개수{% endcomment %}
             <h3 class="mb-5 heading">Total Comment(N)</h3>
-            <ul class="comment-list">
-              {% comment %}1. 대댓글 없는 댓글{% endcomment %}
-              <li class="comment">
-    {% if comments %}
-        {% for comment in comments %}
-            <div class="comment-body">
-                <h3>{{ comment.writer }}</h3>
-                <div class="meta">{{ comment.created_at}}</div>
-                <p>{{ comment.content }}</p>
+            {% if comments %}
+  <ul class="comment-list">
+    {% for comment in comments %}
+    {% if not comment.is_reply %}
+      <li class="comment {% if comment.is_reply %}reply{% endif %}">
+        <div class="comment-body">
+          <h3>{{ comment.writer }}</h3>
+          <div class="meta">{{ comment.created_at}}</div>
+          <p>{{ comment.content }}</p>
 
-                <!-- Delete button for the comment if the user is the writer -->
-                {% if comment.writer == user %}
-                    <form method="post" action="{% url 'delete_comment' post_num=newspost.post_num comment_id=comment.id %}" class="d-inline">
-                        {% csrf_token %}
-                        <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
-                    </form>
-                {% endif %}
-
-                <!-- Reply button and form -->
-                <p>
-                    <a id="reply-btn-{{ comment.id }}" class="reply rounded" data-bs-toggle="collapse" href="#reply-form-content-{{ comment.id }}" aria-expanded="false" aria-controls="reply-form-content-{{ comment.id }}">Reply</a>
-                    <div class="collapse col-6" id="reply-form-content-{{ comment.id }}">
-                        <div class="card card-body">
-                            <form method="post" action="{% url 'create_comment' post_num=newspost.post_num %}" class="validated_form p-4">
-                                {% csrf_token %}
-                                <!-- Hidden field to indicate parent comment -->
-                                <input type="hidden" name="parent_id" value="{{ comment.id }}">
-                                <div class="form-group mb-4">
-                                    <label for="comment_name">작성자 *</label>
-                                    <input type="text" class="form-control" value="{{ writer.username }}" name="comment_name" id="comment_name1" disabled />
-                                </div>
-                                <div class="form-group mb-4">
-                                    <label for="comment_message">Message</label>
-                                    <textarea name="comment_message" id="comment_message" cols="30" rows="10" class="form-control"></textarea>
-                                    <div class="valid-msg-input text-danger" style="display: none;">내용을 입력해주세요.(최대 1000자)</div>
-                                    <div class="valid-msg text-danger" style="display: none;">입력 가능한 글자수를 초과하였습니다.</div>
-                                </div>
-                                <div class="form-group">
-                                    {% if user.is_authenticated %}
-                                    <input type="submit" value="Post Comment" class="btn btn-primary" />
-                                    {% else %}
-                                    <div class="valid text-danger">로그인이 필요한 서비스입니다.</div>
-                                    {% endif %}
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </p>
-
-                {% if comment.replies.all %}
-                    <ul class="nested-comments">
-                        {% for reply in comment.replies.all %}
-                            <li class="comment nested-comment">
-                                <!-- Display reply content and other details -->
-                                <h3>{{ reply.writer }}</h3>
-                                <div class="meta">{{ reply.created_at}}</div>
-                                <p>{{ reply.content }}</p>
-                                <!-- 추가적인 내용 표시 -->
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
-        {% endfor %}
+          <!-- Delete button for the comment if the user is the writer -->
+          {% if comment.writer == user %}
+            <form method="post" action="{% url 'delete_comment' post_num=newspost.post_num comment_id=comment.id %}" class="d-inline">
+              {% csrf_token %}
+              <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
+            </form>
+          {% endif %}
     {% endif %}
-</li>
+          <!-- Reply button and form -->
+          <p>
+            <a id="reply-btn-{{ comment.id }}" class="reply rounded" data-bs-toggle="collapse" href="#reply-form-content-{{ comment.id }}" aria-expanded="false" aria-controls="reply-form-content-{{ comment.id }}">Reply</a>
+            <div class="collapse col-6" id="reply-form-content-{{ comment.id }}">
+              <div class="card card-body">
+                <form method="post" action="{% url 'create_comment' post_num=newspost.post_num %}" class="validated_form p-4">
+                  {% csrf_token %}
+                  <!-- Hidden field to indicate parent comment -->
+                  <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                  <div class="form-group mb-4">
+                    <label for="comment_name">작성자 *</label>
+                    <input type="text" class="form-control" value="{{ writer.username }}" name="comment_name" id="comment_name1" disabled />
+                  </div>
+                  <div class="form-group mb-4">
+                    <label for="comment_message">Message</label>
+                    <textarea name="comment_message" id="comment_message" cols="30" rows="10" class="form-control"></textarea>
+                    <div class="valid-msg-input text-danger" style="display: none;">내용을 입력해주세요.(최대 1000자)</div>
+                    <div class="valid-msg text-danger" style="display: none;">입력 가능한 글자수를 초과하였습니다.</div>
+                  </div>
+                  <div class="form-group">
+                    {% if user.is_authenticated %}
+                      <input type="submit" value="Post Comment" class="btn btn-primary" />
+                    {% else %}
+                      <div class="valid text-danger">로그인이 필요한 서비스입니다.</div>
+                    {% endif %}
+                  </div>
+                </form>
+              </div>
+            </div>
+          </p>
 
-              {% comment %}대댓글 있는 댓글{% endcomment %}
+          <!-- Display replies if any -->
+          {% if comment.replies.all %}
+            <ul class="nested-comments">
+              {% for reply in comment.replies.all %}
+                <li class="comment nested-comment">
+                  <!-- Display reply content and other details -->
+                  <h3>{{ reply.writer }}</h3>
+                  <div class="meta">{{ reply.created_at}}</div>
+                  <p>{{ reply.content }}</p>
 
+                  <!-- Delete button for the reply if the user is the writer -->
+                  {% if reply.writer == user %}
+                    <form method="post" action="{% url 'delete_comment' post_num=newspost.post_num comment_id=reply.id %}" class="d-inline">
+                      {% csrf_token %}
+                      <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
+                    </form>
+                  {% endif %}
+                </li>
+              {% endfor %}
             </ul>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
             {% comment %}댓글 작성 폼{% endcomment %}
             <div class="comment-form-wrap pt-5">
               <h3 class="mb-3">Leave a comment</h3>

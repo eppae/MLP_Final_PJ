@@ -55,8 +55,8 @@
               <h5 class="card-title">통계 정보</h5>
               <ul class="list-group">
                 <li class="list-group-item">오늘 접속자 수: {{ daily_visitors }}명</li>
-                <li class="list-group-item">오늘/누적 작성된 문의 수: {{ daily_contacts }}명 / {{total_contacts}}명</li>
-                <li class="list-group-item">오늘/누적 작성된 리뷰 수: {{ daily_reviews }}명 / {{total_contacts}}명</li>
+                <li class="list-group-item">오늘/누적 작성된 문의 수: {{ daily_contacts }}개 / {{total_contacts}}개</li>
+                <li class="list-group-item">오늘/누적 작성된 리뷰 수: {{ daily_reviews }}개 / {{total_contacts}}개</li>
                 <li class="list-group-item">오늘/누적 서비스 이용 수: {{ daily_users }}회 / {{ total_users }}회</li>
               </ul>
             </div>
@@ -71,7 +71,6 @@
                   </h2>
                   <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <form method="post" action="{% url 'admin_profile' %}" id="profile-info-form">
-                      {% csrf_token %}
                       <div>
                         <!-- 이부분 css 수정원하시면 forms.py에 주석 표시했읍니다 -->
                         <p class="mt-2" for="id_profile_message">{{ profile_info_form.profile_message.label }} {{ profile_info_form.profile_message }}</p>
@@ -127,12 +126,14 @@
           <h1>Contact</h1>
         </div>
         <div style="text-align: left;" class="mb-4">
-          <span class="date">contact 날짜</span>
-          <h2><a href="{% url 'contact_list' %}">contact 이름r</a></h2>
-        </div>
-        <div style="text-align: left;" class="mb-4">
-          <span class="date">contact 날짜</span>
-          <h2><a href="{% url 'contact_list' %}">contact 이름</a></h2>
+          {% for contact in recent_contacts %}
+            <div>
+              <span class="date">{{ contact.created_at|date:"Y-m-d H:i" }}</span>
+              <h2><a href="{% url 'contact_detail' contact.post_num %}">{{ contact.title }}</a></h2>
+            </div>
+          {% empty %}
+            <p> 문의 사항 없음. </p>
+          {% endfor %}
         </div>
         <a href="{% url 'contact_list' %}" class="btn btn-primary btn-block">더보기</a>
       </div>

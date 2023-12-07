@@ -72,9 +72,13 @@ def n_category_news_list(request,n_category):
 def news_detail(request,post_num):
     writer = request.user
     current_time = datetime.now()
+    print("post_num:", post_num)
     newspost = get_object_or_404(PostForm,post_num=post_num)
-    context = {'newspost':newspost,'writer':writer,'current_time':current_time}
+    comments = Comment.objects.filter(post=newspost)
+    print(comments)
+    context = {'newspost':newspost,'writer':writer,'current_time':current_time,'comments':comments}
     return render(request, "pages/community/news-detail.html", context)
+
 
 def create_post(request):
     if request.method =='POST':
@@ -110,19 +114,23 @@ def create_comment(request, post_num):
             content = form.cleaned_data['comment_message']
             parent_id = form.cleaned_data.get('parent_id', None)
 
+            is_reply = False
             if parent_id:
                 parent_comment = get_object_or_404(Comment, pk=parent_id)
+                is_reply = True
                 comment = Comment(
                     writer=writer,
                     content=content,
                     post=post,
-                    parentcomment=parent_comment  # Use 'parentcomment' instead of 'parent_comment'
+                    parentcomment=parent_comment,
+                    is_reply = is_reply,
                 )
             else:
                 comment = Comment(
                     writer=writer,
                     content=content,
-                    post=post
+                    post=post,
+                    is_reply=is_reply,
                 )
 
             comment.save()
@@ -392,6 +400,9 @@ def admin_profile(request):
             messages.success(request, '프로필 정보가 성공적으로 업데이트되었습니다.')
             return redirect('admin_profile')
         
+    # contacts 모아보기
+    recent_contacts=ContactMessage.objects.all().order_by('-created_at')[:2]
+        
     context = {
         'profile_picture_form': profile_picture_form,
         'profile_info_form': profile_info_form,
@@ -404,6 +415,7 @@ def admin_profile(request):
         'total_reviews': total_reviews,
         'daily_users': daily_users,
         'total_users': total_users,
+        'recent_contacts': recent_contacts,
     }
     
     return render(request, 'pages/admin/admin-profile.html', context)
@@ -452,9 +464,8 @@ def get_total_users():
     total_users = dehazing.objects.all().count()
     
     return total_users
-
-
-
+   
+    
 def about_us(request):
     profiles = []
 

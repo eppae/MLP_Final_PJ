@@ -45,14 +45,14 @@ def inference(input_file, output_file, model_path, image_size, progress_callback
                                                      input_map={'input_image': input_image},
                                                      return_elements=['output_image:0'],
                                                      name='output')
-            progress_callback(99)
+            progress_callback(95)
                 
             with tf.compat.v1.Session(graph=graph):
                 generated = output_image.eval()
 
             with open(output_file, 'wb') as f:
                 f.write(generated)
-            progress_callback(95)
+            progress_callback(99)
                 
     progress_callback(100)
 
