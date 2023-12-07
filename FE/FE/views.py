@@ -433,7 +433,11 @@ def admin_profile(request):
         
     # contacts 모아보기
     recent_contacts=ContactMessage.objects.all().order_by('-created_at')[:2]
-        
+    # news 모아보기
+    recent_news = PostForm.objects.filter(category='news').order_by('-created_at')[:2]
+    # support 모아보기
+    recent_supports = ContactMessage.objects.exclude(category='news').order_by('-created_at')[:2]
+
     context = {
         'profile_picture_form': profile_picture_form,
         'profile_info_form': profile_info_form,
@@ -447,6 +451,8 @@ def admin_profile(request):
         'daily_users': daily_users,
         'total_users': total_users,
         'recent_contacts': recent_contacts,
+        'recent_news': recent_news,
+        'recent_cupports':recent_supports,
     }
     
     return render(request, 'pages/admin/admin-profile.html', context)
