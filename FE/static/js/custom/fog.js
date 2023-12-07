@@ -118,4 +118,3 @@ uploadBtn.addEventListener('click', function () {
         uploadText.style.display = 'display'
     });
 });
-

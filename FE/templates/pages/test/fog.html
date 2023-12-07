@@ -19,8 +19,16 @@
     .section {
       margin-bottom: 18rem;
     }
+    .max-size-256 {
+      max-width: 256px;
+      max-height: 256px;
+      width: auto;
+      height: auto;
+    }
+    .textForImageTitle{
+      margin-right: .2rem;
+    }
   </style>
-  <script defer src="{% static 'js/custom/fog.js' %}?ver=2"></script>
 
   <div class="section">
     <div class="container mt-5">
@@ -28,10 +36,10 @@
         <div class="card-body">
           <div class="before-upload mt-5">
             <div id="loading-zone" aria-busy="true" class="text-center justify-center justify-content-center items-center">
-              <p>Process 버튼을 눌러주세요</p>
-              <label style="width: 500px;">
+              <h4>Process 버튼을 눌러주세요</h4>
+                <label style="width: 500px;">
                 <div class="progress">
-                  <div class="progress-bar progressBar " role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar progressBar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </label>
             </div>
@@ -39,18 +47,34 @@
 
           <div class="uploaded-content">
             <div class="row justify-content-center">
-              <div class="col-lg-7 mb-4 mb-lg-0">
+              <div class="col-lg-8 mb-4 mb-lg-0">
                 {% comment %} <video id="uploadedVideo" class="embed-responsive" style="display: none;" autoplay></video> {% endcomment %}
                 {% comment %} <img id="uploadedImage" class="img-fluid" style="display: none;" alt="Uploaded Image" /> {% endcomment %}
 
                 {% if uploaded_file_url %}
-                  <div class="image-display d-flex justify-content-center align-items-center">
-                    <p>Original Image:</p>
-                    <img id="uploadedImage" class="img-fluid" src="{{ uploaded_file_url }}" alt="Original Image" width="400" height="300" />
-
-                    <p>Processed Image:</p>
-                    <img id="uploadedImage" class="img-fluid" src="{{ processed_file_url }}" alt="Processed Image" width="700" height="500" />
-                  </div>
+                  <h3 class="image-display d-flex justify-content-center align-items-center mb-3"> download를 누르면 다운로드 디렉토리에 저장됩니다. </h3>
+                    <div class="image-display d-flex justify-content-center align-items-center">
+                      <div class="beforeAndAfterImage row">
+                        <div class="image-before col-6">
+                      <div class="col d-flex align-content-center justify-content-center text-center">
+                        <p class="align-self-center textForImageTitle">Original Image</p>
+                        <button onclick="downloadImage('OriginalImage', 'original_image.jpg')" class="btn bg-transparent d-flex justify-content-end inline-block darkmode-btn" style="color:var(--colof-fg);"><i class="fas fa-save d-flex justify-content-center"></i></button>
+                      </div>
+                      <div class="col d-flex justify-content-center">
+                        <img id="OriginalImage" class="img-fluid max-size-256" src="{{ uploaded_file_url }}" alt="Original Image" />
+                      </div>
+                    </div>
+                    <div class="image-after col-6">
+                      <div class="col d-flex align-content-center justify-content-center text-center">
+                        <p class="align-self-center textForImageTitle">Processed Image</p>
+                        <button onclick="downloadImage('ProcessedImage', 'processed_image.jpg')" class="btn bg-transparent d-flex justify-content-end inline-block darkmode-btn" style="color:var(--colof-fg);"><i class="fas fa-save d-flex justify-content-center"></i></button>
+                      </div>
+                      <div class="col d-flex justify-content-center">
+                        <img id="ProcessedImage" class="img-fluid max-size-256" src="{{ processed_file_url }}" alt="Processed Image" />
+                      </div>
+                    </div>
+                      </div>
+                    </div>
                 {% else %}
                   <!-- 사용자에게 이미지 업로드를 유도하는 메시지 표시 -->
                   <h3 id="uploadText" class="row justify-content-center mb-5">파일을 업로드 해주세요.</h3>
@@ -71,10 +95,10 @@
     </div>
   </div>
   <script>
-    function toggleProcessButton() {
+      function toggleProcessButton() {
       // PROCESS! 버튼 숨기기 추가
-      var fileInput = document.getElementById('fileInput')
-      var processBtn = document.getElementById('processBtn')
+      const fileInput = document.getElementById('fileInput')
+      const processBtn = document.getElementById('processBtn')
     
       if (fileInput.files.length > 0) {
         processBtn.style.display = 'block'
@@ -82,9 +106,8 @@
         processBtn.style.display = 'none'
       }
     }
-  </script>
-  <script>
-    function updateProgress() {
+
+        function updateProgress() {
       fetch('/get_progress')
         .then((response) => response.json())
         .then((data) => {
@@ -100,5 +123,20 @@
     }
     
     setInterval(updateProgress, 100) // 짧게하면 더 많이 읽어옴
+
+      function downloadImage(imageId, filename) {
+    var element = document.createElement('a');
+    var image = document.getElementById(imageId);
+    element.setAttribute('href', image.src);
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+  }
   </script>
+    <script defer src="{% static 'js/custom/fog.js' %}?ver=2"></script>
 {% endblock %}

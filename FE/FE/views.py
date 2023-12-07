@@ -380,7 +380,7 @@ def admin_profile(request):
     
     #통계 context 넣기
     daily_visitors = get_daily_visitors()
-    daily_contacts = get_total_contacts()
+    daily_contacts = get_daily_contacts()
     total_contacts = get_total_contacts()
     daily_reviews = get_daily_reviews()
     total_reviews = get_total_reviews()
@@ -400,6 +400,9 @@ def admin_profile(request):
             messages.success(request, '프로필 정보가 성공적으로 업데이트되었습니다.')
             return redirect('admin_profile')
         
+    # contacts 모아보기
+    recent_contacts=ContactMessage.objects.all().order_by('-created_at')[:2]
+        
     context = {
         'profile_picture_form': profile_picture_form,
         'profile_info_form': profile_info_form,
@@ -412,6 +415,7 @@ def admin_profile(request):
         'total_reviews': total_reviews,
         'daily_users': daily_users,
         'total_users': total_users,
+        'recent_contacts': recent_contacts,
     }
     
     return render(request, 'pages/admin/admin-profile.html', context)
@@ -460,9 +464,8 @@ def get_total_users():
     total_users = dehazing.objects.all().count()
     
     return total_users
-
-
-
+   
+    
 def about_us(request):
     profiles = []
 
