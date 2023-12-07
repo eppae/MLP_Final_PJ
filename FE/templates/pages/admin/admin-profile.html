@@ -96,27 +96,30 @@
           <h1>Support</h1>
         </div>
         <div style="text-align: left;" class="mb-4">
-          <span class="date">review 날짜 &bullet; <a href="#">카테고리</a></span>
-          {% comment %} <h2><a href="{% url 'news_detail' %}">review 이름</a></h2> {% endcomment %}
+          {% for support in recent_supports %}
+            <div>
+              <span class="date">{{ support.created_at|date:"Y-m-d H:i" }}</span>
+              <h2><a href="{% url 'support' support.post_num %}">{{ support.title }}</a></h2>
+            </div>
+          {% empty %}
+            <p> 문의 사항 없음. </p>
+          {% endfor %}
         </div>
-        <div style="text-align: left;" class="mb-4">
-          <span class="date">review 날짜 &bullet; <a href="#">카테고리</a></span>
-          {% comment %} <h2><a href="{% url 'news_detail' %}">review 이름</a></h2> {% endcomment %}
-        </div>
-        <a href="{% url 'support' %}" class="btn btn-primary btn-block">더보기</a>
-      </div>
-
+        <a href="{% url 'contact_list' %}" class="btn btn-primary btn-block">더보기</a>
+</div>
       <div id="admin-resources" class="news p-4 text-center border border-light-subtle border-1 rounded">
         <div class="admin-box text-center col-md-4 mb-5">
           <h1>News</h1>
         </div>
         <div style="text-align: left;" class="mb-4">
-          <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
-          {% comment %} <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2> {% endcomment %}
-        </div>
-        <div style="text-align: left;" class="mb-4">
-          <span class="date">기사 날짜 &bullet; <a href="#">카테고리</a></span>
-          {% comment %} <h2><a href="{% url 'news_detail' %}">기사 이름</a></h2> {% endcomment %}
+          {% for news in recent_news %}
+            <div>
+              <span class="date">{{ news.created_at|date:"Y-m-d H:i" }}</span>
+              <h2><a href="{% url 'news_detail' news.post_num %}">{{ news.title }}</a></h2>
+            </div>
+          {% empty %}
+            <p> 문의 사항 없음. </p>
+          {% endfor %}
         </div>
         <a href="{% url 'news_list' %}" class="btn btn-primary btn-block">더보기</a>
       </div>
@@ -138,7 +141,7 @@
         <a href="{% url 'contact_list' %}" class="btn btn-primary btn-block">더보기</a>
       </div>
     </div>
-  </div>
+
   <script>
     function previewImage(input) {
       if (input.files && input.files[0]) {
