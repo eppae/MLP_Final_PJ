@@ -29,7 +29,6 @@ from django.http import HttpResponseRedirect
 def home(request):
     return render(request, "pages/home.html")
 
-
 def community(request):
     return render(request, "pages/community/community.html")
 

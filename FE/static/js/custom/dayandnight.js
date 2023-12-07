@@ -55,10 +55,16 @@ updateThemeOnHtmlEl({ theme: currentThemeSetting });
 */
 buttonForDarkMode.addEventListener("click", (event) => {
   const newTheme = currentThemeSetting === "dark" ? "light" : "dark"; // dark이면 light로 바꿀 수 있게.
-
+  
   localStorage.setItem("theme", newTheme);
   updateButton({ buttonEl: buttonForDarkMode, isDark: newTheme === "dark" });
   updateThemeOnHtmlEl({ theme: newTheme });
 
   currentThemeSetting = newTheme;
+  const logo = document.querySelector('.home-logo')
+  if (logo.style.filter === '' || logo.style.filter === 'invert(0%)') {
+    logo.style.filter = 'invert(90%)';
+  } else {
+    logo.style.filter = 'invert(0%)';
+  }
 }); 

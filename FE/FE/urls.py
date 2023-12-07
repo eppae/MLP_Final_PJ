@@ -32,7 +32,6 @@ from .views import (
     user_logout,
     # change_profile_info,
     # change_profile_picture,
-    
 )
 from django.urls import path
 from django.conf import settings
