@@ -1,45 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
-  <style>
-    .footer-container {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: #000;
-      color: #fff;
-      padding: 20px 0;
-      z-index: 100;
-    }
-    
-    .show-footer {
-      display: block;
-    }
-    
-    .form-control-sm {
-      max-width: 280px;
-    }
-    
-    span a,
-    h2 a {
-      color: #7395ae;
-    }
-    
-    h2 a:hover {
-      color: var(--color-fg);
-    }
-    
-    .page-link {
-      color: black;
-    }
+<link href="{% static 'css/support.css' %}" rel="stylesheet" />
 
-    .content-support{
-      height: 60vh;
-    }
-  </style>
+  
   <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
       <h1 class="display-2 text-dark mb-4 animated slideInDown">Support</h1>
@@ -53,14 +17,25 @@
         <a href="{% url 'post_form' %}" class="btn btn-primary">글쓰기</a>
       </div>
       <!-- 우측 상단 '검색' 입력란 -->
-      <div class="col-md-3 offset-md-7 justify-content-end">
-        <!-- 백엔드: '검색' 입력란 -->
-        <form action="#" class="sidebar-search-form d-sm-inline-flex flex-row-reverse">
-          <input type="text" class="form-control-sm" id="s" placeholder="검색" />
-          <span class="bi-search p-1"></span>
-        </form>
-      </div>
+              <div class="col d-flex justify-content-end">
+          <form action="#" class="sidebar-search-form d-sm-inline-flex flex-row-reverse">
+            <form action="{% url 'contact_list' %}" method="GET" id="BoardSearch" name="BoardSearch">
+              <input type="hidden" id="contact_kw" name="contact_kw" value="{{ contact_kw|default_if_none:'' }}" />
+              <input type="hidden" id="page" name="page" value="{{ page }}" />
+            </form>
+            <div class="navbar-nav align-items-center mx-1">
+              <div class="nav-item d-flex align-items-center" style="width:100%;">
+                <input type="text" class="form-control border-1 shadow-none" placeholder="게시글 검색" aria-label="Search..." id="contact_search_kw" name="contact_search_kw" value="{{ contact_search_kw|default_if_none:'' }}" />
+              </div>
+            </div>
+            <div style="list-style:none;">
+              <button class="btn btn-primary" type="button" id="btnSearch" aria-label="buttonForSearch"><i class="fas fa-search"></i></button>
+            </div>
+          </form>
+        </div>
+
     </div>
+ 
 
     <div class="row">
       <!-- '네비' (카테고리 선택) -->
@@ -72,6 +47,9 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'news_list_category' n_category='normal' %}">일반</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'news_list_category' n_category='question' %}">질문</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'news_list_category' n_category='use' %}">제품사용</a>
@@ -86,52 +64,64 @@
       </div>
     </div>
 
+
+  <section class="main-post-section">
     {% comment %}for{% endcomment %}
-    <div class="row posts-entry">
+    <div class="row container content-center posts-entry">
         {% csrf_token %}
         {% for newspost in newsposts %}
           <div class="col-12">
-            <div class="blog-entry d-flex blog-entry-search-item mb-5">
+            <div class="blog-entry d-flex justify-content-between blog-entry-search-item mb-5">
               <div>
                 <span class="date">{{ newspost.created_at }} <a href="#">{{ newspost.category }}</a></span>
                 <h2><a href="{% url 'news_detail' post_num=newspost.post_num %}">{{ newspost.title }}</a></h2>
                 <p>{{ newspost.text }}</p>
               </div>
-            </div>
-            <form action="{% url 'delete_post' pk=newspost.post_num %}">
+              <div >
+              <form action="{% url 'delete_post' pk=newspost.post_num %}" class="d-flex justify-content-end">
               {% csrf_token %}
-              <div class="menu d-flex">
+              <div class="menu">
               <div class="msg-delete-btn inline-block justify-content-end text-end ms-auto">
                 <input type="submit" value="DELETE" class="btn btn-danger" />
               </div>
             </div>
             </form>
           </div>
-        {% endfor %}
+            </div>
+          </div>
       </div>
+      {% endfor %}
   </div>
-  {% comment %}endfor{% endcomment %}
+</section>
 
+<section class="pagination-section">
+  {% if newsposts.paginator.num_pages >= 1 %}
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-      <li class="page-item">
-        {% comment %}page 링크 추가{% endcomment %}
-        <a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">1</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">2</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">3</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-      </li>
+      {% if newsposts.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ newsposts.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+      {% endif %}
+
+      {% for num in newsposts.paginator.page_range %}
+        <li class="page-item {% if num == newsposts.number %}active{% endif %}">
+          <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+      {% endfor %}
+
+      {% if newsposts.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ newsposts.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      {% endif %}
     </ul>
   </nav>
-
+  {% endif %}
+</section>
 {% endblock %}
 

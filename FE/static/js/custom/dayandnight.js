@@ -54,11 +54,25 @@ updateThemeOnHtmlEl({ theme: currentThemeSetting });
 * 4. Add an event listener to toggle the theme
 */
 buttonForDarkMode.addEventListener("click", (event) => {
-  const newTheme = currentThemeSetting === "dark" ? "light" : "dark"; // dark이면 light로 바꿀 수 있게.
+  const logo = document.querySelector('.home-logo')
+  const dataTheme = document.querySelector('[data-theme]').dataset.theme
+  if (dataTheme === 'light') {
+      logo.style.filter = 'invert(90%)';
+      console.log(logo.style.filter)
+  } else if (dataTheme === 'dark') {
+      logo.style.filter = 'invert(0%)'
+      console.log(logo.style.filter)
+  }
 
+  const newTheme = currentThemeSetting === "dark" ? "light" : "dark"; // dark이면 light로 바꿀 수 있게.
+  
   localStorage.setItem("theme", newTheme);
   updateButton({ buttonEl: buttonForDarkMode, isDark: newTheme === "dark" });
   updateThemeOnHtmlEl({ theme: newTheme });
 
   currentThemeSetting = newTheme;
 }); 
+
+if (document.querySelector('[data-theme]').dataset.theme === 'dark'){
+  document.querySelector('.home-logo').style.filter = 'invert(90%)'
+}

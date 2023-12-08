@@ -1,11 +1,10 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Front End</title>
+    <title>Fog Filter</title>
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap5" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,11 +27,11 @@
       <div class="container-fluid sticky-top">
         <div class="container">
           <nav class="navbar navbar-expand-lg navbar-light py-2 py-lg-0">
-            <a href="{% url 'home' %}" class="nav-item nav-link active home">HOME</a>
+            <a href="{% url 'home' %}" class="nav-item nav-link active home-logo"><img src="{% static 'img/logo.png' %}" style="width:5rem;"></a>
             <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <div class="navbar-nav ms-auto">
-                <a href="{% url 'fog' %}" class="nav-item nav-link">이름 수정 필요</a>
+                <a href="{% url 'fog' %}" class="nav-item nav-link">Tool</a>
                 <a href="{% url 'about_us' %}" class="nav-item nav-link">About</a>
                 <div class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Community</a>
@@ -139,7 +138,7 @@
     {% comment %} <script defer src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script> {% endcomment %}
     {% comment %} <script defer src="{% static 'lib/easing/easing.min.js' %}"></script> {% endcomment %}
     {% comment %} <script defer src="{% static 'lib/waypoints/waypoints.min.js' %}"></script> {% endcomment %}
-    <script defer src="{% static 'js/custom/dayandnight.js' %}?ver=1"></script>
+    <script defer src="{% static 'js/custom/dayandnight.js' %}?ver=3"></script>
     {% comment %} <script defer src="{% static 'js/main.js' %}"></script> {% endcomment %}
   </body>
 </html>

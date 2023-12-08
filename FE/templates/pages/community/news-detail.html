@@ -50,8 +50,14 @@
 
           {% comment %} {% if user.is_authenticated and news.writer == user.user_id %}
             {% endcomment %}
-            <a href="{% url 'post_form' %}" class="btn btn-info"><i class="fas fa-edit"></i></a>
-            <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+            <form action="{% url 'edit_post' pk=newspost.post_num %}">
+              {% csrf_token %}
+            <button type="submit" class="btn btn-info"><i class="fas fa-edit"></i></button>
+          </form>
+            <form action="{% url 'delete_post' pk=newspost.post_num %}">
+              {% csrf_token %}
+            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+          </form>
             {% comment %}
           {% endif %} {% endcomment %}
         </div>

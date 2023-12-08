@@ -33,9 +33,9 @@ from .views import (
     forgot_id_result,
     user_login,
     user_logout,
+    support_detail,
     # change_profile_info,
     # change_profile_picture,
-    
 )
 from django.urls import path
 from django.conf import settings
@@ -47,6 +47,7 @@ urlpatterns = [
     path("contact", contact, name="contact"),
     path("post_form", post_form, name="post_form"),
     path("support", support, name="support"),
+    path("support_detail/<int:post_num>/", support_detail, name="support_detail"),
     path("review_detail", review_detail, name="review_detail"),
     path("news_list", news_list, name="news_list"),
 
