@@ -1,0 +1,32 @@
+.footer-container {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #000;
+      color: #fff;
+      padding: 20px 0;
+      z-index: 100;
+    }
+    
+    .show-footer {
+      display: block;
+    }
+    
+    .form-control-sm {
+      max-width: 280px;
+    }
+    
+    span a,
+    h2 a {
+      color: #7395ae;
+    }
+    
+    h2 a:hover {
+      color: var(--color-fg);
+    }
+    
+    .page-link {
+      color: black;
+    }

@@ -93,19 +93,19 @@
     <div class="row justify-content-evenly">
       <div id="admin-resources" class="support p-4 text-center justify-content-center border border-light-subtle border-1 rounded">
         <div class="admin-box text-center col-md-4 mb-5">
-          <h1>Support</h1>
+          <h1>Reviews</h1>
         </div>
         <div style="text-align: left;" class="mb-4">
           {% for support in recent_supports %}
             <div>
               <span class="date">{{ support.created_at|date:"Y-m-d H:i" }}</span>
-              <h2><a href="{% url 'support' support.post_num %}">{{ support.title }}</a></h2>
+              <h2><a href="{% url 'support_detail' support.post_num %}">{{ support.title }}</a></h2>
             </div>
           {% empty %}
-            <p> 문의 사항 없음. </p>
+            <p> 리뷰 없음. </p>
           {% endfor %}
         </div>
-        <a href="{% url 'contact_list' %}" class="btn btn-primary btn-block">더보기</a>
+        <a href="{% url 'support' %}" class="btn btn-primary btn-block">더보기</a>
 </div>
       <div id="admin-resources" class="news p-4 text-center border border-light-subtle border-1 rounded">
         <div class="admin-box text-center col-md-4 mb-5">
@@ -118,7 +118,7 @@
               <h2><a href="{% url 'news_detail' news.post_num %}">{{ news.title }}</a></h2>
             </div>
           {% empty %}
-            <p> 문의 사항 없음. </p>
+            <p> 뉴스 없음. </p>
           {% endfor %}
         </div>
         <a href="{% url 'news_list' %}" class="btn btn-primary btn-block">더보기</a>
@@ -135,7 +135,7 @@
               <h2><a href="{% url 'contact_detail' contact.post_num %}">{{ contact.title }}</a></h2>
             </div>
           {% empty %}
-            <p> 문의 사항 없음. </p>
+            <p> 문의 없음. </p>
           {% endfor %}
         </div>
         <a href="{% url 'contact_list' %}" class="btn btn-primary btn-block">더보기</a>

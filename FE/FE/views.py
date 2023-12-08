@@ -1,5 +1,5 @@
 #---안개관련---
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.db.models import Q
 from .models import ContactMessage,PostForm
 from django.shortcuts import render, redirect , get_object_or_404
@@ -51,17 +51,34 @@ def post_form(request):
     return render(request, "pages/user/post-form.html",context)
 
 def support(request, n_category=None):
+    post_per_page = 5
     newsposts = PostForm.objects.exclude(category='news')
     if n_category:
         newsposts = PostForm.objects.filter(category=n_category)
-    print(newsposts)
+    #pagenator 객체 생성
+    pagenator = Paginator(newsposts,post_per_page)
+    #현재 페이지 번호 가져오기
+    page = request.GET.get('page',1)
+    #print(page)
+    try:
+        newsposts = pagenator.page(page)
+    except (PageNotAnInteger,EmptyPage):
+        newsposts = pagenator.page(1)
+
     context = {'newsposts': newsposts}
+    #print(newsposts.paginator.num_pages)
+    #print(newsposts.has_previous)
+    #print(newsposts.has_next)
     return render(request, "pages/admin/support.html", context)
 
 def delete_post(request,pk):
     post = get_object_or_404(PostForm, post_num=pk)
     post.delete()
     return redirect('support')
+
+def edit_post(request,pk):
+    newspost = get_object_or_404(PostForm, post_num=pk)
+    return render(request, "pages/user/edit-post-form.html",newspost)
 
 def review_detail(request):
     return render(request, "pages/user/review-detail.html")
@@ -206,6 +223,13 @@ def contact_detail(request, post_num):
     contact_message = get_object_or_404(ContactMessage, post_num=post_num)
 
     return render(request, "pages/contact/contact-detail.html",{'contact_message':contact_message})
+    return contact_list(request, category=category)
+
+
+def support_detail(request, post_num):
+    support_message = get_object_or_404(PostForm, post_num=post_num)
+
+    return render(request, "pages/contact/contact-detail.html",{'contact_message':support_message})
 
 
 def submit_contact(request):
@@ -435,7 +459,7 @@ def admin_profile(request):
     # news 모아보기
     recent_news = PostForm.objects.filter(category='news').order_by('-created_at')[:2]
     # support 모아보기
-    recent_supports = ContactMessage.objects.exclude(category='news').order_by('-created_at')[:2]
+    recent_supports = PostForm.objects.exclude(category='news').order_by('-created_at')[:2]
 
     context = {
         'profile_picture_form': profile_picture_form,
@@ -451,7 +475,7 @@ def admin_profile(request):
         'total_users': total_users,
         'recent_contacts': recent_contacts,
         'recent_news': recent_news,
-        'recent_cupports':recent_supports,
+        'recent_supports':recent_supports, #오타 있었음, 이젠 url 수정 필요
     }
     
     return render(request, 'pages/admin/admin-profile.html', context)
