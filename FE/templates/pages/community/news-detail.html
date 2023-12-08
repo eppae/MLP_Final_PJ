@@ -50,14 +50,17 @@
 
           {% comment %} {% if user.is_authenticated and news.writer == user.user_id %}
             {% endcomment %}
-            <form action="{% url 'edit_post' pk=newspost.post_num %}">
+            <div>
+            <form action="{% url 'edit_post_view' pk=newspost.post_num %}" style="display: inline-block;">
               {% csrf_token %}
-            <button type="submit" class="btn btn-info"><i class="fas fa-edit"></i></button>
-          </form>
-            <form action="{% url 'delete_post' pk=newspost.post_num %}">
+              <button type="submit" class="btn btn-info"><i class="fas fa-edit"></i></button>
+            </form>
+
+            <form action="{% url 'delete_post' pk=newspost.post_num %}" style="display: inline-block;">
               {% csrf_token %}
-            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-          </form>
+              <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+            </form>
+          </div>
             {% comment %}
           {% endif %} {% endcomment %}
         </div>

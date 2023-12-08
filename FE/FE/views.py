@@ -83,6 +83,47 @@ def edit_post(request,pk):
 def review_detail(request):
     return render(request, "pages/user/review-detail.html")
 
+def edit_post_view(request,pk):
+    current_user = request.user
+    current_time = datetime.now()
+    newspost = get_object_or_404(PostForm, post_num=pk)
+    initial_data = {
+        'SelectCategory':newspost.category,
+        'title': newspost.title,
+        'text':newspost.text,
+    }
+    context = {'newspost':newspost,'form_initial':initial_data,'current_user':current_user,'current_time':current_time}
+    print(initial_data)
+    return render(request, "pages/user/edit-post-form.html",context)
+
+def edit_post_text(request, pk):
+    current_user = request.user
+    current_time = datetime.now()
+    newspost = get_object_or_404(PostForm, post_num=pk)
+
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        text = request.POST.get('text')
+        category = request.POST.get('SelectCategory')
+        img = request.FILES.get('img')
+
+        newspost.title = title
+        newspost.text = text
+        newspost.category = category
+        if img:
+            newspost.img = img
+
+        newspost.save()
+
+        return redirect('news_detail', post_num=newspost.post_num)
+
+    context = {
+        'newspost': newspost,
+        'current_user': current_user,
+        'current_time': current_time
+    }
+
+    return render(request, "pages/user/edit-post-form.html", context)
 
 def news_list(request,n_category=None):
     newsposts = PostForm.objects.filter(category='news')
