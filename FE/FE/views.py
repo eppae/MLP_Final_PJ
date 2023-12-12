@@ -512,6 +512,12 @@ def get_total_reviews():
     
     return total_reviews
     
+    
+def get_total_users():
+    total_users = dehazing.objects.all().count()
+    
+    return total_users
+
 
 def get_daily_users():
     today = timezone.now().date()
@@ -520,10 +526,6 @@ def get_daily_users():
     return daily_users
     
     
-def get_total_users():
-    total_users = dehazing.objects.all().count()
-    
-    return total_users
    
     
 def about_us(request):
@@ -599,6 +601,7 @@ def fog(request):
         # 처리된 이미지 저장
         new_image.processed_image.save(output_file_name, ContentFile(open(output_file_path, 'rb').read()))
         new_image.save()
+        
         
         # 진행상태 초기화
         update_progress(0)
