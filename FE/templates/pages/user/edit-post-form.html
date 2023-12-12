@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <style>
+    .content-area {
+      height: 500px;
+    }
+  </style>
+<div>
+  <form method="POST" action="{% url 'edit_post_text' pk=newspost.post_num %}" enctype="multipart/form-data">
+    {% csrf_token %}
+  <div class="container mt-4">
+    <!-- 작성 개요 카드 -->
+    <div class="card">
+      <div class="card-body">
+          <div class="row">
+            <!-- 카테고리 선택 폼 -->
+            <div class="first-row d-flex">
+              <div class="form-group col-2 me-auto p-2">
+                <label for="selectCategory">카테고리</label>
+                <select class="form-control" name="SelectCategory" id="SelectCategory">
+                  <option value="normal">일반</option>
+                  <option value="question">질문</option>
+                  <option value="preview">시연</option>
+                  <option value="use">제품사용</option>
+                  <option value="etc">기타</option>
+                  {% comment %} 관리자일때만 보임! {% endcomment %}
+                  {% if user.is_superuser %}
+                    <option value="news">뉴스</option>
+                  {% endif %}
+                  {% for category_option in form_initial.SelectCategory.field.choices %}
+                  <option value="{{ category_option.0 }}" {% if category_option.0 == form_initial.SelectCategory.value %}selected{% endif %}
+                          {{ category_option.1 }}
+                          </option>
+                  {% endfor %}
+                </select>
+              </div>
+              <!-- 작성자 정보 표시 (로그인한 사람) -->
+              <div class="form-group col-2 p-2">
+                <label for="author">작성자</label>
+                <input type="text" class="form-control" id="author" value="{{ current_user.username }}" disabled />
+              </div>
+              <!-- 작성 날짜 표시 (현재 시간) -->
+              <div class="form-group col-3 p-2">
+                <label for="date">날짜</label>
+                <input type="text" class="form-control" id="date" value="{{ current_time }}" disabled />
+              </div>
+            </div>
+            <!-- 제목 입력 폼 -->
+            <div class="form-group">
+              <label for="title">제목</label>
+              <input type="text" class="form-control" name="title" id="title" value="{{ form_initial.title }}" />
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <!-- 본문 작성 카드 -->
+    <div class="card content-area">
+      <div class="card-body">
+          <!-- 본문 작성 폼 -->
+          <div class="form-group mb-3">
+            <label for="content">본문 작성</label>
+            <textarea class="form-control" name="text" id="content" rows="14">{{ form_initial.text }}</textarea>
+          </div>
+          <!-- 파일 첨부 폼 -->
+          <div class="form-group">
+            <label for="img">파일 첨부</label>
+            <input type="file" class="form-control-file" name="img" id="img" />
+          </div>
+          <!-- 글 작성 버튼 -->
+          <div class="justify-content-end text-end">
+            <button type="submit" class="btn btn-primary">글 수정</button>
+          </div>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+{% endblock %}

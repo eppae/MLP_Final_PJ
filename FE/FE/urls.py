@@ -26,6 +26,8 @@ from .views import (
     like_newspost,
     dislike_newspost,
     delete_post,
+    edit_post_view,
+    edit_post_text,
 
     # fog_result,   모델 만들어지면 예정
     review_detail,
@@ -82,5 +84,7 @@ urlpatterns = [
     path("like_newspost/<int:pk>/",like_newspost, name="like_newspost"),
     path("dislike_newspost/<int:pk>/",dislike_newspost, name="dislike_newspost"),
     path("delete/<int:pk>/",delete_post, name="delete_post"),
+    path("edit_post_view/<int:pk>/",edit_post_view, name="edit_post_view"),
+    path("edit_post_text/<int:pk>/",edit_post_text, name="edit_post_text"),
     # path("fog_result", fog_result, name="fog_result"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
